@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký — DenousceBooking</title>
+ 
+  <link rel="stylesheet" href="../asset/css/style.css">
+  <link rel="stylesheet" href="../asset/css/component.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ 
+  <style>
+    .nav-dropdown {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+ 
+    .nav-dropdown > .h-nav-link {
+      cursor: pointer;
+    }
+ 
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 230px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 8px;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.22);
+      display: none;
+      z-index: 999;
+    }
+ 
+    .nav-dropdown::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 100%;
+      width: 100%;
+      height: 12px;
+    }
+ 
+    .nav-dropdown:hover .dropdown-menu {
+      display: block;
+    }
+ 
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 13px;
+      border-radius: 10px;
+      color: #06172d;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+ 
+    .dropdown-menu a:hover {
+      background: #eef2ff;
+      color: #1a56db;
+    }
+ 
+    .register-page {
+      min-height: calc(100vh - 86px);
+      background-image:
+        linear-gradient(rgba(4, 17, 35, 0.42), rgba(4, 17, 35, 0.32)),
+        url("../images/login.jpg");
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 70px 20px;
+    }
+ 
+    .register-box {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      padding: 38px 34px;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.35);
+      animation: registerFadeUp 1s ease forwards;
+      opacity: 0;
+      transform: translateY(45px);
+    }
+ 
+    @keyframes registerFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(45px);
+      }
+ 
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+ 
+    .register-title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 900;
+      color: #06172d;
+      margin: 0 0 8px;
+    }
+ 
+    .register-sub {
+      text-align: center;
+      color: #5f6b7a;
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0 0 28px;
+    }
+ 
+    .form-group {
+      margin-bottom: 17px;
+    }
+ 
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      color: #06172d;
+      margin-bottom: 8px;
+    }
+ 
+    .input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f3f6fb;
+      border: 1.5px solid #dbe3ef;
+      border-radius: 14px;
+      padding: 0 14px;
+      transition: 0.25s ease;
+    }
+ 
+    .input-wrap:focus-within {
+      border-color: #1a56db;
+      box-shadow: 0 0 0 4px rgba(26,86,219,0.12);
+      background: #fff;
+    }
+ 
+    .input-wrap i {
+      color: #1a56db;
+      font-size: 16px;
+      min-width: 18px;
+      text-align: center;
+    }
+ 
+    .input-wrap input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      padding: 15px 0;
+      font-size: 15px;
+      color: #06172d;
+    }
+ 
+    .input-wrap input::placeholder {
+      color: #98a3b3;
+    }
+ 
+    .error-text {
+      display: none;
+      color: #dc2626;
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 7px;
+      line-height: 1.45;
+    }
+ 
+    .error-text.show {
+      display: block;
+    }
+ 
+    .register-main-btn {
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 14px;
+      padding: 15px 18px;
+      background: #ffc107;
+      color: #06172d;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: 0.25s ease;
+    }
+ 
+    .register-main-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(255,193,7,0.35);
+    }
+ 
+    .register-bottom {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 14px;
+      color: #5f6b7a;
+      font-weight: 700;
+    }
+ 
+    .register-bottom a {
+      color: #1a56db;
+      text-decoration: none;
+      font-weight: 900;
+    }
+ 
+    .register-bottom a:hover {
+      text-decoration: underline;
+    }
+ 
+    .success-box {
+      display: none;
+      text-align: center;
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 18px;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      animation: successPop 0.45s ease forwards;
+    }
+ 
+    .success-box.show {
+      display: block;
+    }
+ 
+    .success-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: #10b981;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+ 
+    .success-box h3 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      font-weight: 900;
+    }
+ 
+    .success-box p {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+ 
+    @keyframes successPop {
+      from {
+        opacity: 0;
+        transform: scale(0.92);
+      }
+ 
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+ 
+    .user-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      background: rgba(255,255,255,0.12);
+      font-weight: 900;
+      max-width: 210px;
+    }
+ 
+    .user-chip span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+ 
+    .btn-logout {
+      border: none;
+      outline: none;
+      border-radius: 14px;
+      padding: 12px 15px;
+      background: #ffc107;
+      color: #06172d;
+      font-weight: 900;
+      cursor: pointer;
+    }
+ 
+    @media (max-width: 768px) {
+      .register-box {
+        padding: 32px 24px;
+      }
+ 
+      .register-title {
+        font-size: 28px;
+      }
+ 
+      .dropdown-menu {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  </style>
+</head>
+ 
+<body>
+ 
+<header class="header">
+  <div class="header-top">
+    <a class="logo" href="../pages/home.html">
+      <img src="../images/logo.png" style="width:50px; height:50px;" alt="logo">
+      DenousceBooking<span class="logo-dot">.COM</span>
+    </a>
+ 
+    <nav class="header-nav">
+      <a class="h-nav-link" href="../pages/home.html">
+        <i class="fas fa-home"></i> Trang Chủ
+      </a>
+ 
+      <a class="h-nav-link" href="../pages/about-us.html">
+        <i class="fas fa-circle-info"></i> Về Chúng Tôi
+      </a>
+ 
+      <div class="nav-dropdown">
+        <a class="h-nav-link" href="javascript:void(0)">
+          <i class="fas fa-map-marker-alt"></i> Địa Điểm
+          <i class="fas fa-chevron-down"></i>
+        </a>
+ 
+        <div class="dropdown-menu">
+          <a href="../cities/ha-noi.html">
+            <i class="fas fa-location-dot"></i> Hà Nội
+          </a>
+ 
+          <a href="../cities/ho-chi-minh.html">
+            <i class="fas fa-location-dot"></i> TP. Hồ Chí Minh
+          </a>
+ 
+          <a href="../cities/da-nang.html">
+            <i class="fas fa-location-dot"></i> Đà Nẵng
+          </a>
+ 
+          <a href="../cities/phu-quoc.html">
+            <i class="fas fa-location-dot"></i> Phú Quốc
+          </a>
+        </div>
+      </div>
+ 
+      <a class="h-nav-link" href="../pages/contact.html">
+        <i class="fas fa-phone"></i> Liên Hệ
+      </a>
+    </nav>
+ 
+    <div class="header-actions" id="headerActions">
+      <a class="btn-header btn-outline-w" href="#">
+        <i class="fas fa-globe"></i> VN · ₫
+      </a>
+      <a class="btn-header btn-outline-w" href="login.html">Đăng nhập</a>
+      <a class="btn-header btn-yellow" href="register.html">Đăng ký</a>
+    </div>
+  </div>
+</header>
+ 
+<section class="register-page">
+  <div class="register-box">
+    <h1 class="register-title">Đăng ký tài khoản</h1>
+ 
+    <p class="register-sub">
+      Tạo tài khoản DenousceBooking để đặt phòng nhanh hơn và quản lý thông tin đặt phòng dễ dàng.
+    </p>
+ 
+    <form id="registerForm">
+ 
+      <div class="form-group">
+        <label class="form-label" for="email">Tài khoản Email</label>
+        <div class="input-wrap">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="email" placeholder="Nhập email làm tài khoản">
+        </div>
+        <div class="error-text" id="emailError">Vui lòng nhập email hợp lệ.</div>
+      </div>
+ 
+      <div class="form-group">
+        <label class="form-label" for="password">Mật khẩu</label>
+        <div class="input-wrap">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="password" placeholder="Nhập mật khẩu">
+        </div>
+        <div class="error-text" id="passwordError">Vui lòng nhập mật khẩu.</div>
+      </div>
+ 
+      <div class="form-group">
+        <label class="form-label" for="phone">Số điện thoại</label>
+        <div class="input-wrap">
+          <i class="fas fa-phone"></i>
+          <input type="text" id="phone" placeholder="Nhập số điện thoại 10 số" maxlength="10">
+        </div>
+        <div class="error-text" id="phoneError">Số điện thoại phải gồm đúng 10 số.</div>
+      </div>
+ 
+      <div class="form-group">
+        <label class="form-label" for="cccd">Số CCCD</label>
+        <div class="input-wrap">
+          <i class="fas fa-id-card"></i>
+          <input type="text" id="cccd" placeholder="Nhập số CCCD 12 số" maxlength="12">
+        </div>
+        <div class="error-text" id="cccdError">Số CCCD phải gồm đúng 12 số.</div>
+      </div>
+ 
+      <button class="register-main-btn" type="submit">
+        <i class="fas fa-user-plus"></i> Đăng ký
+      </button>
+ 
+      <div class="register-bottom">
+        Đã có tài khoản?
+        <a href="login.html">Đăng nhập ngay</a>
+      </div>
+ 
+      <div class="success-box" id="successBox">
+        <div class="success-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <h3>Đăng ký thành công!</h3>
+        <p>Bạn có thể dùng Email hoặc số điện thoại vừa đăng ký để đăng nhập.</p>
+      </div>
+ 
+    </form>
+  </div>
+</section>
+ 
+<script>
+  const phoneInput = document.getElementById("phone");
+  const cccdInput = document.getElementById("cccd");
+ 
+  phoneInput.addEventListener("input", function() {
+    this.value = this.value.replace(/\D/g, "").slice(0, 10);
+  });
+ 
+  cccdInput.addEventListener("input", function() {
+    this.value = this.value.replace(/\D/g, "").slice(0, 12);
+  });
+ 
+  function getUsers() {
+    return JSON.parse(localStorage.getItem("bookingUsers") || "[]");
+  }
+ 
+  function saveUsers(users) {
+    localStorage.setItem("bookingUsers", JSON.stringify(users));
+  }
+ 
+  function getCurrentUser() {
+    return JSON.parse(localStorage.getItem("currentBookingUser") || "null");
+  }
+ 
+  function getDisplayName(user) {
+    if (!user) return "";
+    return user.email ? user.email.split("@")[0] : user.phone;
+  }
+ 
+  function updateHeaderUser() {
+    const headerActions = document.getElementById("headerActions");
+    const currentUser = getCurrentUser();
+ 
+    if (!currentUser) {
+      headerActions.innerHTML = `
+        <a class="btn-header btn-outline-w" href="#">
+          <i class="fas fa-globe"></i> VN · ₫
+        </a>
+        <a class="btn-header btn-outline-w" href="login.html">Đăng nhập</a>
+        <a class="btn-header btn-yellow" href="register.html">Đăng ký</a>
+      `;
+      return;
+    }
+ 
+    headerActions.innerHTML = `
+      <a class="btn-header btn-outline-w" href="#">
+        <i class="fas fa-globe"></i> VN · ₫
+      </a>
+      <div class="user-chip" title="${currentUser.email}">
+        <i class="fas fa-user-circle"></i>
+        <span>${getDisplayName(currentUser)}</span>
+      </div>
+      <button class="btn-logout" type="button" onclick="logoutUser()">
+        Đăng xuất
+      </button>
+    `;
+  }
+ 
+  function logoutUser() {
+    localStorage.removeItem("currentBookingUser");
+    updateHeaderUser();
+  }
+ 
+  function showError(id, condition, message) {
+    const element = document.getElementById(id);
+ 
+    if (message) {
+      element.innerText = message;
+    }
+ 
+    if (condition) {
+      element.classList.add("show");
+    } else {
+      element.classList.remove("show");
+    }
+  }
+ 
+  document.getElementById("registerForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+ 
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const cccd = document.getElementById("cccd").value.trim();
+    const successBox = document.getElementById("successBox");
+ 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{10}$/;
+    const cccdRegex = /^[0-9]{12}$/;
+ 
+    const emailInvalid = !emailRegex.test(email);
+    const passwordInvalid = password === "";
+    const phoneInvalid = !phoneRegex.test(phone);
+    const cccdInvalid = !cccdRegex.test(cccd);
+ 
+    showError("emailError", emailInvalid, "Vui lòng nhập email hợp lệ.");
+    showError("passwordError", passwordInvalid, "Vui lòng nhập mật khẩu.");
+    showError("phoneError", phoneInvalid, "Số điện thoại phải gồm đúng 10 số.");
+    showError("cccdError", cccdInvalid, "Số CCCD phải gồm đúng 12 số.");
+ 
+    successBox.classList.remove("show");
+ 
+    if (emailInvalid || passwordInvalid || phoneInvalid || cccdInvalid) {
+      return;
+    }
+ 
+    const users = getUsers();
+ 
+    const emailExists = users.some(function(user) {
+      return user.email === email;
+    });
+ 
+    const phoneExists = users.some(function(user) {
+      return user.phone === phone;
+    });
+ 
+    const cccdExists = users.some(function(user) {
+      return user.cccd === cccd;
+    });
+ 
+    if (emailExists) {
+      showError("emailError", true, "Email này đã được đăng ký. Vui lòng dùng email khác hoặc đăng nhập.");
+      return;
+    }
+ 
+    if (phoneExists) {
+      showError("phoneError", true, "Số điện thoại này đã được đăng ký. Vui lòng dùng số khác.");
+      return;
+    }
+ 
+    if (cccdExists) {
+      showError("cccdError", true, "Số CCCD này đã được đăng ký. Vui lòng kiểm tra lại.");
+      return;
+    }
+ 
+    const newUser = {
+      email: email,
+      password: password,
+      phone: phone,
+      cccd: cccd,
+      createdAt: new Date().toISOString()
+    };
+ 
+    users.push(newUser);
+    saveUsers(users);
+ 
+    successBox.classList.add("show");
+    this.reset();
+ 
+    setTimeout(function() {
+      successBox.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }, 100);
+  });
+ 
+  updateHeaderUser();
+</script>
+ 
+</body>
+</html>

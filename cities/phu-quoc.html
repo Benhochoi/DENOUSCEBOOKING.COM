@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BookingHotel — Khách sạn Phú Quốc</title>
-
+  <title>DenousceBooking — Khách sạn Phú Quốc</title>
+ 
   <link rel="stylesheet" href="../asset/css/style.css">
   <link rel="stylesheet" href="../asset/css/component.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+ 
   <style>
     /* Dropdown menu giống trang chủ */
     .nav-dropdown {
@@ -16,11 +16,11 @@
       display: inline-flex;
       align-items: center;
     }
-
+ 
     .nav-dropdown > .h-nav-link {
       cursor: pointer;
     }
-
+ 
     .dropdown-menu {
       position: absolute;
       top: 100%;
@@ -33,7 +33,7 @@
       display: none;
       z-index: 999;
     }
-
+ 
     .nav-dropdown::after {
       content: "";
       position: absolute;
@@ -42,11 +42,11 @@
       width: 100%;
       height: 12px;
     }
-
+ 
     .nav-dropdown:hover .dropdown-menu {
       display: block;
     }
-
+ 
     .dropdown-menu a {
       display: flex;
       align-items: center;
@@ -58,12 +58,12 @@
       text-decoration: none;
       white-space: nowrap;
     }
-
+ 
     .dropdown-menu a:hover {
       background: #eef2ff;
       color: #1a56db;
     }
-
+ 
     /* Nền ảnh Phú Quốc */
     .city-image-bg {
       background-image:
@@ -75,18 +75,18 @@
       padding-bottom: 3cm;
       margin-bottom: 45px;
     }
-
+ 
     .city-hero {
       color: #fff;
       padding: 70px 20px 80px;
       text-align: center;
     }
-
+ 
     .city-hero-inner {
       max-width: 1200px;
       margin: 0 auto;
     }
-
+ 
     .city-hero-title {
       font-size: 40px;
       line-height: 1.2;
@@ -95,7 +95,7 @@
       color: #fff;
       text-shadow: 0 2px 6px rgba(0,0,0,0.25);
     }
-
+ 
     .city-hero-sub {
       font-size: 18px;
       line-height: 1.5;
@@ -104,7 +104,7 @@
       font-weight: 400;
       text-shadow: 0 2px 6px rgba(0,0,0,0.25);
     }
-
+ 
     .city-wrapper {
       max-width: 1200px;
       margin: 0 auto 70px;
@@ -112,7 +112,7 @@
       position: relative;
       z-index: 2;
     }
-
+ 
     .city-intro-wrapper {
       max-width: 1200px;
       margin: -35px auto 0;
@@ -120,7 +120,7 @@
       position: relative;
       z-index: 2;
     }
-
+ 
     .city-intro {
       background: #fff;
       border-radius: 18px;
@@ -128,7 +128,7 @@
       box-shadow: 0 12px 35px rgba(0,0,0,0.12);
       margin-bottom: 0;
     }
-
+ 
     .city-intro h2 {
       font-size: 28px;
       line-height: 1.25;
@@ -136,14 +136,14 @@
       color: #111827;
       font-weight: 800;
     }
-
+ 
     .city-intro p {
       margin: 0;
       font-size: 16px;
       line-height: 1.7;
       color: #5f6b7a;
     }
-
+ 
     .city-section-header {
       display: flex;
       align-items: center;
@@ -151,7 +151,7 @@
       gap: 16px;
       margin-bottom: 22px;
     }
-
+ 
     .city-section-title {
       font-size: 28px;
       line-height: 1.25;
@@ -159,118 +159,215 @@
       font-weight: 800;
       color: #0f172a;
     }
-
+ 
     .city-section-title i {
       color: #1a56db;
       margin-right: 8px;
     }
-
+ 
     .city-section-link {
       color: #1a56db;
       font-size: 15px;
       font-weight: 700;
       text-decoration: none;
     }
-
+ 
     .city-section-link:hover {
       text-decoration: underline;
     }
-
+ 
     .hotel-card {
       opacity: 0;
       transform: translateY(20px);
       transition: opacity .4s ease, transform .4s ease;
     }
-
+ 
     .hotel-card.visible {
       opacity: 1;
       transform: translateY(0);
     }
-
+ 
+ 
+ 
+    /* User box sau khi đăng nhập */
+    .user-mini-box {
+      min-height: 46px;
+      height: 46px;
+      padding: 0 16px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 15px;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.55);
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.25s ease;
+    }
+ 
+    .user-mini-box:hover {
+      background: rgba(255,255,255,0.22);
+      transform: translateY(-1px);
+    }
+ 
+    .user-mini-box i {
+      font-size: 17px;
+    }
+ 
+    .btn-logout-small {
+      min-height: 46px;
+      height: 46px;
+      padding: 0 18px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ffc107;
+      color: #06172d;
+      font-weight: 900;
+      font-size: 15px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+      transition: 0.25s ease;
+    }
+ 
+    .btn-logout-small:hover {
+      filter: brightness(0.96);
+      transform: translateY(-1px);
+    }
+ 
+    /* Giữ footer dạng ngang, tránh lỗi bị xếp dọc */
+    .footer-grid {
+      display: grid !important;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr !important;
+      gap: 70px !important;
+      align-items: flex-start !important;
+    }
+ 
+    .f-socials {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 12px !important;
+      margin-top: 24px !important;
+    }
+ 
+    .f-soc {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 42px !important;
+      height: 42px !important;
+      border-radius: 50% !important;
+      text-decoration: none !important;
+    }
+ 
     @media (max-width: 768px) {
       .city-hero {
         padding: 55px 18px 65px;
       }
-
+ 
       .city-hero-title {
         font-size: 32px;
       }
-
+ 
       .city-hero-sub {
         font-size: 16px;
       }
-
+ 
       .city-intro {
         padding: 22px;
       }
-
+ 
       .city-intro h2,
       .city-section-title {
         font-size: 24px;
       }
-
+ 
       .city-section-header {
         flex-direction: column;
         align-items: flex-start;
       }
-
+ 
       .dropdown-menu {
         left: 50%;
         transform: translateX(-50%);
       }
+ 
+      .user-mini-box,
+      .btn-logout-small {
+        height: 44px;
+        min-height: 44px;
+        padding: 0 14px;
+        font-size: 14px;
+      }
+ 
+      .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+      }
     }
   </style>
 </head>
-
+ 
 <body>
-
+ 
 <header class="header">
   <div class="header-top">
     <a class="logo" href="../pages/home.html">
       <img src="../images/logo.png" style="width:50px; height:50px;" alt="logo">
-      BookingHotel<span class="logo-dot">.COM</span>
+      DenousceBooking<span class="logo-dot">.COM</span>
     </a>
-
+ 
     <nav class="header-nav">
       <a class="h-nav-link" href="../pages/home.html">
         <i class="fas fa-home"></i> Trang Chủ
       </a>
-
-      <a class="h-nav-link" href="#about">
+ 
+      <a class="h-nav-link" href="../pages/about-us.html">
         <i class="fas fa-circle-info"></i> Về Chúng Tôi
       </a>
-
+ 
       <div class="nav-dropdown">
         <a class="h-nav-link active" href="javascript:void(0)">
           <i class="fas fa-map-marker-alt"></i> Địa Điểm
           <i class="fas fa-chevron-down"></i>
         </a>
-
+ 
         <div class="dropdown-menu">
           <a href="ha-noi.html">
             <i class="fas fa-location-dot"></i> Hà Nội
           </a>
-
+ 
           <a href="ho-chi-minh.html">
             <i class="fas fa-location-dot"></i> TP. Hồ Chí Minh
           </a>
-
+ 
           <a href="da-nang.html">
             <i class="fas fa-location-dot"></i> Đà Nẵng
           </a>
-
+ 
           <a href="phu-quoc.html">
             <i class="fas fa-location-dot"></i> Phú Quốc
           </a>
         </div>
       </div>
-
-      <a class="h-nav-link" href="#contact">
+ 
+      <a class="h-nav-link" href="../pages/contact.html">
         <i class="fas fa-phone"></i> Liên Hệ
       </a>
     </nav>
-
-    <div class="header-actions">
+ 
+    <div class="header-actions" id="headerActions">
       <a class="btn-header btn-outline-w" href="#">
         <i class="fas fa-globe"></i> VN · ₫
       </a>
@@ -279,46 +376,44 @@
     </div>
   </div>
 </header>
-
+ 
 <div class="city-image-bg">
-
+ 
   <section class="city-hero">
     <div class="city-hero-inner">
       <h1 class="city-hero-title">Khách Sạn Tại Phú Quốc</h1>
       <p class="city-hero-sub">
-        Khám phá những resort và khách sạn nổi bật tại đảo ngọc Phú Quốc — biển xanh, nghỉ dưỡng sang trọng và tiện nghi đẳng cấp
+        Khám phá những resort và khách sạn nổi bật tại đảo Phú Quốc — sang trọng, tiện nghi.
       </p>
     </div>
   </section>
-
+ 
   <div class="city-intro-wrapper">
     <section class="city-intro">
       <h2>Du lịch Phú Quốc</h2>
       <p>
-        Phú Quốc là thiên đường nghỉ dưỡng nổi tiếng với biển xanh, cát trắng, Bãi Khem,
-        Sunset Town, chợ đêm Phú Quốc và nhiều khu resort cao cấp ven biển.
-        Dưới đây là danh sách khách sạn thuộc thư mục <b>hotels/phu-quoc/</b>.
+        Phú Quốc là điểm đến tuyệt vời cho những ai yêu biển, với làn nước trong xanh, bãi cát trắng mịn và nhiều khu nghỉ dưỡng yên bình.
       </p>
     </section>
   </div>
-
+ 
 </div>
-
+ 
 <main class="city-wrapper">
-
+ 
   <section id="phu-quoc-hotels">
     <div class="city-section-header">
       <h2 class="city-section-title">
         <i class="fas fa-hotel"></i> Khách sạn tại Phú Quốc
       </h2>
-
+ 
       <a class="city-section-link" href="../pages/home.html">
         Quay lại trang chủ <i class="fas fa-arrow-right"></i>
       </a>
     </div>
-
+ 
     <div class="hotels-grid">
-
+ 
       <a class="hotel-card" href="../hotels/phu-quoc/jw-marriott-phu-quoc-emerald-bay.html">
         <div class="hc-img-wrap">
           <img
@@ -326,35 +421,35 @@
             src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80"
             alt="JW Marriott Phú Quốc Emerald Bay"
           >
-          <span class="hc-badge genius">Genius</span>
+          <span class="hc-badge genius">Xuất sắc</span>
           <button class="hc-fav" type="button">
             <i class="far fa-heart"></i>
           </button>
         </div>
-
+ 
         <div class="hc-body">
           <div class="hc-top">
             <div>
               <div class="hc-stars">★★★★★</div>
               <div class="hc-name">JW Marriott Phú Quốc Emerald Bay</div>
             </div>
-
+ 
             <div class="hc-score-box">
               <div class="hc-score-num">9.6</div>
               <div class="hc-score-lbl">Hoàn hảo</div>
             </div>
           </div>
-
+ 
           <div class="hc-loc">
             <i class="fas fa-map-marker-alt"></i> Bãi Khem, Phú Quốc
           </div>
-
+ 
           <div class="hc-tags">
-            <span class="hc-tag">4 hồ bơi</span>
-            <span class="hc-tag green">Bao sáng</span>
+            <span class="hc-tag">Hồ bơi vô cực</span>
+            <span class="hc-tag green">Nhiều tiện ích</span>
             <span class="hc-tag">Spa 5 sao</span>
           </div>
-
+ 
           <div class="hc-footer">
             <div class="hc-price-block">
               <div class="hc-price-label">Phòng đôi từ</div>
@@ -362,39 +457,295 @@
               <div class="hc-price">5.100.000₫</div>
               <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
             </div>
-
+ 
             <span class="btn-see-rooms">Xem phòng</span>
           </div>
         </div>
       </a>
-
+ 
+      <a class="hotel-card" href="../hotels/phu-quoc/Crystal-Apartment-Hillside-Phuquoc.html">
+        <div class="hc-img-wrap">
+          <img
+            class="hc-img"
+            src="../images/hotels-images/Background-ks-PhuQuoc/bgcrystalapm.jpg"
+            alt="Crystal Apartment Hillside Phú Quốc"
+          >
+          <span class="hc-badge genius">Xuất sắc</span>
+          <button class="hc-fav" type="button">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+ 
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★★</div>
+              <div class="hc-name">Crystal Apartment Hillside Phú Quốc</div>
+            </div>
+ 
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.0</div>
+              <div class="hc-score-lbl">Tuyệt vời</div>
+            </div>
+          </div>
+ 
+          <div class="hc-loc">
+            <i class="fas fa-map-marker-alt"></i> Sunset Town, Phú Quốc
+          </div>
+ 
+          <div class="hc-tags">
+            <span class="hc-tag">View biển</span>
+            <span class="hc-tag green">Gần cáp treo</span>
+            <span class="hc-tag">Sang trọng, hiện đại</span>
+          </div>
+ 
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Căn hộ từ</div>
+              <div class="hc-price-old">2.200.000₫</div>
+              <div class="hc-price">1.650.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+ 
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+ 
+      <a class="hotel-card" href="../hotels/phu-quoc/Dusit-Princess-Moonrise-PhuQuoc.html">
+        <div class="hc-img-wrap">
+          <img
+            class="hc-img"
+            src="../images/hotels-images/Background-ks-PhuQuoc/bgdusitprincess.jpg"
+            alt="Dusit Princess Moonrise Beach Resort Phú Quốc"
+          >
+          <span class="hc-badge deal">-20%</span>
+          <button class="hc-fav" type="button">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+ 
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★★</div>
+              <div class="hc-name">Dusit Princess Moonrise Beach Resort Phú Quốc</div>
+            </div>
+ 
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.1</div>
+              <div class="hc-score-lbl">Tuyệt vời</div>
+            </div>
+          </div>
+ 
+          <div class="hc-loc">
+            <i class="fas fa-map-marker-alt"></i> Bãi Trường, Phú Quốc
+          </div>
+ 
+          <div class="hc-tags">
+            <span class="hc-tag">Gần biển</span>
+            <span class="hc-tag green">Dễ di chuyển</span>
+            <span class="hc-tag">Hồ bơi ngoài trời</span>
+          </div>
+ 
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">3.200.000₫</div>
+              <div class="hc-price">2.560.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+ 
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+ 
+      <a class="hotel-card" href="../hotels/phu-quoc/Azura-Resort-PhuQuoc.html">
+        <div class="hc-img-wrap">
+          <img
+            class="hc-img"
+            src="../images/hotels-images/Background-ks-PhuQuoc/bgazura.jpg"
+            alt="Azura Resort Phu Quoc"
+          >
+          <span class="hc-badge new">Mới mở</span>
+          <button class="hc-fav" type="button">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+ 
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★</div>
+              <div class="hc-name">Azura Resort Phu Quoc</div>
+            </div>
+ 
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.9</div>
+              <div class="hc-score-lbl">Rất tốt</div>
+            </div>
+          </div>
+ 
+          <div class="hc-loc">
+            <i class="fas fa-map-marker-alt"></i> Phú Quốc, Kiên Giang
+          </div>
+ 
+          <div class="hc-tags">
+            <span class="hc-tag">Gần biển</span>
+            <span class="hc-tag green">Giá tốt</span>
+            <span class="hc-tag">Hồ bơi ngoài trời</span>
+          </div>
+ 
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">2.400.000₫</div>
+              <div class="hc-price">1.890.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+ 
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+ 
+      <a class="hotel-card" href="../hotels/phu-quoc/Night-Sea-Hotel-PhuQuoc.html">
+        <div class="hc-img-wrap">
+          <img
+            class="hc-img"
+            src="../images/hotels-images/Background-ks-PhuQuoc/bgnightsea.jpg"
+            alt="Night Sea Hotel Phu Quoc"
+          >
+          <span class="hc-badge deal">-15%</span>
+          <button class="hc-fav" type="button">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+ 
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★</div>
+              <div class="hc-name">Night Sea Hotel Phu Quoc</div>
+            </div>
+ 
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.8</div>
+              <div class="hc-score-lbl">Rất tốt</div>
+            </div>
+          </div>
+ 
+          <div class="hc-loc">
+            <i class="fas fa-map-marker-alt"></i> Phú Quốc, Kiên Giang
+          </div>
+ 
+          <div class="hc-tags">
+            <span class="hc-tag">Gần biển</span>
+            <span class="hc-tag green">Trung tâm thành phố</span>
+            <span class="hc-tag">Sang trọng, hiện đại</span>
+          </div>
+ 
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">1.800.000₫</div>
+              <div class="hc-price">1.530.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+ 
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+ 
+      <a class="hotel-card" href="../hotels/phu-quoc/Grand-Ocean-Bay-Resort-PhuQuoc.html">
+        <div class="hc-img-wrap">
+          <img
+            class="hc-img"
+            src="../images/hotels-images/Background-ks-PhuQuoc/bggrandoceanbay.jpg"
+            alt="Grand Ocean Bay Resort Phu Quoc"
+          >
+          <span class="hc-badge deal">-18%</span>
+          <button class="hc-fav" type="button">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+ 
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★★</div>
+              <div class="hc-name">Grand Ocean Bay Resort Phú Quốc</div>
+            </div>
+ 
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.7</div>
+              <div class="hc-score-lbl">Tuyệt vời</div>
+            </div>
+          </div>
+ 
+          <div class="hc-loc">
+            <i class="fas fa-map-marker-alt"></i> Ong Lang, Phú Quốc
+          </div>
+ 
+          <div class="hc-tags">
+            <span class="hc-tag">Giáp biển</span>
+            <span class="hc-tag green">Hồ bơi ngoài trời</span>
+            <span class="hc-tag">Fitness center</span>
+          </div>
+ 
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">3.600.000₫</div>
+              <div class="hc-price">2.950.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+ 
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+ 
     </div>
   </section>
-
+ 
 </main>
-
+ 
 <footer>
   <div class="footer-inner">
     <div class="footer-grid">
       <div id="contact">
         <a class="f-logo" href="../pages/home.html">
           <img src="../images/logo.png" style="width:50px; height:50px;" alt="logo">
-          BookingHotel<span class="logo-dot">.COM</span>
+          DenousceBooking<span class="logo-dot">.COM</span>
         </a>
-
+ 
         <p class="f-desc">
           Nền tảng đặt phòng khách sạn uy tín hàng đầu Việt Nam.
-          Giá tốt nhất được đảm bảo, hủy miễn phí linh hoạt.
+          Giá phòng tốt nhất luôn được đảm bảo, hủy phòng miễn phí, linh hoạt.
         </p>
-
+ 
         <div class="f-socials">
-          <a class="f-soc" href="#"><i class="fab fa-facebook-f"></i></a>
-          <a class="f-soc" href="#"><i class="fab fa-instagram"></i></a>
-          <a class="f-soc" href="#"><i class="fab fa-tiktok"></i></a>
-          <a class="f-soc" href="#"><i class="fab fa-youtube"></i></a>
+          <a class="f-soc" href="https://www.facebook.com/Denousce2303/" target="_blank" rel="noopener noreferrer" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+ 
+          <a class="f-soc" href="https://www.instagram.com/n.tuandat23/" target="_blank" rel="noopener noreferrer" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+ 
+          <a class="f-soc" href="https://www.tiktok.com/@denousce1910" target="_blank" rel="noopener noreferrer" title="TikTok">
+            <i class="fab fa-tiktok"></i>
+          </a>
+ 
+          <a class="f-soc" href="https://www.youtube.com/@hoangquan02z" target="_blank" rel="noopener noreferrer" title="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
         </div>
       </div>
-
+ 
       <div class="f-col">
         <h5>Hỗ Trợ</h5>
         <ul>
@@ -405,7 +756,7 @@
           <li><a href="#">Báo sự cố</a></li>
         </ul>
       </div>
-
+ 
       <div class="f-col">
         <h5>Khám Phá</h5>
         <ul>
@@ -415,11 +766,11 @@
           <li><a href="phu-quoc.html">Phú Quốc</a></li>
         </ul>
       </div>
-
+ 
       <div class="f-col" id="about">
         <h5>Về Chúng Tôi</h5>
         <ul>
-          <li><a href="#">Giới thiệu</a></li>
+          <li><a href="../pages/about-us.html">Giới thiệu</a></li>
           <li><a href="#">Điều khoản sử dụng</a></li>
           <li><a href="#">Chính sách bảo mật</a></li>
           <li><a href="#">Tuyển dụng</a></li>
@@ -427,20 +778,20 @@
         </ul>
       </div>
     </div>
-
+ 
     <div class="footer-bottom">
-      <span>© 2026 BookingHotel Vietnam. All rights reserved.</span>
+      <span>© 2026 DenousceBooking Vietnam. All rights reserved.</span>
     </div>
   </div>
 </footer>
-
+ 
 <script>
   function revealHotelCards() {
     const windowBottom = window.scrollY + window.innerHeight;
-
+ 
     document.querySelectorAll('.hotel-card').forEach(function(card, index) {
       const cardTop = card.getBoundingClientRect().top + window.scrollY;
-
+ 
       if (cardTop < windowBottom - 60) {
         setTimeout(function() {
           card.classList.add('visible');
@@ -448,22 +799,73 @@
       }
     });
   }
-
+ 
   window.addEventListener('scroll', revealHotelCards);
   window.addEventListener('load', revealHotelCards);
-
+ 
   document.querySelectorAll('.hc-fav').forEach(function(button) {
     button.addEventListener('click', function(event) {
       event.preventDefault();
       event.stopPropagation();
-
+ 
       const icon = button.querySelector('i');
       icon.classList.toggle('far');
       icon.classList.toggle('fas');
       button.classList.toggle('saved');
     });
   });
+ 
+ 
+  function getCurrentUser() {
+    return JSON.parse(localStorage.getItem("currentUser"));
+  }
+ 
+  function renderHeaderUser() {
+    const currentUser = getCurrentUser();
+    const headerActions = document.getElementById("headerActions");
+ 
+    if (!headerActions) return;
+ 
+    if (!currentUser) {
+      headerActions.innerHTML = `
+        <a class="btn-header btn-outline-w" href="#">
+          <i class="fas fa-globe"></i> VN · ₫
+        </a>
+ 
+        <a class="btn-header btn-outline-w" href="../user/login.html">Đăng nhập</a>
+        <a class="btn-header btn-yellow" href="../user/register.html">Đăng ký</a>
+      `;
+      return;
+    }
+ 
+    headerActions.innerHTML = `
+      <a class="btn-header btn-outline-w" href="#">
+        <i class="fas fa-globe"></i> VN · ₫
+      </a>
+ 
+      <button class="user-mini-box" type="button" onclick="goToProfile()">
+        <i class="fas fa-user-circle"></i>
+        <span>${currentUser.displayName}</span>
+      </button>
+ 
+      <button class="btn-logout-small" type="button" onclick="logoutUser()">
+        Đăng xuất
+      </button>
+    `;
+  }
+ 
+  function goToProfile() {
+    window.location.href = "../user/profile.html";
+  }
+ 
+  function logoutUser() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "../user/login.html";
+  }
+ 
+  renderHeaderUser();
+ 
 </script>
-
+ 
 </body>
 </html>

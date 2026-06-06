@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Eliana Robusta Hotel Hà Nội — DenousceBooking</title>
+<link href="../../asset/css/style.css" rel="stylesheet"/>
+<link href="../../asset/css/component.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+  /* Header dropdown giống trang home */
+  .nav-dropdown {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .nav-dropdown > .h-nav-link {
+    cursor: pointer;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 230px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 8px;
+    box-shadow: 0 14px 35px rgba(0,0,0,0.22);
+    display: none;
+    z-index: 999;
+  }
+
+  .nav-dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 13px;
+    border-radius: 10px;
+    color: #06172d;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .dropdown-menu a:hover {
+    background: #eef2ff;
+    color: #1a56db;
+  }
+
+  @media (max-width: 768px) {
+    .dropdown-menu {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+
+  /* Giữ dropdown đứng yên khi rê chuột xuống menu */
+  .nav-dropdown {
+    padding-bottom: 10px;
+    margin-bottom: -10px;
+  }
+
+  .nav-dropdown::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    height: 12px;
+  }
+
+  .dropdown-menu {
+    top: calc(100% - 1px);
+  }
+
+  .nav-dropdown:hover .dropdown-menu,
+  .nav-dropdown:focus-within .dropdown-menu {
+    display: block;
+  }
+
+  /* User box sau khi đăng nhập */
+  .user-mini-box {
+    min-height: 42px;
+    padding: 0 15px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(255,255,255,0.72);
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: .88rem;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: .2s ease;
+  }
+
+  .user-mini-box:hover {
+    background: rgba(255,255,255,0.24);
+    transform: translateY(-1px);
+  }
+
+  .btn-logout-small {
+    min-height: 42px;
+    padding: 0 15px;
+    border-radius: 999px;
+    border: none;
+    background: #f4c542;
+    color: #07152b;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: .88rem;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: .2s ease;
+  }
+
+  .btn-logout-small:hover {
+    background: #ffd95a;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    .user-mini-box,
+    .btn-logout-small {
+      width: 100%;
+      min-height: 40px;
+    }
+  }
+
+
+  /* ===== Đồng bộ menubar với home.html ===== */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .user-mini-box {
+    min-height: 46px !important;
+    height: 46px !important;
+    padding: 0 16px !important;
+    border-radius: 16px !important;
+    border: 1.5px solid rgba(255,255,255,0.55) !important;
+    background: rgba(255,255,255,0.12) !important;
+    color: #fff !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    font-family: inherit;
+  }
+
+  .user-mini-box:hover {
+    background: rgba(255,255,255,0.22) !important;
+    transform: translateY(-1px);
+  }
+
+  .btn-logout-small {
+    min-height: 46px !important;
+    height: 46px !important;
+    padding: 0 18px !important;
+    border-radius: 16px !important;
+    border: none !important;
+    background: #ffc107 !important;
+    color: #06172d !important;
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    font-family: inherit;
+  }
+
+  .btn-logout-small:hover {
+    filter: brightness(0.96);
+    background: #ffc107 !important;
+    transform: translateY(-1px);
+  }
+
+  /* Khung đặt phòng đứng yên tại vị trí của trang, không trượt khi cuộn */
+  .booking-sidebar,
+  .booking-sidebar .book-card {
+    position: static !important;
+    top: auto !important;
+    align-self: start !important;
+  }
+
+  @media (max-width: 768px) {
+    .header-actions {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .user-mini-box,
+    .btn-logout-small {
+      width: auto !important;
+      min-height: 44px !important;
+      height: 44px !important;
+      padding: 0 14px !important;
+      font-size: 14px !important;
+    }
+  }
+
+
+  /* Giá phòng ở dòng tính toán: in đậm nhưng giữ nguyên cỡ chữ và font */
+  .room-night-price {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: 800;
+    color: inherit;
+  }
+
+</style>
+</head>
+<body>
+<header class="header">
+<div class="header-top">
+<a class="logo" href="../../pages/home.html">
+<img alt="logo" src="../../images/logo.png" style="width:50px; height:50px;"/>
+      DenousceBooking<span class="logo-dot">.COM</span>
+</a>
+<nav class="header-nav">
+<a class="h-nav-link active" href="../../pages/home.html">
+<i class="fas fa-home"></i> Trang Chủ
+      </a>
+<a class="h-nav-link" href="../../pages/about-us.html">
+<i class="fas fa-circle-info"></i> Về Chúng Tôi
+      </a>
+<div class="nav-dropdown">
+<a class="h-nav-link" href="javascript:void(0)">
+<i class="fas fa-map-marker-alt"></i> Địa Điểm
+          <i class="fas fa-chevron-down"></i>
+</a>
+<div class="dropdown-menu">
+<a href="../../cities/ha-noi.html">
+<i class="fas fa-location-dot"></i> Hà Nội
+          </a>
+<a href="../../cities/ho-chi-minh.html">
+<i class="fas fa-location-dot"></i> TP. Hồ Chí Minh
+          </a>
+<a href="../../cities/da-nang.html">
+<i class="fas fa-location-dot"></i> Đà Nẵng
+          </a>
+<a href="../../cities/phu-quoc.html">
+<i class="fas fa-location-dot"></i> Phú Quốc
+          </a>
+</div>
+</div>
+<a class="h-nav-link" href="../../pages/contact.html">
+<i class="fas fa-phone"></i> Liên Hệ
+      </a>
+</nav>
+<div class="header-actions" id="headerAuth">
+<a class="btn-header btn-outline-w" href="#">
+<i class="fas fa-globe"></i> VN · ₫
+      </a>
+<a class="btn-header btn-outline-w" href="../../user/login.html">Đăng nhập</a>
+<a class="btn-header btn-yellow" href="../../user/register.html">Đăng ký</a>
+</div>
+</div>
+</header>
+<!-- ═══ BREADCRUMB ════════════════════════════════════ -->
+<div class="detail-breadcrumb">
+<a href="../../pages/home.html"><i class="fas fa-home"></i> Trang chủ</a>
+<i class="fas fa-chevron-right"></i>
+<a href="double_room.html">Phòng Đôi tại Việt Nam</a>
+<i class="fas fa-chevron-right"></i>
+<a href="../../cities/ha-noi.html">Hà Nội</a>
+<i class="fas fa-chevron-right"></i>
+<span>Eliana Robusta Hotel</span>
+</div>
+<!-- ═══ GALLERY ═══════════════════════════════════════ -->
+<div class="gallery">
+<div class="gal-item gal-main">
+<img alt="Giường trong phòng chung tại Eliana Robusta Hotel" src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/857991382.jpg?k=e75e36ea1173f5c695c52c3557b96d41fb0a61d18926f4f488de845e79f5dd51&amp;o=&amp;hp=1"/>
+</div>
+<div class="gal-item">
+<img alt="Giường trong phòng chung tại Eliana Robusta Hotel" src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/857989171.jpg?k=4f44f59d6174b554c13fd9fd4b9ca04e0d248d84849803b45bcf60293eb9abf4&amp;o=&amp;hp=1"/>
+</div>
+<div class="gal-item">
+<img alt="Giường trong phòng chung tại Eliana Robusta Hotel" src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/860082092.jpg?k=744f658fd564704c73eb92959edadd33f318df5bbdf276b08370ba649ac34548&amp;o=&amp;hp=1"/>
+</div>
+<div class="gal-item">
+<img alt="Bố cục Eliana Robusta Hotel" src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/857992741.jpg?k=c34c2801e46dcc2118c02124f6e6cf92d15231bea34586c431cbd4fbe83fe2b8&amp;o=&amp;hp=1"/>
+</div>
+<div class="gal-item gal-more">
+<img alt="Giường trong phòng chung tại Eliana Robusta Hotel" src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/860082121.jpg?k=052239fe7dd75a3706872d399e5ffb8e1a6f8a4a2b6e4f3ef9b0fb67f212e769&amp;o=&amp;hp=1"/>
+</div>
+</div>
+<!-- ═══ DETAIL LAYOUT ════════════════════════════════ -->
+<div class="detail-layout">
+<!-- LEFT COLUMN -->
+<div class="detail-main">
+<div class="detail-header">
+<div class="detail-stars">★★★★</div>
+<h1 class="detail-name">Eliana Robusta Hotel</h1>
+<div class="detail-meta-row">
+<div class="dm-item"><i class="fas fa-map-marker-alt"></i> 40 Phố Nguyễn Hữu Huân 9, 11000 Hà Nội, Việt Nam</div>
+<div class="dm-item"><i class="fas fa-clock"></i> Lễ tân 24/7</div>
+</div>
+<div class="detail-score-row">
+<div class="ds-score">9.8</div>
+<div>
+<div class="ds-label">Xuất sắc</div>
+<div class="ds-reviews">28 đánh giá đã được xác minh</div>
+</div>
+<div style="margin-left:auto">
+<button type="button" data-wishlist-button onclick="toggleWish()" style="background:none;border:1.5px solid var(--border);border-radius:var(--r);padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;font-size:.84rem;color:var(--text)">
+<i class="far fa-heart" style="color:var(--red)"></i> <span class="wish-label">Lưu</span>
+</button>
+</div>
+</div>
+<div class="detail-badges">
+<span class="d-badge blue"><i class="fas fa-award"></i> Vị trí 9.9/10</span>
+<span class="d-badge blue"><i class="fas fa-star"></i> Khách sạn 4 sao</span>
+<span class="d-badge green"><i class="fas fa-wifi"></i> WiFi miễn phí 10.0</span>
+<span class="d-badge green"><i class="fas fa-shuttle-van"></i> Đưa đón sân bay</span>
+<span class="d-badge blue"><i class="fas fa-concierge-bell"></i> Dịch vụ phòng</span>
+</div>
+</div>
+<div class="detail-section">
+<h3><i class="fas fa-info-circle"></i> Về Khách Sạn</h3>
+<p class="detail-desc">Nằm tại vị trí thuận tiện ở trung tâm Hà Nội, Eliana Robusta Hotel cách Nhà hát múa rối Thăng Long 4 phút đi bộ và Hồ Hoàn Kiếm chưa đến 1 km. Chỗ nghỉ nằm ngay khu vực trung tâm, thuận tiện di chuyển đến khu Phố Cổ, Ô Quan Chưởng, Nhà thờ Thánh Joseph và Tràng Tiền Plaza.<br/><br/>
+<strong>Không gian phòng tại Eliana Robusta Hotel</strong> được trang bị điều hòa, bàn làm việc, ấm đun nước, tủ lạnh, minibar, két an toàn, TV màn hình phẳng và phòng tắm riêng với vòi sen. Thiết kế mới, sạch sẽ, phù hợp cho khách du lịch, cặp đôi và gia đình muốn lưu trú gần Hồ Hoàn Kiếm.<br/><br/>
+Khách sạn có nhà hàng phục vụ ẩm thực Châu Âu, hỗ trợ lựa chọn món chay, thuần chay và không chứa gluten. Ngoài ra, chỗ nghỉ còn có bể sục, sân hiên, lễ tân 24 giờ, dịch vụ phòng và dịch vụ đưa đón sân bay.</p>
+</div>
+<div class="detail-section">
+<h3><i class="fas fa-bed"></i> Thông Tin Phòng Đôi</h3>
+<div class="room-info-grid"><div class="ri-item">
+<div class="ri-icon"><i class="fas fa-door-open"></i></div>
+<div><span class="ri-label">Loại Phòng</span><span class="ri-val">Suite / Phòng 3 người</span></div>
+</div><div class="ri-item">
+<div class="ri-icon"><i class="fas fa-bed"></i></div>
+<div><span class="ri-label">Loại Giường</span><span class="ri-val">1 giường đôi lớn hoặc 1 giường đơn + 1 giường đôi lớn</span></div>
+</div><div class="ri-item">
+<div class="ri-icon"><i class="fas fa-users"></i></div>
+<div><span class="ri-label">Sức Chứa</span><span class="ri-val">Tối đa 2–3 khách</span></div>
+</div><div class="ri-item">
+<div class="ri-icon"><i class="fas fa-eye"></i></div>
+<div><span class="ri-label">Tầm Nhìn</span><span class="ri-val">Phố Cổ / Thành phố Hà Nội</span></div>
+</div><div class="ri-item">
+<div class="ri-icon"><i class="fas fa-bath"></i></div>
+<div><span class="ri-label">Phòng Tắm</span><span class="ri-val">Phòng tắm riêng · Vòi sen</span></div>
+</div><div class="ri-item">
+<div class="ri-icon"><i class="fas fa-location-dot"></i></div>
+<div><span class="ri-label">Vị Trí</span><span class="ri-val">Cách Hồ Hoàn Kiếm khoảng 900 m</span></div>
+</div></div>
+</div>
+<div class="detail-section">
+<h3><i class="fas fa-concierge-bell"></i> Tiện Nghi Trong Phòng</h3>
+<div class="amenities-grid">
+<div class="am-item"><i class="fas fa-wifi"></i> WiFi miễn phí</div>
+<div class="am-item"><i class="fas fa-snowflake"></i> Điều hòa</div>
+<div class="am-item"><i class="fas fa-tv"></i> TV màn hình phẳng</div>
+<div class="am-item"><i class="fas fa-laptop"></i> Bàn làm việc</div>
+<div class="am-item"><i class="fas fa-mug-hot"></i> Ấm đun nước</div>
+<div class="am-item"><i class="fas fa-snowflake"></i> Tủ lạnh</div>
+<div class="am-item"><i class="fas fa-wine-glass"></i> Minibar</div>
+<div class="am-item"><i class="fas fa-lock"></i> Két an toàn</div>
+<div class="am-item"><i class="fas fa-shower"></i> Vòi sen riêng</div>
+<div class="am-item"><i class="fas fa-bath"></i> Phòng tắm riêng</div>
+<div class="am-item"><i class="fas fa-shirt"></i> Tủ quần áo</div>
+<div class="am-item"><i class="fas fa-coffee"></i> Trà/cà phê trong phòng</div>
+</div>
+</div>
+<div class="detail-section">
+<h3><i class="fas fa-building"></i> Tiện Ích Khách Sạn</h3>
+<div class="amenities-grid">
+<div class="am-item"><i class="fas fa-wifi"></i> WiFi miễn phí toàn chỗ nghỉ</div>
+<div class="am-item"><i class="fas fa-shuttle-van"></i> Xe đưa đón sân bay</div>
+<div class="am-item"><i class="fas fa-users"></i> Phòng gia đình</div>
+<div class="am-item"><i class="fas fa-smoking-ban"></i> Phòng không hút thuốc</div>
+<div class="am-item"><i class="fas fa-concierge-bell"></i> Lễ tân 24 giờ</div>
+<div class="am-item"><i class="fas fa-utensils"></i> Nhà hàng Restaurant #1</div>
+<div class="am-item"><i class="fas fa-umbrella-beach"></i> Sân thượng / hiên</div>
+<div class="am-item"><i class="fas fa-bell"></i> Dịch vụ phòng</div>
+<div class="am-item"><i class="fas fa-elevator"></i> Thang máy</div>
+<div class="am-item"><i class="fas fa-hot-tub-person"></i> Bể sục / Jacuzzi</div>
+<div class="am-item"><i class="fas fa-person-walking"></i> Tour đi bộ</div>
+<div class="am-item"><i class="fas fa-bicycle"></i> Cho thuê xe đạp</div>
+</div>
+</div>
+<div class="detail-section">
+<h3><i class="fas fa-file-alt"></i> Chính Sách Khách Sạn</h3>
+<div class="policies-list"><div class="policy-row">
+<div class="policy-icon"><i class="fas fa-sign-in-alt"></i></div>
+<div><div class="policy-title">Nhận phòng (Check-in)</div><div class="policy-desc">Từ 14:00 đến 00:00</div></div>
+</div><div class="policy-row">
+<div class="policy-icon"><i class="fas fa-sign-out-alt"></i></div>
+<div><div class="policy-title">Trả phòng (Check-out)</div><div class="policy-desc">Đến 12:00</div></div>
+</div><div class="policy-row">
+<div class="policy-icon"><i class="fas fa-undo-alt"></i></div>
+<div><div class="policy-title">Chính sách hủy / trả trước</div><div class="policy-desc">Khác nhau tùy từng loại phòng và ngày lưu trú</div></div>
+</div><div class="policy-row">
+<div class="policy-icon"><i class="fas fa-child"></i></div>
+<div><div class="policy-title">Trẻ em</div><div class="policy-desc">Phù hợp cho tất cả trẻ em; từ 18 tuổi trở lên tính như người lớn</div></div>
+</div><div class="policy-row">
+<div class="policy-icon"><i class="fas fa-bed"></i></div>
+<div><div class="policy-title">Nôi / giường phụ</div><div class="policy-desc">Không có giường phụ; nôi/cũi tùy tình trạng có sẵn</div></div>
+</div><div class="policy-row">
+<div class="policy-icon"><i class="fas fa-paw"></i></div>
+<div><div class="policy-title">Vật nuôi</div><div class="policy-desc">Vật nuôi không được phép</div></div>
+</div><div class="policy-row">
+<div class="policy-icon"><i class="fas fa-champagne-glasses"></i></div>
+<div><div class="policy-title">Tiệc tùng / sự kiện</div><div class="policy-desc">Không cho phép tổ chức tiệc tùng hoặc sự kiện</div></div>
+</div><div class="policy-row">
+<div class="policy-icon"><i class="fas fa-id-card"></i></div>
+<div><div class="policy-title">Độ tuổi nhận phòng</div><div class="policy-desc">Không có yêu cầu giới hạn độ tuổi</div></div>
+</div></div>
+</div>
+</div><!-- end detail-main -->
+<!-- RIGHT COLUMN: Booking Sidebar -->
+<div class="booking-sidebar">
+<div class="book-card">
+<div class="book-card-header">
+<div id="selectedRoomHeadline" style="font-size:.82rem;opacity:.8;margin-bottom:4px">Suite Nhìn Ra Thành Phố · 1 giường đôi lớn</div>
+<div class="book-price-row">
+<div class="book-price" id="selectedRoomPrice">1.850.000₫</div>
+<div class="book-price-unit">/đêm</div>
+</div>
+<div class="book-price-old" id="selectedRoomOldPrice">Giá tham khảo: 2.200.000₫</div>
+<div class="book-price-save" id="selectedRoomSave"><i class="fas fa-tag"></i> Tiết kiệm 350.000₫ · Giảm 16%</div>
+</div>
+<div class="book-card-body">
+<div class="book-dates">
+<div class="book-date-row">
+<div class="book-date-field">
+<span class="bdf-label">Nhận phòng</span>
+<div class="bdf-val"><input id="checkin" type="date"/></div>
+</div>
+<div class="book-date-field">
+<span class="bdf-label">Trả phòng</span>
+<div class="bdf-val"><input id="checkout" type="date"/></div>
+</div>
+</div>
+</div>
+<div class="book-guests">
+<i class="fas fa-user-friends"></i>
+<div class="book-guests-inner">
+<span class="bg-label">Số khách</span>
+<div class="bg-val">
+<select id="guestSelect">
+<option value="1 người lớn" data-adults="1" data-children="0">1 người lớn</option>
+<option value="2 người lớn" data-adults="2" data-children="0" selected>2 người lớn</option>
+<option value="2 người lớn + 1 trẻ em" data-adults="2" data-children="1">2 người lớn + 1 trẻ em</option>
+</select>
+</div>
+</div>
+</div>
+<div style="border:1.5px solid var(--border);border-radius:var(--r);padding:10px 12px;margin-bottom:12px">
+<span style="font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px">Loại phòng</span>
+<select id="roomTypeSelect" style="border:none;outline:none;font-size:.9rem;font-weight:600;color:var(--text);background:transparent;width:100%;cursor:pointer">
+<option value="Suite Hạng Tổng Thống">Suite Hạng Tổng Thống</option>
+<option value="Phòng Executive 3 Người">Phòng Executive 3 Người</option>
+<option value="Phòng Deluxe cho 3 Người">Phòng Deluxe cho 3 Người</option>
+<option value="Suite Executive">Suite Executive</option>
+<option value="Suite Nhìn Ra Thành Phố" selected>Suite Nhìn Ra Thành Phố</option>
+<option value="Suite Junior">Suite Junior</option>
+<option value="Phòng Cổ Điển Cho 3 Người">Phòng Cổ Điển Cho 3 Người</option>
+<option value="Phòng Luxury 3 Người">Phòng Luxury 3 Người</option>
+</select>
+</div>
+<div class="book-field book-room-count" id="roomCountField">
+          <span class="book-field-label">Số phòng</span>
+          <div class="book-field-select-wrap">
+            <i class="fas fa-bed book-field-icon"></i>
+            <select id="roomCountSelect" class="book-field-select" aria-label="Số phòng">
+              <option value="1" selected>1 phòng</option>
+            </select>
+          </div>
+        </div>
+
+<div class="book-summary">
+<div class="bs-row"><span class="bs-label" id="roomLineLabel"><strong class="room-night-price">1.850.000₫</strong> × 2 đêm</span><span class="bs-val" id="roomSubtotal">3.700.000₫</span></div>
+<div class="bs-row"><span class="bs-label" id="includedServiceLabel">Bữa sáng tại Restaurant #1 (2 người lớn × 2 ngày)</span><span class="bs-val" id="includedServiceAmount" style="color:var(--green)">Theo gói phòng</span></div>
+<div class="bs-row"><span class="bs-label" id="taxLabel">Thuế &amp; phí dịch vụ (10%)</span><span class="bs-val" id="taxAmount">370.000₫</span></div>
+<div class="bs-row"><span class="bs-label" id="discountLabel">Ưu đãi DenousceBooking (10%)</span><span class="bs-val" id="discountAmount" style="color:var(--green)">-185.000₫</span></div>
+<div class="bs-total">
+<span>Tổng thanh toán</span>
+<span class="bs-total-val" id="totalPrice">3.885.000₫</span>
+</div>
+</div>
+        <div id="roomAvailableNotice" style="font-size:.78rem;font-weight:700;padding:8px 12px;border-radius:10px;margin-bottom:10px;background:#eff6ff;color:#1e40af;display:none;"></div>
+
+                <button class="btn-book-now" id="btnBookNow" onclick="saveBooking()">
+<i class="fas fa-lock"></i> Đặt Phòng Ngay
+        </button>
+<button class="btn-wishlist-book" type="button" data-wishlist-button onclick="toggleWish()">
+<i class="far fa-heart"></i> <span class="wish-label">Lưu vào danh sách</span>
+</button>
+<div class="book-trust">
+<div class="bt-item"><i class="fas fa-check-circle"></i> Chính sách hủy tùy loại phòng</div>
+<div class="bt-item"><i class="fas fa-lock"></i> Thanh toán an toàn</div>
+<div class="bt-item"><i class="fas fa-medal"></i> Vị trí trung tâm Hà Nội</div>
+<div class="bt-item"><i class="fas fa-headset"></i> Hỗ trợ 24/7</div>
+</div>
+</div>
+</div>
+<div style="background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;margin-top:14px;box-shadow:var(--sh-sm)">
+<div style="font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:6px"><i class="fas fa-info-circle" style="color:var(--blue)"></i> Thông tin quan trọng</div>
+<div style="font-size:.78rem;color:var(--muted);line-height:1.7">
+        ✓ Check-in từ <strong>14:00</strong>, Check-out trước <strong>12:00</strong><br/>
+        ✓ Xuất trình CCCD/Hộ chiếu khi nhận phòng<br/>
+        ✓ Vật nuôi không được phép<br/>
+        ✓ Không tổ chức tiệc tùng/sự kiện<br/>
+        ✓ <strong style="color:var(--red)">Giá có thể thay đổi theo ngày lưu trú!</strong>
+</div>
+</div>
+</div>
+</div><!-- end detail-layout -->
+<footer>
+<div class="footer-inner">
+<div class="footer-grid">
+<div>
+<a class="f-logo" href="../../pages/home.html">DenousceBooking<span>.com</span></a>
+<p class="f-desc">Nền tảng đặt phòng khách sạn uy tín hàng đầu Việt Nam. Giá tốt nhất được đảm bảo, hủy miễn phí linh hoạt.</p>
+<div class="f-socials">
+<a class="f-soc" href="#"><i class="fab fa-facebook-f"></i></a>
+<a class="f-soc" href="#"><i class="fab fa-instagram"></i></a>
+<a class="f-soc" href="#"><i class="fab fa-tiktok"></i></a>
+<a class="f-soc" href="#"><i class="fab fa-youtube"></i></a>
+</div>
+</div>
+<div class="f-col"><h5>Hỗ Trợ</h5><ul>
+<li><a href="#">Trung tâm trợ giúp</a></li>
+<li><a href="#">Quản lý đặt phòng</a></li>
+<li><a href="#">Chính sách hoàn tiền</a></li>
+<li><a href="#">Liên hệ 24/7</a></li>
+</ul></div>
+<div class="f-col"><h5>Khám Phá</h5><ul>
+<li><a href="double_room.html">Phòng Đôi</a></li>
+<li><a href="#">Khách sạn 5 sao</a></li>
+<li><a href="#">Resort biển</a></li>
+<li><a href="#">Phú Quốc</a></li>
+</ul></div>
+<div class="f-col"><h5>Về Chúng Tôi</h5><ul>
+<li><a href="#">Giới thiệu</a></li>
+<li><a href="#">Điều khoản sử dụng</a></li>
+<li><a href="#">Chính sách bảo mật</a></li>
+<li><a href="#">Tuyển dụng</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom"><span>© 2026 DenousceBooking Vietnam. All rights reserved.</span></div>
+</div>
+</footer>
+<div class="modal-overlay" id="bookingModal">
+<div class="modal-box">
+<div class="modal-icon"><i class="fas fa-check-circle"></i></div>
+<h2>Đặt phòng thành công!</h2>
+<p>Thông tin đặt phòng đã được lưu vào lịch sử đặt phòng của bạn, chúng tôi sẽ gửi email xác nhận trong vòng 15 phút.</p>
+<div class="modal-ref">Mã đặt phòng: <strong id="bookingRef">BH-2026-00000</strong></div>
+<div style="display:flex;gap:10px;justify-content:center">
+<a class="btn-modal" href="../../user/profile.html">Xem lịch sử đặt phòng</a>
+<button onclick="closeModal()" style="background:none;border:1.5px solid var(--border);border-radius:var(--r);padding:11px 20px;cursor:pointer;font-size:.88rem">Đóng</button>
+</div>
+</div>
+</div>
+<script src="../../asset/js/booking-utils.js"></script>
+<script src="../../data/cities.js"></script>
+<script src="../../data/hotels.js"></script>
+<script src="../../data/orders.js"></script>
+<script>
+const bookingInfo = {
+  hotelCode: "HN-ELIANA",
+  hotelName: "Eliana Robusta Hotel",
+  defaultRoomName: "Suite Nhìn Ra Thành Phố",
+  taxRate: 0.10,
+  discountRate: 0.10,
+  breakfastPrice: 0,
+  includedService: "Bữa sáng tại Restaurant #1",
+  includedServiceValue: "Theo gói phòng",
+  location: "40 Phố Nguyễn Hữu Huân 9, 11000 Hà Nội, Việt Nam",
+  imageUrl: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/857991382.jpg?k=e75e36ea1173f5c695c52c3557b96d41fb0a61d18926f4f488de845e79f5dd51&o=&hp=1",
+  hotelUrl: "../hotels/ha-noi/eliana-robusta-hotel-hanoi.html"
+};
+
+/* Giá riêng cho từng loại phòng; số khách chỉ được lưu, không làm thay đổi giá. */
+const roomPricing = {
+  "Suite Hạng Tổng Thống": {
+    roomName: "Suite Hạng Tổng Thống",
+    description: "Suite Hạng Tổng Thống · Không gian cao cấp",
+    pricePerNight: 3850000,
+    originalPricePerNight: 4620000
+  },
+  "Phòng Executive 3 Người": {
+    roomName: "Phòng Executive 3 Người",
+    description: "Phòng Executive 3 Người · Phố Cổ",
+    pricePerNight: 2350000,
+    originalPricePerNight: 2820000
+  },
+  "Phòng Deluxe cho 3 Người": {
+    roomName: "Phòng Deluxe cho 3 Người",
+    description: "Phòng Deluxe cho 3 Người · Thành phố",
+    pricePerNight: 2050000,
+    originalPricePerNight: 2460000
+  },
+  "Suite Executive": {
+    roomName: "Suite Executive",
+    description: "Suite Executive · Thành phố",
+    pricePerNight: 2450000,
+    originalPricePerNight: 2940000
+  },
+  "Suite Nhìn Ra Thành Phố": {
+    roomName: "Suite Nhìn Ra Thành Phố",
+    description: "Suite Nhìn Ra Thành Phố · 1 giường đôi lớn",
+    pricePerNight: 1850000,
+    originalPricePerNight: 2200000
+  },
+  "Suite Junior": {
+    roomName: "Suite Junior",
+    description: "Suite Junior · Không gian tiện nghi",
+    pricePerNight: 1650000,
+    originalPricePerNight: 1980000
+  },
+  "Phòng Cổ Điển Cho 3 Người": {
+    roomName: "Phòng Cổ Điển Cho 3 Người",
+    description: "Phòng Cổ Điển Cho 3 Người",
+    pricePerNight: 1550000,
+    originalPricePerNight: 1860000
+  },
+  "Phòng Luxury 3 Người": {
+    roomName: "Phòng Luxury 3 Người",
+    description: "Phòng Luxury 3 Người · Cao cấp",
+    pricePerNight: 2150000,
+    originalPricePerNight: 2580000
+  }
+};
+
+
+const defaultRoomCounts = {
+  "Suite Hạng Tổng Thống": 6,
+  "Phòng Executive 3 Người": 5,
+  "Phòng Deluxe cho 3 Người": 4,
+  "Suite Executive": 6,
+  "Suite Nhìn Ra Thành Phố": 5,
+  "Suite Junior": 4,
+  "Phòng Cổ Điển Cho 3 Người": 6,
+  "Phòng Luxury 3 Người": 5
+};
+
+function getCurrentUser() {
+  try {
+    return JSON.parse(localStorage.getItem("currentUser") || "null");
+  } catch (error) {
+    return null;
+  }
+}
+
+function escapeHTML(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function renderAuthBox() {
+  const headerAuth = document.getElementById("headerAuth") || document.getElementById("headerActions");
+  if (!headerAuth) return;
+
+  const currentUser = getCurrentUser();
+  const currencyButton = `
+    <a class="btn-header btn-outline-w" href="#">
+      <i class="fas fa-globe"></i> VN · ₫
+    </a>`;
+
+  if (!currentUser) {
+    headerAuth.innerHTML = currencyButton + `
+      <a class="btn-header btn-outline-w" href="../../user/login.html">Đăng nhập</a>
+      <a class="btn-header btn-yellow" href="../../user/register.html">Đăng ký</a>`;
+    return;
+  }
+
+  const displayName =
+    currentUser.displayName ||
+    currentUser.fullName ||
+    currentUser.name ||
+    currentUser.email ||
+    currentUser.phone ||
+    "Tài khoản";
+
+  headerAuth.innerHTML = currencyButton + `
+    <button class="user-mini-box" type="button" onclick="goToProfile()" title="Xem hồ sơ cá nhân">
+      <i class="fas fa-user-circle"></i>
+      <span>${escapeHTML(displayName)}</span>
+    </button>
+    <button class="btn-logout-small" type="button" onclick="logoutUser()">Đăng xuất</button>`;
+}
+
+function goToProfile() {
+  window.location.href = "../../user/profile.html";
+}
+
+function logoutUser() {
+  localStorage.removeItem("currentUser");
+  window.location.href = "../../user/login.html";
+}
+
+function readStorageArray(key) {
+  try {
+    const data = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function parseDateInput(inputOrValue) {
+  const value = typeof inputOrValue === "string"
+    ? inputOrValue
+    : (inputOrValue ? inputOrValue.value : "");
+  if (!value) return null;
+
+  const parts = value.split("-").map(Number);
+  if (parts.length !== 3 || parts.some(Number.isNaN)) return null;
+  const date = new Date(parts[0], parts[1] - 1, parts[2]);
+
+  if (
+    date.getFullYear() !== parts[0] ||
+    date.getMonth() !== parts[1] - 1 ||
+    date.getDate() !== parts[2]
+  ) return null;
+
+  return date;
+}
+
+function addDays(date, days) {
+  const result = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+function formatDateInput(date) {
+  const pad = number => String(number).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
+function formatDateDisplay(value) {
+  const date = parseDateInput(value);
+  if (!date) return "";
+  const pad = number => String(number).padStart(2, "0");
+  return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()}`;
+}
+
+function formatCurrencyVND(value) {
+  return Math.max(0, Math.round(Number(value) || 0)).toLocaleString("vi-VN") + "₫";
+}
+
+function getSelectedRoomName() {
+  const select = document.getElementById("roomTypeSelect");
+  return select ? select.value : bookingInfo.defaultRoomName;
+}
+
+function getSelectedRoom() {
+  return roomPricing[getSelectedRoomName()] || roomPricing[bookingInfo.defaultRoomName];
+}
+
+function getGuestSelection() {
+  const select = document.getElementById("guestSelect");
+  const option = select && select.options[select.selectedIndex];
+
+  return {
+    guestText: option ? option.value : "2 người lớn",
+    adultCount: option ? Number(option.dataset.adults || 0) : 2,
+    childCount: option ? Number(option.dataset.children || 0) : 0,
+    guestCount: option
+      ? Number(option.dataset.adults || 0) + Number(option.dataset.children || 0)
+      : 2
+  };
+}
+
+function getBookingCalculation() {
+  const checkinInput = document.getElementById("checkin");
+  const checkoutInput = document.getElementById("checkout");
+  let checkinDate = parseDateInput(checkinInput);
+  let checkoutDate = parseDateInput(checkoutInput);
+
+  if (!checkinDate) {
+    checkinDate = addDays(new Date(), 1);
+    if (checkinInput) checkinInput.value = formatDateInput(checkinDate);
+  }
+
+  if (!checkoutDate || checkoutDate <= checkinDate) {
+    checkoutDate = addDays(checkinDate, 1);
+    if (checkoutInput) checkoutInput.value = formatDateInput(checkoutDate);
+  }
+
+  if (checkoutInput) checkoutInput.min = formatDateInput(addDays(checkinDate, 1));
+
+  const room = getSelectedRoom();
+  const nights = Math.max(1, Math.round((checkoutDate - checkinDate) / (24 * 60 * 60 * 1000)));
+  const roomCount = getSelectedRoomCount();
+  const roomSubtotal = room.pricePerNight * nights * roomCount;
+  const breakfastTotal = bookingInfo.breakfastPrice * nights * roomCount;
+  const taxAmount = Math.round((roomSubtotal + breakfastTotal) * bookingInfo.taxRate);
+  const discountAmount = Math.round(roomSubtotal * bookingInfo.discountRate);
+  const totalPrice = Math.max(0, roomSubtotal + breakfastTotal + taxAmount - discountAmount);
+
+  return {
+    room,
+    nights,
+    roomCount,
+    checkinValue: checkinInput ? checkinInput.value : "",
+    checkoutValue: checkoutInput ? checkoutInput.value : "",
+    checkInText: formatDateDisplay(checkinInput ? checkinInput.value : ""),
+    checkOutText: formatDateDisplay(checkoutInput ? checkoutInput.value : ""),
+    roomSubtotal,
+    breakfastTotal,
+    taxAmount,
+    discountAmount,
+    totalPrice
+  };
+}
+
+function updateBookingSummary() {
+  const calculation = getBookingCalculation();
+  const guests = getGuestSelection();
+  const saving = calculation.room.originalPricePerNight - calculation.room.pricePerNight;
+  const savingPercent = Math.round((saving / calculation.room.originalPricePerNight) * 100);
+
+  document.getElementById("selectedRoomHeadline").textContent = calculation.room.description;
+  document.getElementById("selectedRoomPrice").textContent = formatCurrencyVND(calculation.room.pricePerNight);
+  document.getElementById("selectedRoomOldPrice").textContent =
+    `Giá tham khảo: ${formatCurrencyVND(calculation.room.originalPricePerNight)}`;
+  document.getElementById("selectedRoomSave").innerHTML =
+    `<i class="fas fa-tag"></i> Tiết kiệm ${formatCurrencyVND(saving)} · Giảm ${savingPercent}%`;
+
+  document.getElementById("roomLineLabel").innerHTML =
+    `<strong class="room-night-price">${formatCurrencyVND(calculation.room.pricePerNight)}</strong> × ${calculation.nights} đêm × ${calculation.roomCount} phòng`;
+  document.getElementById("roomSubtotal").textContent = formatCurrencyVND(calculation.roomSubtotal);
+  document.getElementById("includedServiceLabel").textContent =
+    `${bookingInfo.includedService} (${guests.guestText} × ${calculation.nights} ngày)`;
+  document.getElementById("includedServiceAmount").textContent =
+    calculation.breakfastTotal > 0 ? formatCurrencyVND(calculation.breakfastTotal) : bookingInfo.includedServiceValue;
+  document.getElementById("taxAmount").textContent = formatCurrencyVND(calculation.taxAmount);
+  document.getElementById("discountAmount").textContent = "-" + formatCurrencyVND(calculation.discountAmount);
+  document.getElementById("totalPrice").textContent = formatCurrencyVND(calculation.totalPrice);
+
+  return calculation;
+}
+
+function formatBookingTime(date) {
+  const pad = number => String(number).padStart(2, "0");
+  return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+function createBookingCode() {
+  return generateBookingCode();
+}
+
+function saveBooking() {
+  const currentUser = getCurrentUser();
+  if (!currentUser) {
+    alert("Bạn cần đăng nhập để đặt phòng");
+    window.location.href = "../../user/login.html";
+    return;
+  }
+
+  var selectedRoomNameNow = getSelectedRoomName();
+  var roomCountToBook = getSelectedRoomCount();
+  var availableNow = getRoomAvailable(bookingInfo.hotelCode, selectedRoomNameNow, defaultRoomCounts[selectedRoomNameNow] || 5);
+  if (availableNow <= 0) {
+    alert('Rất tiếc! Phòng "' + selectedRoomNameNow + '" đã hết. Vui lòng chọn loại phòng khác.');
+    return;
+  }
+  if (roomCountToBook > availableNow) {
+    alert('Số phòng bạn chọn (' + roomCountToBook + ') vượt quá số phòng còn trống (' + availableNow + '). Vui lòng chọn lại.');
+    return;
+  }
+
+  const calculation = updateBookingSummary();
+  const guests = getGuestSelection();
+  const bookingCode = createBookingCode();
+  const totalText = formatCurrencyVND(calculation.totalPrice);
+  const history = readStorageArray("bookingHistory");
+
+  history.push({
+    userEmail: currentUser.email || "",
+    userPhone: currentUser.phone || "",
+    hotelCode: bookingInfo.hotelCode,
+    hotelName: bookingInfo.hotelName,
+    roomName: calculation.room.roomName,
+    selectedRoom: calculation.room.roomName,
+    roomPrice: formatCurrencyVND(calculation.room.pricePerNight),
+    basePricePerNight: calculation.room.pricePerNight,
+    pricePerNight: calculation.room.pricePerNight,
+    defaultRoomCount: defaultRoomCounts[calculation.room.roomName] || 5,
+    guests: guests.guestText,
+    guestText: guests.guestText,
+    adultCount: guests.adultCount,
+    childCount: guests.childCount,
+    guestCount: guests.guestCount,
+    roomCount: calculation.roomCount || getSelectedRoomCount(),
+    roomsBooked: calculation.roomCount || getSelectedRoomCount(),
+    bookingTime: formatBookingTime(new Date()),
+    checkIn: calculation.checkInText,
+    checkOut: calculation.checkOutText,
+    checkin: calculation.checkinValue,
+    checkout: calculation.checkoutValue,
+    checkinDate: calculation.checkinValue,
+    checkoutDate: calculation.checkoutValue,
+    nights: calculation.nights,
+    roomSubtotal: calculation.roomSubtotal,
+    taxAmount: calculation.taxAmount,
+    discountAmount: calculation.discountAmount,
+    totalAmount: calculation.totalPrice,
+    totalPrice: calculation.totalPrice,
+    totalPriceValue: calculation.totalPrice,
+    totalPriceText: totalText,
+    finalTotal: calculation.totalPrice,
+    finalTotalText: totalText,
+    bookingCode,
+    status: "Đã đặt"
+  });
+
+  localStorage.setItem("bookingHistory", JSON.stringify(history));
+  decreaseRoomInventoryByCount(bookingInfo.hotelCode, calculation.room.roomName, calculation.roomCount || getSelectedRoomCount());
+  updateRoomAvailabilityUI();
+  const reference = document.getElementById("bookingRef");
+  if (reference) reference.textContent = bookingCode;
+  openModal();
+}
+
+function openModal() {
+  const modal = document.getElementById("bookingModal");
+  if (modal) modal.classList.add("open");
+}
+
+function closeModal() {
+  const modal = document.getElementById("bookingModal");
+  if (modal) modal.classList.remove("open");
+}
+
+const bookingModal = document.getElementById("bookingModal");
+if (bookingModal) {
+  bookingModal.addEventListener("click", function(event) {
+    if (event.target === bookingModal) closeModal();
+  });
+}
+
+function getFavoriteHotels() {
+  return readStorageArray("favoriteHotels");
+}
+
+function isCurrentUserFavorite(item, user) {
+  const belongsToUser =
+    (item.userEmail && user.email && item.userEmail === user.email) ||
+    (item.userPhone && user.phone && item.userPhone === user.phone);
+
+  return belongsToUser &&
+    item.hotelCode === bookingInfo.hotelCode &&
+    item.roomName === getSelectedRoomName();
+}
+
+function updateWishButtons(isSaved) {
+  document.querySelectorAll("[data-wishlist-button]").forEach(function(button) {
+    const icon = button.querySelector("i");
+    const label = button.querySelector(".wish-label");
+
+    if (icon) {
+      icon.classList.toggle("far", !isSaved);
+      icon.classList.toggle("fas", isSaved);
+    }
+
+    if (label) {
+      label.textContent = button.classList.contains("btn-wishlist-book")
+        ? (isSaved ? "Đã lưu vào danh sách yêu thích" : "Lưu vào danh sách")
+        : (isSaved ? "Đã lưu" : "Lưu");
+    }
+  });
+}
+
+function loadWishState() {
+  const currentUser = getCurrentUser();
+  if (!currentUser) {
+    updateWishButtons(false);
+    return;
+  }
+
+  updateWishButtons(getFavoriteHotels().some(item => isCurrentUserFavorite(item, currentUser)));
+}
+
+function toggleWish() {
+  const currentUser = getCurrentUser();
+  if (!currentUser) {
+    alert("Bạn cần đăng nhập để lưu khách sạn yêu thích.");
+    window.location.href = "../../user/login.html";
+    return;
+  }
+
+  const favorites = getFavoriteHotels();
+  const index = favorites.findIndex(item => isCurrentUserFavorite(item, currentUser));
+
+  if (index >= 0) {
+    favorites.splice(index, 1);
+    localStorage.setItem("favoriteHotels", JSON.stringify(favorites));
+    updateWishButtons(false);
+    return;
+  }
+
+  const room = getSelectedRoom();
+  favorites.push({
+    userEmail: currentUser.email || "",
+    userPhone: currentUser.phone || "",
+    hotelCode: bookingInfo.hotelCode,
+    hotelName: bookingInfo.hotelName,
+    roomName: room.roomName,
+    location: bookingInfo.location,
+    roomPrice: formatCurrencyVND(room.pricePerNight) + " / đêm",
+    basePricePerNight: room.pricePerNight,
+    imageUrl: bookingInfo.imageUrl,
+    hotelUrl: bookingInfo.hotelUrl,
+    savedAt: formatBookingTime(new Date())
+  });
+
+  localStorage.setItem("favoriteHotels", JSON.stringify(favorites));
+  updateWishButtons(true);
+}
+
+const today = new Date();
+const defaultCheckin = addDays(today, 1);
+const defaultCheckout = addDays(defaultCheckin, 2);
+const checkinInput = document.getElementById("checkin");
+const checkoutInput = document.getElementById("checkout");
+const roomTypeSelect = document.getElementById("roomTypeSelect");
+const guestSelect = document.getElementById("guestSelect");
+
+if (checkinInput && !checkinInput.value) checkinInput.value = formatDateInput(defaultCheckin);
+if (checkoutInput && !checkoutInput.value) checkoutInput.value = formatDateInput(defaultCheckout);
+
+if (checkinInput) {
+  checkinInput.min = formatDateInput(today);
+  checkinInput.addEventListener("change", updateBookingSummary);
+  checkinInput.addEventListener("input", updateBookingSummary);
+}
+
+if (checkoutInput) {
+  checkoutInput.min = formatDateInput(addDays(defaultCheckin, 1));
+  checkoutInput.addEventListener("change", updateBookingSummary);
+  checkoutInput.addEventListener("input", updateBookingSummary);
+}
+
+if (roomTypeSelect) {
+  roomTypeSelect.addEventListener("change", function() {
+  updateRoomAvailabilityUI();
+  updateBookingSummary();
+  loadWishState();
+});
+}
+
+if (guestSelect) guestSelect.addEventListener("change", updateBookingSummary);
+
+
+
+var roomCountSelect = document.getElementById("roomCountSelect");
+if (roomCountSelect) roomCountSelect.addEventListener("change", updateBookingSummary);
+updateRoomAvailabilityUI();
+renderAuthBox();
+loadWishState();
+
+initRoomInventory(bookingInfo.hotelCode, defaultRoomCounts);
+
+function updateRoomAvailabilityUI() {
+  var roomName = getSelectedRoomName ? getSelectedRoomName() : bookingInfo.defaultRoomName || bookingInfo.roomName;
+  var available = getRoomAvailable(bookingInfo.hotelCode, roomName, defaultRoomCounts[roomName] || 5);
+  syncRoomCountSelect(available);
+  var roomCountField = document.getElementById("roomCountField");
+  if (roomCountField) roomCountField.style.display = available <= 0 ? "none" : "";
+  var notice = document.getElementById("roomAvailableNotice");
+  var btnBookNow = document.getElementById("btnBookNow");
+  if (!notice) return;
+  if (available <= 0) {
+    notice.style.display = "block";
+    notice.style.background = "#fef2f2";
+    notice.style.color = "#b91c1c";
+    notice.innerHTML = '<i class="fas fa-ban"></i> Phòng này đã hết. Vui lòng chọn loại phòng khác.';
+    if (btnBookNow) { btnBookNow.disabled = true; btnBookNow.style.opacity = "0.45"; btnBookNow.style.cursor = "not-allowed"; }
+  } else if (available <= 2) {
+    notice.style.display = "block";
+    notice.style.background = "#fff7ed";
+    notice.style.color = "#c2410c";
+    notice.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Chỉ còn <strong>' + available + ' phòng</strong> với loại này!';
+    if (btnBookNow) { btnBookNow.disabled = false; btnBookNow.style.opacity = ""; btnBookNow.style.cursor = ""; }
+  } else {
+    notice.style.display = "block";
+    notice.style.background = "#eff6ff";
+    notice.style.color = "#1e40af";
+    notice.innerHTML = '<i class="fas fa-check-circle"></i> Còn <strong>' + available + ' phòng</strong> trống.';
+    if (btnBookNow) { btnBookNow.disabled = false; btnBookNow.style.opacity = ""; btnBookNow.style.cursor = ""; }
+  }
+}
+
+updateRoomAvailabilityUI();
+updateBookingSummary();
+
+</script>
+</body>
+</html>

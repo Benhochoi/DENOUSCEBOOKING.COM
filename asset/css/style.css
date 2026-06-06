@@ -950,6 +950,68 @@ button, input, select { font-family: inherit; }
   color: var(--text); background: transparent; width: 100%; cursor: pointer;
 }
 
+/* Ô chọn dùng chung: Loại phòng, Số phòng */
+.book-field {
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.book-field-label {
+  font-size: .68rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  display: block;
+  margin-bottom: 4px;
+}
+.book-field-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+.book-field-icon {
+  color: var(--muted);
+  font-size: .9rem;
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+}
+.book-field-select {
+  border: none;
+  outline: none;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--text);
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 24px;
+}
+.book-field-select-wrap::after {
+  content: "\f078";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: .72rem;
+  color: var(--muted);
+  pointer-events: none;
+}
+.book-field-select:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+}
+.book-room-count {
+  margin-bottom: 12px;
+}
+
 .book-summary {
   background: var(--bg); border-radius: var(--r);
   padding: 12px 14px; margin-bottom: 14px;
@@ -1076,4 +1138,106 @@ footer {
   .policies-list { grid-template-columns: 1fr; }
   .search-bar { flex-direction: column; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+/* FIX FOOTER BỊ XẾP DỌC */
+footer {
+  background: #0f2f43;
+  color: #fff;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 55px 20px 25px;
+}
+
+.footer-grid {
+  display: grid !important;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr !important;
+  gap: 70px !important;
+  align-items: flex-start !important;
+}
+
+.f-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.f-logo span,
+.logo-dot {
+  color: #ffc107;
+}
+
+.f-desc {
+  color: rgba(255,255,255,0.82);
+  line-height: 1.7;
+  max-width: 300px;
+  margin: 0;
+}
+
+.f-socials {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin-top: 24px !important;
+}
+
+.f-soc {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  text-decoration: none;
+}
+
+.f-col h5 {
+  color: #fff;
+  font-size: 16px;
+  margin: 0 0 18px;
+}
+
+.f-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.f-col li {
+  margin-bottom: 14px;
+}
+
+.f-col a {
+  color: rgba(255,255,255,0.78);
+  text-decoration: none;
+}
+
+.f-col a:hover {
+  color: #ffc107;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.15);
+  margin-top: 45px;
+  padding-top: 22px;
+  color: #ffc107;
+  font-size: 14px;
+}
+
+/* Nếu màn hình quá nhỏ thì mới cho xuống dọc */
+@media (max-width: 700px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
 }

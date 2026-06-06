@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tất cả khách sạn — DenousceBooking</title>
+ 
+  <link rel="stylesheet" href="../asset/css/style.css">
+  <link rel="stylesheet" href="../asset/css/component.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ 
+  <style>
+    .nav-dropdown {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+ 
+    .nav-dropdown > .h-nav-link {
+      cursor: pointer;
+    }
+ 
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 230px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 8px;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.22);
+      display: none;
+      z-index: 999;
+    }
+ 
+    .nav-dropdown::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 100%;
+      width: 100%;
+      height: 14px;
+    }
+ 
+    .nav-dropdown:hover .dropdown-menu {
+      display: block;
+    }
+ 
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 13px;
+      border-radius: 10px;
+      color: #06172d;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+ 
+    .dropdown-menu a:hover {
+      background: #eef2ff;
+      color: #1a56db;
+    }
+ 
+    .user-mini-box {
+      min-height: 46px;
+      height: 46px;
+      padding: 0 16px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 15px;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.55);
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.25s ease;
+    }
+ 
+    .user-mini-box:hover {
+      background: rgba(255,255,255,0.22);
+      transform: translateY(-1px);
+    }
+ 
+    .btn-logout-small {
+      min-height: 46px;
+      height: 46px;
+      padding: 0 18px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ffc107;
+      color: #06172d;
+      font-weight: 900;
+      font-size: 15px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+      transition: 0.25s ease;
+    }
+ 
+    .btn-logout-small:hover {
+      filter: brightness(0.96);
+      transform: translateY(-1px);
+    }
+ 
+    .all-hotels-hero {
+      background-image:
+        linear-gradient(rgba(4, 17, 35, 0.58), rgba(4, 17, 35, 0.45)),
+        url("../images/nightviewhotel.jpg");
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      padding: 82px 20px 94px;
+      color: #fff;
+      text-align: center;
+    }
+ 
+    .all-hotels-hero h1 {
+      font-size: 46px;
+      line-height: 1.15;
+      margin: 0 0 14px;
+      font-weight: 900;
+      text-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    }
+ 
+    .all-hotels-hero p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 0 auto;
+      max-width: 780px;
+      color: rgba(255,255,255,0.93);
+    }
+ 
+    .all-hotels-page {
+      background: #f5f7fb;
+      padding: 46px 20px 80px;
+    }
+ 
+    .all-hotels-wrapper {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+ 
+    .result-toolbar {
+      background: #fff;
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 12px 35px rgba(15,23,42,0.08);
+      display: grid;
+      grid-template-columns: 1.4fr 220px 220px;
+      gap: 16px;
+      margin-bottom: 34px;
+      align-items: center;
+    }
+ 
+    .toolbar-field {
+      min-height: 54px;
+      background: #f8fafc;
+      border: 1.5px solid #dbe3ef;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 15px;
+    }
+ 
+    .toolbar-field i {
+      color: #1a56db;
+      font-size: 17px;
+    }
+ 
+    .toolbar-field input,
+    .toolbar-field select {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 15px;
+      font-weight: 700;
+      color: #06172d;
+      font-family: inherit;
+    }
+ 
+    .result-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+ 
+    .result-heading h2 {
+      font-size: 30px;
+      color: #06172d;
+      margin: 0;
+      font-weight: 900;
+    }
+ 
+    .result-heading h2 i {
+      color: #1a56db;
+      margin-right: 10px;
+    }
+ 
+    .result-count {
+      color: #64748b;
+      font-size: 15px;
+      font-weight: 800;
+    }
+ 
+    .hotel-card {
+      opacity: 1;
+      transform: none;
+      transition: 0.25s ease;
+    }
+ 
+    .hotel-card:hover {
+      transform: translateY(-6px);
+    }
+ 
+    .hotel-card.hide {
+      display: none;
+    }
+ 
+    .empty-result {
+      display: none;
+      background: #fff;
+      border-radius: 22px;
+      padding: 42px 24px;
+      text-align: center;
+      box-shadow: 0 12px 35px rgba(15,23,42,0.08);
+      color: #64748b;
+      font-weight: 800;
+      line-height: 1.7;
+    }
+ 
+    .empty-result.show {
+      display: block;
+    }
+ 
+    .empty-result i {
+      display: block;
+      font-size: 46px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+    }
+ 
+    @media (max-width: 980px) {
+      .result-toolbar {
+        grid-template-columns: 1fr;
+      }
+ 
+      .all-hotels-hero h1 {
+        font-size: 36px;
+      }
+    }
+ 
+    @media (max-width: 768px) {
+      .all-hotels-hero {
+        padding: 64px 18px 74px;
+      }
+ 
+      .all-hotels-hero h1 {
+        font-size: 32px;
+      }
+ 
+      .all-hotels-hero p {
+        font-size: 16px;
+      }
+ 
+      .result-heading {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+ 
+      .dropdown-menu {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+ 
+      .user-mini-box,
+      .btn-logout-small {
+        height: 44px;
+        min-height: 44px;
+        padding: 0 14px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+ 
+<body>
+ 
+<header class="header">
+  <div class="header-top">
+    <a class="logo" href="home.html">
+      <img src="../images/logo.png" style="width:50px; height:50px;" alt="logo">
+      DenousceBooking<span class="logo-dot">.COM</span>
+    </a>
+ 
+    <nav class="header-nav">
+      <a class="h-nav-link" href="home.html">
+        <i class="fas fa-home"></i> Trang Chủ
+      </a>
+ 
+      <a class="h-nav-link" href="about-us.html">
+        <i class="fas fa-circle-info"></i> Về Chúng Tôi
+      </a>
+ 
+      <div class="nav-dropdown">
+        <a class="h-nav-link active" href="javascript:void(0)">
+          <i class="fas fa-map-marker-alt"></i> Địa Điểm
+          <i class="fas fa-chevron-down"></i>
+        </a>
+ 
+        <div class="dropdown-menu">
+          <a href="../cities/ha-noi.html">
+            <i class="fas fa-location-dot"></i> Hà Nội
+          </a>
+ 
+          <a href="../cities/ho-chi-minh.html">
+            <i class="fas fa-location-dot"></i> TP. Hồ Chí Minh
+          </a>
+ 
+          <a href="../cities/da-nang.html">
+            <i class="fas fa-location-dot"></i> Đà Nẵng
+          </a>
+ 
+          <a href="../cities/phu-quoc.html">
+            <i class="fas fa-location-dot"></i> Phú Quốc
+          </a>
+        </div>
+      </div>
+ 
+      <a class="h-nav-link" href="contact.html">
+        <i class="fas fa-phone"></i> Liên Hệ
+      </a>
+    </nav>
+ 
+    <div class="header-actions" id="headerActions">
+      <a class="btn-header btn-outline-w" href="#">
+        <i class="fas fa-globe"></i> VN · ₫
+      </a>
+ 
+      <a class="btn-header btn-outline-w" href="../user/login.html">Đăng nhập</a>
+      <a class="btn-header btn-yellow" href="../user/register.html">Đăng ký</a>
+    </div>
+  </div>
+</header>
+ 
+<section class="all-hotels-hero">
+  <h1>Tất Cả Khách Sạn</h1>
+  <p>
+    Khám phá toàn bộ khách sạn nổi bật tại Hà Nội, TP. Hồ Chí Minh, Đà Nẵng và Phú Quốc.
+    Dễ dàng lọc theo địa điểm, tên khách sạn và mức giá phù hợp.
+  </p>
+</section>
+ 
+<main class="all-hotels-page">
+  <div class="all-hotels-wrapper">
+ 
+    <div class="result-toolbar">
+      <div class="toolbar-field">
+        <i class="fas fa-search"></i>
+        <input type="text" id="keywordInput" placeholder="Tìm theo tên khách sạn hoặc địa điểm...">
+      </div>
+ 
+      <div class="toolbar-field">
+        <i class="fas fa-location-dot"></i>
+        <select id="cityFilter">
+          <option value="all">Tất cả địa điểm</option>
+          <option value="ha-noi">Hà Nội</option>
+          <option value="ho-chi-minh">TP. Hồ Chí Minh</option>
+          <option value="da-nang">Đà Nẵng</option>
+          <option value="phu-quoc">Phú Quốc</option>
+        </select>
+      </div>
+ 
+      <div class="toolbar-field">
+        <i class="fas fa-arrow-down-wide-short"></i>
+        <select id="sortFilter">
+          <option value="default">Sắp xếp mặc định</option>
+          <option value="price-asc">Giá thấp đến cao</option>
+          <option value="price-desc">Giá cao đến thấp</option>
+          <option value="score-desc">Điểm cao nhất</option>
+        </select>
+      </div>
+    </div>
+ 
+    <div class="result-heading">
+      <h2 id="searchResultTitle">
+        <i class="fas fa-hotel"></i>
+        Danh sách khách sạn
+      </h2>
+      <div class="result-count" id="resultCount">Đang hiển thị tất cả khách sạn</div>
+    </div>
+ 
+    <div class="hotels-grid" id="hotelsGrid">
+
+      <!-- HÀ NỘI -->
+      <a class="hotel-card" data-city="ha-noi" data-name="Sofitel Legend Metropole Hà Nội Hoàn Kiếm khách sạn 5 sao" data-price="3850000" data-score="9.4" href="../hotels/ha-noi/sofitel-legend-metropole-ha-noi.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="https://images.unsplash.com/photo-1549294413-26f195200c16?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Sofitel Legend Metropole Hà Nội">
+          <span class="hc-badge genius">Genius</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★★</div>
+              <div class="hc-name">Sofitel Legend Metropole Hà Nội</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.4</div>
+              <div class="hc-score-lbl">Xuất sắc</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Hoàn Kiếm, Hà Nội</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Hủy miễn phí</span>
+            <span class="hc-tag green">Bao sáng</span>
+            <span class="hc-tag">Hồ bơi</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">5.500.000₫</div>
+              <div class="hc-price">3.850.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="ha-noi" data-name="Hanoi Center Silk Classic Hotel Travel Hoàn Kiếm Hà Nội Phố cổ" data-price="950000" data-score="8.5" href="../hotels/ha-noi/Hanoi-Center-Silk-Classic-Hotel.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/Background-ks-HaNoi/bghncentersilk.jpg" alt="Hanoi Center Silk Classic Hotel &amp; Travel">
+          <span class="hc-badge deal">-27%</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★</div>
+              <div class="hc-name">Hanoi Center Silk Classic Hotel &amp; Travel</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.5</div>
+              <div class="hc-score-lbl">Rất tốt</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Hoàn Kiếm, Hà Nội</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Gần phố cổ</span>
+            <span class="hc-tag green">WiFi miễn phí</span>
+            <span class="hc-tag">Trung tâm</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">1.300.000₫</div>
+              <div class="hc-price">950.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="ha-noi" data-name="L&#x27;Heritage Premium Hanoi Central Phố cổ Hà Nội khách sạn 5 sao" data-price="1850000" data-score="9.0" href="../hotels/ha-noi/LHeritage-Premium-Hanoi-Central.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/Background-ks-HaNoi/bglheritageprehn.jpg" alt="L&#x27;Heritage Premium Hanoi Central">
+          <span class="hc-badge genius">Genius</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★★</div>
+              <div class="hc-name">L&#x27;Heritage Premium Hanoi Central</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.0</div>
+              <div class="hc-score-lbl">Tuyệt hảo</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Phố cổ, Hà Nội</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Vị trí đẹp</span>
+            <span class="hc-tag green">Bao sáng</span>
+            <span class="hc-tag">Rooftop</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">2.500.000₫</div>
+              <div class="hc-price">1.850.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="ha-noi" data-name="La Passion Hanoi Hotel Spa Hoàn Kiếm Hà Nội" data-price="2150000" data-score="9.2" href="../hotels/ha-noi/la-passion-hanoi-hotel-spa.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/Background-ks-HaNoi/bglapassion.jpg" alt="La Passion Hanoi Hotel &amp; Spa">
+          <span class="hc-badge genius">Genius</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★</div>
+              <div class="hc-name">La Passion Hanoi Hotel &amp; Spa</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.2</div>
+              <div class="hc-score-lbl">Tuyệt vời</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Hoàn Kiếm, Hà Nội</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Gần phố cổ</span>
+            <span class="hc-tag green">Bao sáng</span>
+            <span class="hc-tag">Spa</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">2.800.000₫</div>
+              <div class="hc-price">2.150.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="ha-noi" data-name="Amira Hotel Hanoi Hoàn Kiếm Hà Nội Suite Junior Ban Công" data-price="1850000" data-score="9.4" href="../hotels/ha-noi/amira-hotel-hanoi.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hanoi.jpg" alt="Amira Hotel Hanoi">
+          <span class="hc-badge new">Mới mở</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★</div>
+              <div class="hc-name">Amira Hotel Hanoi</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.4</div>
+              <div class="hc-score-lbl">Xuất sắc</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Hoàn Kiếm, Hà Nội</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Ban công</span>
+            <span class="hc-tag">Trung tâm</span>
+            <span class="hc-tag green">Ưu đãi tốt</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">2.450.000₫</div>
+              <div class="hc-price">1.850.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="ha-noi" data-name="Eliana Robusta Hotel Hà Nội Nguyễn Hữu Huân Hoàn Kiếm" data-price="1850000" data-score="9.8" href="../hotels/ha-noi/eliana-robusta-hotel-hanoi.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/857989171.jpg?k=4f44f59d6174b554c13fd9fd4b9ca04e0d248d84849803b45bcf60293eb9abf4&amp;o=&amp;hp=1" alt="Eliana Robusta Hotel">
+          <span class="hc-badge genius">9.8 điểm</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★</div>
+              <div class="hc-name">Eliana Robusta Hotel</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.8</div>
+              <div class="hc-score-lbl">Xuất sắc</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Hoàn Kiếm, Hà Nội</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Lễ tân 24/7</span>
+            <span class="hc-tag">View thành phố</span>
+            <span class="hc-tag green">WiFi miễn phí</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">2.300.000₫</div>
+              <div class="hc-price">1.850.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- TP. HỒ CHÍ MINH -->
+      <a class="hotel-card" data-city="ho-chi-minh" data-name="KT SG Hotel Center Cách Mạng Tháng Tám TP Hồ Chí Minh" data-price="643500" data-score="8.4" href="../hotels/ho-chi-minh/KT-SG-Hotel-Centel.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/KT-SG-Hotel-Centel/KT-SG-Hotel-Centel.jpg" alt="KT SG Hotel - Center">
+          <span class="hc-badge deal">-61%</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★</div>
+              <div class="hc-name">KT SG Hotel - Center</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.4</div>
+              <div class="hc-score-lbl">Rất tốt</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Quận 3, TP. Hồ Chí Minh</div>
+          <div class="hc-tags">
+            <span class="hc-tag">WiFi miễn phí</span>
+            <span class="hc-tag">Chỗ đỗ xe</span>
+            <span class="hc-tag green">Ưu đãi 61%</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">1.650.000₫</div>
+              <div class="hc-price">643.500₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="ho-chi-minh" data-name="Luxury KAS Premium Hotel Classic Nautical Style Bùi Thị Xuân TP Hồ Chí Minh" data-price="220806" data-score="9.5" href="../hotels/ho-chi-minh/Luxury-KAS-Premium-Hotel-Classic-Nautical-Style.htm">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/Luxury-KAS-Premium-Hotel-Classic-Nautical-Style/Luxury-KAS-Premium-Hotel-Classic-Nautical-Style.jpg" alt="Luxury KAS Premium Hotel">
+          <span class="hc-badge genius">Genius</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★</div>
+              <div class="hc-name">Luxury KAS Premium Hotel - Classic Nautical Style</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.5</div>
+              <div class="hc-score-lbl">Xuất sắc</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Bùi Thị Xuân, TP. Hồ Chí Minh</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Trung tâm</span>
+            <span class="hc-tag">Phong cách nautical</span>
+            <span class="hc-tag green">WiFi miễn phí</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">245.340₫</div>
+              <div class="hc-price">220.806₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="ho-chi-minh" data-name="Park Hyatt Saigon Hotel Quận 1 TP Hồ Chí Minh" data-price="2750000" data-score="9.1" href="../hotels/ho-chi-minh/park-hyatt-saigon.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/park-hyatt-saigon/Park-Hyatt-Saigon (1).jpg" alt="Park Hyatt Saigon">
+          <span class="hc-badge genius">Genius</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★★</div>
+              <div class="hc-name">Park Hyatt Saigon Hotel</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.1</div>
+              <div class="hc-score-lbl">Tuyệt vời</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Quận 1, TP. Hồ Chí Minh</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Hủy miễn phí</span>
+            <span class="hc-tag">Bar rooftop</span>
+            <span class="hc-tag green">Bao sáng</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">3.500.000₫</div>
+              <div class="hc-price">2.750.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="ho-chi-minh" data-name="Saigon Hotel Mansion Hanoi Ben Thanh Market Quận 1 TP Hồ Chí Minh" data-price="1248696" data-score="9.6" href="../hotels/ho-chi-minh/Saigon Hotel - Mansion Hanoi - Ben Thanh Market.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/Saigon Hotel - Mansion Hanoi - Ben Thanh Market/Saigon Hotel - Mansion Hanoi - Ben Thanh Market.jpg" alt="Saigon Hotel Mansion Hanoi Ben Thanh Market">
+          <span class="hc-badge genius">Genius</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★★</div>
+              <div class="hc-name">Saigon Hotel - Mansion Hanoi - Ben Thanh Market</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.6</div>
+              <div class="hc-score-lbl">Xuất sắc</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Quận 1, TP. Hồ Chí Minh</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Gần Chợ Bến Thành</span>
+            <span class="hc-tag">Nhà hàng</span>
+            <span class="hc-tag green">Phòng gia đình</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">1.387.440₫</div>
+              <div class="hc-price">1.248.696₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="ho-chi-minh" data-name="The One Premium Hotel 1 Minute to Ben Thanh Market Quận 1 TP Hồ Chí Minh" data-price="672000" data-score="8.7" href="../hotels/ho-chi-minh/The-One-Premium-Hotel-1-Minute-to-Ben-Thanh-Market.htm">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hochiminh.jpg" alt="The One Premium Hotel">
+          <span class="hc-badge deal">-29%</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★</div>
+              <div class="hc-name">The One Premium Hotel - 1 Minute to Ben Thanh Market</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.7</div>
+              <div class="hc-score-lbl">Tuyệt vời</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Gần Chợ Bến Thành, TP. Hồ Chí Minh</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Cách chợ 1 phút</span>
+            <span class="hc-tag">Bồn tắm</span>
+            <span class="hc-tag green">Trung tâm</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">950.000₫</div>
+              <div class="hc-price">672.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="ho-chi-minh" data-name="Vintage Hotel Spa Central District 1 Ho Chi Minh City Quận 1 TP Hồ Chí Minh" data-price="594000" data-score="7.3" href="../hotels/ho-chi-minh/Vintage-Hotel-Spa-Central-District-1-Ho-Chi-Minh-City.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/Vintage-Hotel-Spa-Central-District-1-Ho-Chi-Minh-City/Vintage-Hotel-Spa-Central-District-1-Ho-Chi-Minh-City.jpg" alt="Vintage Hotel &amp; Spa Central District 1">
+          <span class="hc-badge genius">Genius</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★</div>
+              <div class="hc-name">Vintage Hotel &amp; Spa - Central District 1</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">7.3</div>
+              <div class="hc-score-lbl">Tốt</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Quận 1, TP. Hồ Chí Minh</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Quận 1</span>
+            <span class="hc-tag">Spa</span>
+            <span class="hc-tag green">WiFi miễn phí</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">Đã bao gồm thuế và phí</div>
+              <div class="hc-price">594.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- ĐÀ NẴNG -->
+      <a class="hotel-card" data-city="da-nang" data-name="Cordial Grand Hotel Da Nang Beach Infinity Rooftop Pool Sơn Trà Đà Nẵng" data-price="1250000" data-score="8.6" href="../hotels/da-nang/cordial-grand.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/cordial-grand-hotel-da-nang-beach-infinity-rooftop-pool-images/anh1.jpg" alt="Cordial Grand Hotel Đà Nẵng">
+          <span class="hc-badge deal">-30%</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★</div>
+              <div class="hc-name">Cordial Grand Hotel Da Nang Beach</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.6</div>
+              <div class="hc-score-lbl">Rất tốt</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Sơn Trà, Đà Nẵng</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Hồ bơi rooftop</span>
+            <span class="hc-tag">Spa &amp; Gym</span>
+            <span class="hc-tag green">Bao sáng</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">1.790.000₫</div>
+              <div class="hc-price">1.250.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="da-nang" data-name="HAIAN Beach Hotel Spa Võ Nguyên Giáp Đà Nẵng Mỹ Khê" data-price="1450000" data-score="9.0" href="../hotels/da-nang/haian-beach-hotel-spa.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/haian-beach-hotel-spa-images/anh1.jpg" alt="HAIAN Beach Hotel &amp; Spa">
+          <span class="hc-badge deal">-30%</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★</div>
+              <div class="hc-name">HAIAN Beach Hotel &amp; Spa</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.0</div>
+              <div class="hc-score-lbl">Tuyệt vời</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Ngũ Hành Sơn, Đà Nẵng</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Infinity pool</span>
+            <span class="hc-tag">Spa &amp; Gym</span>
+            <span class="hc-tag green">Bao sáng</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">2.070.000₫</div>
+              <div class="hc-price">1.450.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="da-nang" data-name="InterContinental Đà Nẵng Sun Peninsula Sơn Trà Resort" data-price="4200000" data-score="9.2" href="../hotels/da-nang/intercontinental-da-nang-sun-peninsula.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/intercontinental-da-nang-sun-peninsula-resort-images/anh1.jpg" alt="InterContinental Đà Nẵng">
+          <span class="hc-badge deal">-30%</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★★</div>
+              <div class="hc-name">InterContinental Đà Nẵng Sun Peninsula</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.2</div>
+              <div class="hc-score-lbl">Tuyệt vời</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Sơn Trà, Đà Nẵng</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Bãi biển riêng</span>
+            <span class="hc-tag">Hồ bơi vô cực</span>
+            <span class="hc-tag green">Bao sáng</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">6.000.000₫</div>
+              <div class="hc-price">4.200.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="da-nang" data-name="Sala Danang Beach Hotel Mỹ Khê Đà Nẵng rooftop bar" data-price="1350000" data-score="9.1" href="../hotels/da-nang/sala-danang-beach-hotel.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Sala Danang Beach Hotel">
+          <span class="hc-badge deal">-30%</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★</div>
+              <div class="hc-name">Sala Danang Beach Hotel</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.1</div>
+              <div class="hc-score-lbl">Tuyệt vời</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> An Hải, Đà Nẵng</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Infinity pool</span>
+            <span class="hc-tag">Rooftop bar</span>
+            <span class="hc-tag green">Bao sáng</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">1.930.000₫</div>
+              <div class="hc-price">1.350.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="da-nang" data-name="Sekong Hotel Da Nang Sơn Trà bãi biển Mỹ Khê" data-price="820000" data-score="8.4" href="../hotels/da-nang/sekong-da-nang.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/sekong-hotel-da-nang-images/anh1.jpg" alt="Sekong Hotel Da Nang">
+          <span class="hc-badge deal">-29%</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★</div>
+              <div class="hc-name">Sekong Hotel Da Nang</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.4</div>
+              <div class="hc-score-lbl">Rất tốt</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Sơn Trà, Đà Nẵng</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Gần biển</span>
+            <span class="hc-tag">Phòng đẹp</span>
+            <span class="hc-tag green">Giá tốt</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">1.150.000₫</div>
+              <div class="hc-price">820.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="da-nang" data-name="Seaforest Hotel by Haviland Đà Nẵng Sơn Trà" data-price="690000" data-score="8.8" href="../hotels/da-nang/seaforest-by-haviland.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/danang.jpg" alt="Seaforest Hotel by Haviland">
+          <span class="hc-badge new">Mới</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★</div>
+              <div class="hc-name">Seaforest Hotel by Haviland</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.8</div>
+              <div class="hc-score-lbl">Tuyệt vời</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Sơn Trà, Đà Nẵng</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Giá tốt</span>
+            <span class="hc-tag green">WiFi miễn phí</span>
+            <span class="hc-tag">Gần biển</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">980.000₫</div>
+              <div class="hc-price">690.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- PHÚ QUỐC -->
+      <a class="hotel-card" data-city="phu-quoc" data-name="JW Marriott Phú Quốc Emerald Bay Bãi Khem An Thới Phú Quốc" data-price="5100000" data-score="9.6" href="../hotels/phu-quoc/jw-marriott-phu-quoc-emerald-bay.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="JW Marriott Phú Quốc">
+          <span class="hc-badge genius">Genius</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★★</div>
+              <div class="hc-name">JW Marriott Phú Quốc Emerald Bay</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.6</div>
+              <div class="hc-score-lbl">Hoàn hảo</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Bãi Khem, Phú Quốc</div>
+          <div class="hc-tags">
+            <span class="hc-tag">4 hồ bơi</span>
+            <span class="hc-tag green">Bao sáng</span>
+            <span class="hc-tag">Spa 5 sao</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">6.800.000₫</div>
+              <div class="hc-price">5.100.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="phu-quoc" data-name="Crystal Apartment Hillside Phú Quốc Sunset Town Firework An Thới" data-price="1250000" data-score="8.8" href="../hotels/phu-quoc/Crystal-Apartment-Hillside-PhuQuoc.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/Background-ks-PhuQuoc/bgcrystalapm.jpg" alt="Crystal Apartment Hillside Phú Quốc">
+          <span class="hc-badge genius">Genius</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★☆</div>
+              <div class="hc-name">Crystal Apartment Hillside Phú Quốc</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.8</div>
+              <div class="hc-score-lbl">Xuất sắc</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Sunset Town, Phú Quốc</div>
+          <div class="hc-tags">
+            <span class="hc-tag">View biển</span>
+            <span class="hc-tag green">Gần cáp treo</span>
+            <span class="hc-tag">Căn hộ nghỉ dưỡng</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Căn hộ từ</div>
+              <div class="hc-price-old">1.650.000₫</div>
+              <div class="hc-price">1.250.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="phu-quoc" data-name="Dusit Princess Moonrise Beach Resort Phú Quốc Bãi Trường Long Beach" data-price="3200000" data-score="9.3" href="../hotels/phu-quoc/Dusit-Princess-Moonrise-PhuQuoc.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/Background-ks-PhuQuoc/bgdusitprincess.jpg" alt="Dusit Princess Moonrise Phú Quốc">
+          <span class="hc-badge deal">-22%</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★★</div>
+              <div class="hc-name">Dusit Princess Moonrise Beach Resort Phú Quốc</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">9.3</div>
+              <div class="hc-score-lbl">Tuyệt hảo</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Bãi Trường, Phú Quốc</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Gần biển</span>
+            <span class="hc-tag green">Bao sáng</span>
+            <span class="hc-tag">Hồ bơi ngoài trời</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">4.100.000₫</div>
+              <div class="hc-price">3.200.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="phu-quoc" data-name="Azura Resort Phu Quoc Dương Tơ Long Beach Kiên Giang" data-price="1250000" data-score="8.4" href="../hotels/phu-quoc/Azura-Resort-PhuQuoc.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="../images/hotels-images/Background-ks-PhuQuoc/bgazura.jpg" alt="Azura Resort Phu Quoc">
+          <span class="hc-badge new">Mới mở</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★</div>
+              <div class="hc-name">Azura Resort Phu Quoc</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.4</div>
+              <div class="hc-score-lbl">Rất tốt</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Dương Tơ, Phú Quốc</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Gần biển</span>
+            <span class="hc-tag green">Hồ bơi</span>
+            <span class="hc-tag">View vườn</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">1.650.000₫</div>
+              <div class="hc-price">1.250.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="phu-quoc" data-name="Grand Ocean Bay Resort Phu Quoc Ông Lang beach resort" data-price="2900000" data-score="8.7" href="../hotels/phu-quoc/Grand-Ocean-Bay-Resort-PhuQuoc.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/605912660.jpg?k=dbaa356464d8063b08f97a8ddbd652e097e481ccd9ca1694b7dc15733f8cbe11&amp;o=&amp;hp=1" alt="Grand Ocean Bay Resort Phu Quoc">
+          <span class="hc-badge deal">-22%</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★★</div>
+              <div class="hc-name">Grand Ocean Bay Resort Phu Quoc</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.7</div>
+              <div class="hc-score-lbl">Xuất sắc</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Ông Lang, Phú Quốc</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Bãi biển riêng</span>
+            <span class="hc-tag green">Bao sáng</span>
+            <span class="hc-tag">Hồ bơi vô cực</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">3.700.000₫</div>
+              <div class="hc-price">2.900.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="hotel-card" data-city="phu-quoc" data-name="Night Sea Hotel Phu Quoc Trần Hưng Đạo Dương Tơ Long Beach" data-price="1150000" data-score="8.1" href="../hotels/phu-quoc/Night-Sea-Hotel-PhuQuoc.html">
+        <div class="hc-img-wrap">
+          <img class="hc-img" src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/490880049.jpg?k=c95f8e35c2fb8c1ed00980f891e45484fd102abfdb000cefb418766f55009c66&amp;o=&amp;hp=1" alt="NIGHT SEA HOTEL">
+          <span class="hc-badge deal">-23%</span>
+          <button class="hc-fav" type="button"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="hc-body">
+          <div class="hc-top">
+            <div>
+              <div class="hc-stars">★★★★</div>
+              <div class="hc-name">NIGHT SEA HOTEL</div>
+            </div>
+            <div class="hc-score-box">
+              <div class="hc-score-num">8.1</div>
+              <div class="hc-score-lbl">Rất tốt</div>
+            </div>
+          </div>
+          <div class="hc-loc"><i class="fas fa-map-marker-alt"></i> Dương Tơ, Phú Quốc</div>
+          <div class="hc-tags">
+            <span class="hc-tag">Rooftop pool</span>
+            <span class="hc-tag green">Bao sáng</span>
+            <span class="hc-tag">Gần Long Beach</span>
+          </div>
+          <div class="hc-footer">
+            <div class="hc-price-block">
+              <div class="hc-price-label">Phòng đôi từ</div>
+              <div class="hc-price-old">1.500.000₫</div>
+              <div class="hc-price">1.150.000₫</div>
+              <div class="hc-price-per">/đêm, đã bao gồm thuế</div>
+            </div>
+            <span class="btn-see-rooms">Xem phòng</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+ 
+    <div class="empty-result" id="emptyResult">
+      <i class="fas fa-magnifying-glass"></i>
+      Không tìm thấy khách sạn phù hợp.<br>
+      Hãy thử đổi từ khóa hoặc chọn lại địa điểm.
+    </div>
+ 
+  </div>
+</main>
+ 
+<script>
+  function getCurrentUser() {
+    return JSON.parse(localStorage.getItem("currentUser"));
+  }
+ 
+  function renderHeaderUser() {
+    const currentUser = getCurrentUser();
+    const headerActions = document.getElementById("headerActions");
+ 
+    if (!currentUser) {
+      headerActions.innerHTML = `
+        <a class="btn-header btn-outline-w" href="#">
+          <i class="fas fa-globe"></i> VN · ₫
+        </a>
+ 
+        <a class="btn-header btn-outline-w" href="../user/login.html">Đăng nhập</a>
+        <a class="btn-header btn-yellow" href="../user/register.html">Đăng ký</a>
+      `;
+      return;
+    }
+ 
+    headerActions.innerHTML = `
+      <a class="btn-header btn-outline-w" href="#">
+        <i class="fas fa-globe"></i> VN · ₫
+      </a>
+ 
+      <button class="user-mini-box" type="button" onclick="goToProfile()">
+        <i class="fas fa-user-circle"></i>
+        <span>${currentUser.displayName}</span>
+      </button>
+ 
+      <button class="btn-logout-small" type="button" onclick="logoutUser()">
+        Đăng xuất
+      </button>
+    `;
+  }
+ 
+  function goToProfile() {
+    window.location.href = "../user/profile.html";
+  }
+ 
+  function logoutUser() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "../user/login.html";
+  }
+ 
+  function removeVietnameseTones(str) {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d")
+      .replace(/Đ/g, "D")
+      .toLowerCase();
+  }
+ 
+  function filterHotels() {
+    const keyword = removeVietnameseTones(document.getElementById("keywordInput").value.trim());
+    const city = document.getElementById("cityFilter").value;
+    const cards = Array.from(document.querySelectorAll(".hotel-card"));
+    const emptyResult = document.getElementById("emptyResult");
+    const resultCount = document.getElementById("resultCount");
+ 
+    let visibleCount = 0;
+ 
+    cards.forEach(function(card) {
+      const cardName = removeVietnameseTones(card.dataset.name || "");
+      const cardCity = card.dataset.city;
+ 
+      const matchKeyword = keyword === "" || cardName.includes(keyword);
+      const matchCity = city === "all" || cardCity === city;
+ 
+      if (matchKeyword && matchCity) {
+        card.classList.remove("hide");
+        visibleCount++;
+      } else {
+        card.classList.add("hide");
+      }
+    });
+ 
+    if (visibleCount === 0) {
+      emptyResult.classList.add("show");
+    } else {
+      emptyResult.classList.remove("show");
+    }
+ 
+    resultCount.textContent = "Đang hiển thị " + visibleCount + " khách sạn";
+  }
+ 
+  function sortHotels() {
+    const sortValue = document.getElementById("sortFilter").value;
+    const grid = document.getElementById("hotelsGrid");
+    const cards = Array.from(document.querySelectorAll(".hotel-card"));
+ 
+    if (sortValue === "price-asc") {
+      cards.sort(function(a, b) {
+        return Number(a.dataset.price) - Number(b.dataset.price);
+      });
+    }
+ 
+    if (sortValue === "price-desc") {
+      cards.sort(function(a, b) {
+        return Number(b.dataset.price) - Number(a.dataset.price);
+      });
+    }
+ 
+    if (sortValue === "score-desc") {
+      cards.sort(function(a, b) {
+        return Number(b.dataset.score) - Number(a.dataset.score);
+      });
+    }
+ 
+    cards.forEach(function(card) {
+      grid.appendChild(card);
+    });
+ 
+    filterHotels();
+  }
+ 
+  function normalizeGuestText(text) {
+    return text
+      .replace(/·/g, "-")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+ 
+  function applySearchParamsFromHome() {
+    const params = new URLSearchParams(window.location.search);
+ 
+    const keyword = params.get("q") || "";
+    const guests = params.get("guests") || "";
+ 
+    const keywordInput = document.getElementById("keywordInput");
+    const searchResultTitle = document.getElementById("searchResultTitle");
+ 
+    if (keywordInput && keyword !== "") {
+      keywordInput.value = keyword;
+    }
+ 
+    if (searchResultTitle) {
+      let titleText = "Tất cả khách sạn";
+      const guestText = normalizeGuestText(guests);
+ 
+      if (keyword !== "" && guests !== "") {
+        titleText = `Những khách sạn ở ${keyword} có phòng ${guestText}`;
+      } else if (keyword !== "") {
+        titleText = `Những khách sạn ở ${keyword}`;
+      } else if (guests !== "") {
+        titleText = `Những khách sạn có phòng ${guestText}`;
+      }
+ 
+      searchResultTitle.innerHTML = `
+        <i class="fas fa-hotel"></i>
+        ${titleText}
+      `;
+    }
+  }
+ 
+  document.getElementById("keywordInput").addEventListener("input", filterHotels);
+  document.getElementById("cityFilter").addEventListener("change", filterHotels);
+  document.getElementById("sortFilter").addEventListener("change", sortHotels);
+ 
+  document.querySelectorAll(".hc-fav").forEach(function(button) {
+    button.addEventListener("click", function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+ 
+      const icon = button.querySelector("i");
+      icon.classList.toggle("far");
+      icon.classList.toggle("fas");
+      button.classList.toggle("saved");
+    });
+  });
+ 
+  renderHeaderUser();
+  applySearchParamsFromHome();
+  filterHotels();
+</script>
+ 
+</body>
+</html>

@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thông tin cá nhân — DenousceBooking</title>
+
+  <link rel="stylesheet" href="../asset/css/style.css">
+  <link rel="stylesheet" href="../asset/css/component.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .nav-dropdown {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .nav-dropdown > .h-nav-link {
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 230px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 8px;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.22);
+      display: none;
+      z-index: 999;
+    }
+
+    .nav-dropdown::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 100%;
+      width: 100%;
+      height: 12px;
+    }
+
+    .nav-dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 13px;
+      border-radius: 10px;
+      color: #06172d;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .dropdown-menu a:hover {
+      background: #eef2ff;
+      color: #1a56db;
+    }
+
+    .user-mini-box {
+      min-height: 48px;
+      height: 48px;
+      padding: 0 18px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 15px;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.55);
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .user-mini-box:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .btn-logout-small {
+      min-height: 48px;
+      height: 48px;
+      padding: 0 18px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ffc107;
+      color: #06172d;
+      font-weight: 900;
+      font-size: 15px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .profile-page {
+      min-height: calc(100vh - 86px);
+      background:
+        linear-gradient(rgba(4, 17, 35, 0.48), rgba(4, 17, 35, 0.38)),
+        url("../images/login.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 70px 20px;
+    }
+
+    .profile-wrapper {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .profile-title {
+      color: #fff;
+      font-size: 42px;
+      font-weight: 900;
+      margin: 0 0 10px;
+      text-align: center;
+      text-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    }
+
+    .profile-sub {
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+      font-size: 17px;
+      margin: 0 0 34px;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .profile-right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      min-width: 0;
+    }
+
+    .profile-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 900;
+      color: #06172d;
+      margin: 0 0 22px;
+    }
+
+    .card-title i {
+      color: #1a56db;
+    }
+
+    .avatar-box {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #eef2ff;
+    }
+
+    .avatar-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #1a56db;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .avatar-name {
+      font-size: 20px;
+      font-weight: 900;
+      color: #06172d;
+      margin-bottom: 4px;
+    }
+
+    .avatar-email {
+      font-size: 14px;
+      color: #5f6b7a;
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      color: #06172d;
+      margin-bottom: 8px;
+    }
+
+    .input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f3f6fb;
+      border: 1.5px solid #dbe3ef;
+      border-radius: 14px;
+      padding: 0 14px;
+      transition: 0.25s ease;
+    }
+
+    .input-wrap:focus-within {
+      border-color: #1a56db;
+      box-shadow: 0 0 0 4px rgba(26,86,219,0.12);
+      background: #fff;
+    }
+
+    .input-wrap i {
+      color: #1a56db;
+      width: 18px;
+      text-align: center;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      padding: 14px 0;
+      font-size: 15px;
+      color: #06172d;
+    }
+
+    .save-btn {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 15px;
+      background: #ffc107;
+      color: #06172d;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: 0.25s ease;
+    }
+
+    .save-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(255,193,7,0.35);
+    }
+
+    .notice {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .notice.success {
+      display: block;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+
+    .notice.error {
+      display: block;
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+
+    .booking-table-wrap {
+      overflow-x: auto;
+    }
+
+    .booking-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    .booking-table th {
+      background: #06172d;
+      color: #fff;
+      padding: 14px 12px;
+      font-size: 14px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .booking-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #e5e7eb;
+      color: #374151;
+      font-size: 14px;
+      font-weight: 600;
+      vertical-align: top;
+    }
+
+    .booking-table tr:hover td {
+      background: #f8fafc;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #047857;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .empty-booking {
+      text-align: center;
+      padding: 36px 20px;
+      color: #64748b;
+      font-weight: 700;
+      line-height: 1.7;
+      background: #f8fafc;
+      border-radius: 18px;
+      border: 1px dashed #cbd5e1;
+    }
+
+    .empty-booking i {
+      font-size: 42px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .card-title .item-count {
+      margin-left: auto;
+      font-size: 13px;
+      font-weight: 900;
+      color: #1a56db;
+      background: #eef2ff;
+      border-radius: 999px;
+      padding: 6px 11px;
+    }
+
+    .favorite-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .favorite-card {
+      overflow: hidden;
+      border: 1px solid #e5e7eb;
+      border-radius: 17px;
+      background: #fff;
+      transition: 0.25s ease;
+    }
+
+    .favorite-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 26px rgba(15,23,42,0.1);
+    }
+
+    .favorite-img-wrap {
+      width: 100%;
+      height: 124px;
+      overflow: hidden;
+      background: #eef2ff;
+    }
+
+    .favorite-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .favorite-body {
+      padding: 13px 13px 14px;
+    }
+
+    .favorite-name {
+      color: #06172d;
+      font-weight: 900;
+      font-size: 15px;
+      line-height: 1.4;
+      min-height: 42px;
+      margin-bottom: 6px;
+    }
+
+    .favorite-info {
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .favorite-price {
+      color: #1a56db;
+      font-size: 16px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .favorite-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .favorite-view,
+    .favorite-remove {
+      min-height: 36px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 900;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .favorite-view {
+      flex: 1;
+      background: #1a56db;
+      color: #fff;
+      padding: 0 10px;
+    }
+
+    .favorite-remove {
+      width: 38px;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      background: #fff;
+    }
+
+    .favorite-remove:hover {
+      background: #fef2f2;
+    }
+
+    .history-note {
+      padding: 12px 14px;
+      margin: 0 0 15px;
+      border-radius: 12px;
+      background: #eff6ff;
+      color: #1e40af;
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 700;
+    }
+
+    .hotel-name-cell {
+      color: #06172d;
+      font-weight: 900;
+      min-width: 185px;
+    }
+
+    .room-name-cell {
+      display: block;
+      margin-top: 5px;
+      color: #1a56db;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .guest-count-cell {
+      display: block;
+      margin-top: 6px;
+      color: #475569;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .guest-count-cell i {
+      color: #1a56db;
+      margin-right: 5px;
+    }
+
+    .room-count-cell {
+      display: block;
+      margin-top: 4px;
+      color: #475569;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .room-count-cell i {
+      color: #1a56db;
+      margin-right: 5px;
+    }
+
+    .status-pill.pending-cancel {
+      background: #fff7ed;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+    }
+
+    .status-pill.cancelled {
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+
+    .booking-status-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .btn-cancel-booking {
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid #fecaca;
+      background: #fff;
+      color: #dc2626;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: .2s ease;
+    }
+
+    .btn-cancel-booking:hover {
+      background: #fef2f2;
+      border-color: #f87171;
+    }
+
+    .cancelled-time {
+      display: block;
+      width: 100%;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .modal-close-button {
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* Popup hủy phòng: tự khai báo trong profile để chắc chắn luôn hiện khi có class open */
+    #cancelBookingModal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(6, 23, 45, 0.58);
+    }
+
+    #cancelBookingModal.open {
+      display: flex !important;
+    }
+
+    #cancelBookingModal .modal-box {
+      width: min(460px, 100%);
+      padding: 30px 28px 26px;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    #cancelBookingModal .modal-icon {
+      font-size: 54px;
+      color: #16a34a;
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+
+    #cancelBookingModal h2 {
+      margin: 0 0 10px;
+      color: #06172d;
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    #cancelBookingModal p {
+      margin: 0 0 18px;
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.65;
+    }
+
+    #cancelBookingModal .modal-ref {
+      margin: 0 0 20px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #eef2ff;
+      color: #1e40af;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    #cancelBookingModal .btn-modal {
+      min-height: 44px;
+      padding: 0 28px;
+      border-radius: 12px;
+      background: #1a56db;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 900;
+      transition: .2s ease;
+    }
+
+    #cancelBookingModal .btn-modal:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    .price-total {
+      color: #1a56db;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 980px) {
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .favorite-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .profile-title {
+        font-size: 32px;
+      }
+
+      .profile-card {
+        padding: 22px;
+      }
+
+      .dropdown-menu {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .user-mini-box,
+      .btn-logout-small {
+        height: 44px;
+        min-height: 44px;
+        padding: 0 14px;
+        font-size: 14px;
+      }
+    }
+  
+    /* ===== PROFILE LAYOUT UPDATE: TOP TWO CARDS + FULL WIDTH HISTORY ===== */
+    .profile-top-grid {
+      display: grid;
+      grid-template-columns: 420px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 24px;
+    }
+
+    .profile-account-card {
+      align-self: start;
+    }
+
+    .profile-favorites-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .profile-history-card {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .favorites-scroll-area {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 7px;
+    }
+
+    .favorites-scroll-area::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .favorites-scroll-area::-webkit-scrollbar-track {
+      background: #eef2f7;
+      border-radius: 999px;
+    }
+
+    .favorites-scroll-area::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 999px;
+    }
+
+    .favorites-scroll-area::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+
+    .profile-history-card .booking-table-wrap {
+      width: 100%;
+      overflow-x: visible !important;
+    }
+
+    .profile-history-card .booking-table {
+      width: 100%;
+      min-width: 0 !important;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+
+    .profile-history-card .booking-table col.col-bookcode { width: 13%; }
+    .profile-history-card .booking-table col.col-hotel { width: 24%; }
+    .profile-history-card .booking-table col.col-stay { width: 14%; }
+    .profile-history-card .booking-table col.col-nights { width: 6%; }
+    .profile-history-card .booking-table col.col-created { width: 12%; }
+    .profile-history-card .booking-table col.col-total { width: 11%; }
+    .profile-history-card .booking-table col.col-status { width: 20%; }
+
+    .profile-history-card .booking-table th,
+    .profile-history-card .booking-table td {
+      padding: 13px 10px;
+      font-size: 13px;
+      word-break: break-word;
+    }
+
+    .profile-history-card .booking-table th {
+      white-space: normal;
+    }
+
+    .profile-history-card .hotel-name-cell {
+      min-width: 0;
+    }
+
+    @media (max-width: 980px) {
+      .profile-top-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-favorites-card {
+        height: auto !important;
+        max-height: 560px;
+      }
+
+      .favorites-scroll-area {
+        max-height: 430px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .profile-history-card .booking-table colgroup,
+      .profile-history-card .booking-table thead {
+        display: none;
+      }
+
+      .profile-history-card .booking-table,
+      .profile-history-card .booking-table tbody,
+      .profile-history-card .booking-table tr,
+      .profile-history-card .booking-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .profile-history-card .booking-table tr {
+        padding: 10px 12px;
+        margin-bottom: 12px;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        background: #fff;
+      }
+
+      .profile-history-card .booking-table td {
+        display: grid;
+        grid-template-columns: 112px minmax(0, 1fr);
+        gap: 10px;
+        padding: 8px 0;
+        border-bottom: 1px dashed #e5e7eb;
+      }
+
+      .profile-history-card .booking-table td:last-child {
+        border-bottom: none;
+      }
+
+      .profile-history-card .booking-table td::before {
+        content: attr(data-label);
+        color: #64748b;
+        font-weight: 900;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="header-top">
+    <a class="logo" href="../pages/home.html">
+      <img src="../images/logo.png" style="width:50px; height:50px;" alt="logo">
+      DenousceBooking<span class="logo-dot">.COM</span>
+    </a>
+
+    <nav class="header-nav">
+      <a class="h-nav-link" href="../pages/home.html">
+        <i class="fas fa-home"></i> Trang Chủ
+      </a>
+
+      <a class="h-nav-link" href="../pages/about-us.html">
+        <i class="fas fa-circle-info"></i> Về Chúng Tôi
+      </a>
+
+      <div class="nav-dropdown">
+        <a class="h-nav-link" href="javascript:void(0)">
+          <i class="fas fa-map-marker-alt"></i> Địa Điểm
+          <i class="fas fa-chevron-down"></i>
+        </a>
+
+        <div class="dropdown-menu">
+          <a href="../cities/ha-noi.html">
+            <i class="fas fa-location-dot"></i> Hà Nội
+          </a>
+
+          <a href="../cities/ho-chi-minh.html">
+            <i class="fas fa-location-dot"></i> TP. Hồ Chí Minh
+          </a>
+
+          <a href="../cities/da-nang.html">
+            <i class="fas fa-location-dot"></i> Đà Nẵng
+          </a>
+
+          <a href="../cities/phu-quoc.html">
+            <i class="fas fa-location-dot"></i> Phú Quốc
+          </a>
+        </div>
+      </div>
+
+      <a class="h-nav-link" href="../pages/contact.html">
+        <i class="fas fa-phone"></i> Liên Hệ
+      </a>
+    </nav>
+
+    <div class="header-actions" id="headerActions">
+      <a class="btn-header btn-outline-w" href="#">
+        <i class="fas fa-globe"></i> VN · ₫
+      </a>
+
+      <a class="btn-header btn-outline-w" href="login.html">Đăng nhập</a>
+      <a class="btn-header btn-yellow" href="register.html">Đăng ký</a>
+    </div>
+  </div>
+</header>
+
+<main class="profile-page">
+  <div class="profile-wrapper">
+    <h1 class="profile-title">Thông tin cá nhân</h1>
+    <p class="profile-sub">Quản lý tài khoản, thông tin liên hệ và lịch sử đặt phòng của bạn.</p>
+
+    <div class="profile-top-grid">
+
+<section class="profile-card profile-account-card" id="accountCard">
+        <h2 class="card-title">
+          <i class="fas fa-user-circle"></i>
+          Hồ sơ tài khoản
+        </h2>
+
+        <div class="avatar-box">
+          <div class="avatar-icon">
+            <i class="fas fa-user"></i>
+          </div>
+
+          <div>
+            <div class="avatar-name" id="profileName">Người dùng</div>
+            <div class="avatar-email" id="profileEmailText">email@example.com</div>
+          </div>
+        </div>
+
+        <form id="profileForm">
+          <div class="form-group">
+            <label class="form-label" for="email">Tài khoản Email</label>
+            <div class="input-wrap">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="email" placeholder="Nhập email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="phone">Số điện thoại</label>
+            <div class="input-wrap">
+              <i class="fas fa-phone"></i>
+              <input type="text" id="phone" placeholder="Nhập số điện thoại 10 số" maxlength="10">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cccd">Số CCCD</label>
+            <div class="input-wrap">
+              <i class="fas fa-id-card"></i>
+              <input type="text" id="cccd" placeholder="Nhập số CCCD 12 số" maxlength="12">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Mật khẩu</label>
+            <div class="input-wrap">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="password" placeholder="Nhập mật khẩu mới hoặc giữ nguyên">
+            </div>
+          </div>
+
+          <button class="save-btn" type="submit">
+            <i class="fas fa-save"></i> Lưu thay đổi
+          </button>
+
+          <div class="notice" id="profileNotice"></div>
+        </form>
+      </section>
+
+<section class="profile-card profile-favorites-card" id="favoritesCard">
+          <h2 class="card-title">
+            <i class="fas fa-heart"></i>
+            Danh sách yêu thích
+            <span class="item-count" id="favoriteCount">0 khách sạn</span>
+          </h2>
+
+          <div id="favoriteHotelsBox" class="favorites-scroll-area"></div>
+        </section>
+
+    </div>
+
+<section class="profile-card profile-history-card">
+          <h2 class="card-title">
+            <i class="fas fa-clock-rotate-left"></i>
+            Lịch sử đặt phòng
+          </h2>
+
+          <div class="history-note">
+            <i class="fas fa-circle-info"></i>
+            Tổng tiền và số khách hiển thị theo lựa chọn đã lưu khi đặt phòng. Bạn có thể hủy phòng tại đây.
+          </div>
+
+          <div id="bookingHistoryBox"></div>
+        </section>
+  </div>
+</main>
+
+
+<div class="modal-overlay" id="cancelBookingModal">
+  <div class="modal-box">
+    <div class="modal-icon"><i class="fas fa-check-circle"></i></div>
+    <h2>Đã gửi yêu cầu hủy phòng!</h2>
+    <p>Yêu cầu hủy phòng của bạn đang chờ xác nhận. Bạn sẽ nhận được Gmail xác nhận hủy trong vòng 15 phút.</p>
+    <div class="modal-ref">Mã đặt phòng: <strong id="cancelBookingRef">BH-2026-00000</strong></div>
+    <button class="btn-modal modal-close-button" type="button" onclick="closeCancelBookingModal()">Đóng</button>
+  </div>
+</div>
+
+<!-- Load thư viện quản lý số lượng phòng (dùng khi hủy phòng) -->
+<script src="../asset/js/booking-utils.js"></script>
+<script>
+  function getUsersFromLocalStorage() {
+    return JSON.parse(localStorage.getItem("bookingUsers")) || [];
+  }
+
+  function saveUsersToLocalStorage(users) {
+    localStorage.setItem("bookingUsers", JSON.stringify(users));
+  }
+
+  function getCurrentUser() {
+    return JSON.parse(localStorage.getItem("currentUser"));
+  }
+
+  function getDisplayName(account) {
+    if (!account) return "Người dùng";
+    if (account.includes("@")) return account.split("@")[0];
+    return account;
+  }
+
+  function renderHeaderUser() {
+    const currentUser = getCurrentUser();
+    const headerActions = document.getElementById("headerActions");
+
+    if (!currentUser) {
+      headerActions.innerHTML = `
+        <a class="btn-header btn-outline-w" href="#">
+          <i class="fas fa-globe"></i> VN · ₫
+        </a>
+
+        <a class="btn-header btn-outline-w" href="login.html">Đăng nhập</a>
+        <a class="btn-header btn-yellow" href="register.html">Đăng ký</a>
+      `;
+      return;
+    }
+
+    headerActions.innerHTML = `
+      <a class="btn-header btn-outline-w" href="#">
+        <i class="fas fa-globe"></i> VN · ₫
+      </a>
+
+      <button class="user-mini-box" type="button" onclick="goToProfile()">
+        <i class="fas fa-user-circle"></i>
+        <span>${escapeHtml(currentUser.displayName || currentUser.email || currentUser.phone || "Tài khoản")}</span>
+      </button>
+
+      <button class="btn-logout-small" type="button" onclick="logoutUser()">
+        Đăng xuất
+      </button>
+    `;
+  }
+
+  function goToProfile() {
+    window.location.href = "profile.html";
+  }
+
+  function logoutUser() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "login.html";
+  }
+
+  function requireLogin() {
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+      alert("Bạn cần đăng nhập để xem thông tin cá nhân.");
+      window.location.href = "login.html";
+      return false;
+    }
+
+    return true;
+  }
+
+  function findCurrentUserData() {
+    const currentUser = getCurrentUser();
+    const users = getUsersFromLocalStorage();
+
+    return users.find(function(user) {
+      return user.email === currentUser.email || user.phone === currentUser.phone;
+    });
+  }
+
+  function loadProfileInfo() {
+    const currentUser = getCurrentUser();
+    const userData = findCurrentUserData();
+
+    if (!userData) {
+      document.getElementById("profileName").textContent = currentUser.displayName || "Người dùng";
+      document.getElementById("profileEmailText").textContent = currentUser.email || currentUser.phone || "";
+      return;
+    }
+
+    document.getElementById("profileName").textContent = getDisplayName(userData.email || userData.phone);
+    document.getElementById("profileEmailText").textContent = userData.email || "";
+    document.getElementById("email").value = userData.email || "";
+    document.getElementById("phone").value = userData.phone || "";
+    document.getElementById("cccd").value = userData.cccd || "";
+    document.getElementById("password").value = userData.password || "";
+  }
+
+  function showProfileNotice(type, message) {
+    const notice = document.getElementById("profileNotice");
+    notice.className = "notice " + type;
+    notice.textContent = message;
+  }
+
+  document.getElementById("phone").addEventListener("input", function() {
+    this.value = this.value.replace(/\D/g, "").slice(0, 10);
+  });
+
+  document.getElementById("cccd").addEventListener("input", function() {
+    this.value = this.value.replace(/\D/g, "").slice(0, 12);
+  });
+
+  document.getElementById("profileForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const currentUser = getCurrentUser();
+    const users = getUsersFromLocalStorage();
+
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const cccd = document.getElementById("cccd").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{10}$/;
+    const cccdRegex = /^[0-9]{12}$/;
+
+    if (!emailRegex.test(email)) {
+      showProfileNotice("error", "Email không hợp lệ.");
+      return;
+    }
+
+    if (!phoneRegex.test(phone)) {
+      showProfileNotice("error", "Số điện thoại phải gồm đúng 10 số.");
+      return;
+    }
+
+    if (!cccdRegex.test(cccd)) {
+      showProfileNotice("error", "Số CCCD phải gồm đúng 12 số.");
+      return;
+    }
+
+    if (password === "") {
+      showProfileNotice("error", "Mật khẩu không được để trống.");
+      return;
+    }
+
+    const duplicateUser = users.find(function(user) {
+      const isCurrent =
+        user.email === currentUser.email ||
+        user.phone === currentUser.phone;
+
+      const isDuplicate =
+        user.email === email ||
+        user.phone === phone ||
+        user.cccd === cccd;
+
+      return !isCurrent && isDuplicate;
+    });
+
+    if (duplicateUser) {
+      showProfileNotice("error", "Email, số điện thoại hoặc CCCD đã tồn tại.");
+      return;
+    }
+
+    const updatedUsers = users.map(function(user) {
+      if (user.email === currentUser.email || user.phone === currentUser.phone) {
+        return {
+          ...user,
+          email: email,
+          phone: phone,
+          cccd: cccd,
+          password: password
+        };
+      }
+
+      return user;
+    });
+
+    saveUsersToLocalStorage(updatedUsers);
+
+    /*
+      Đồng bộ chủ sở hữu dữ liệu đã đặt/lưu yêu thích khi khách thay đổi
+      email hoặc số điện thoại, tránh việc lịch sử biến mất khỏi profile.
+    */
+    ["bookingHistory", "favoriteHotels"].forEach(function(storageKey) {
+      const records = JSON.parse(localStorage.getItem(storageKey) || "[]");
+      const updatedRecords = Array.isArray(records) ? records.map(function(item) {
+        const belongsToOldAccount =
+          (item.userEmail && currentUser.email && item.userEmail === currentUser.email) ||
+          (item.userPhone && currentUser.phone && item.userPhone === currentUser.phone);
+
+        if (!belongsToOldAccount) {
+          return item;
+        }
+
+        return {
+          ...item,
+          userEmail: email,
+          userPhone: phone
+        };
+      }) : [];
+
+      localStorage.setItem(storageKey, JSON.stringify(updatedRecords));
+    });
+
+    const updatedCurrentUser = {
+      email: email,
+      phone: phone,
+      cccd: cccd,
+      displayName: getDisplayName(email)
+    };
+
+    localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
+
+    document.getElementById("profileName").textContent = updatedCurrentUser.displayName;
+    document.getElementById("profileEmailText").textContent = email;
+
+    renderHeaderUser();
+    showProfileNotice("success", "Cập nhật thông tin thành công.");
+  });
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function getSafeUrl(url) {
+    const value = String(url || "").trim();
+
+    if (
+      value.startsWith("../") ||
+      value.startsWith("./") ||
+      value.startsWith("http://") ||
+      value.startsWith("https://")
+    ) {
+      return value;
+    }
+
+    return "#";
+  }
+
+  function isOwnedByCurrentUser(item) {
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+      return false;
+    }
+
+    if (!item.userEmail && !item.userPhone) {
+      return true;
+    }
+
+    return item.userEmail === currentUser.email || item.userPhone === currentUser.phone;
+  }
+
+  /* ===== DANH SÁCH YÊU THÍCH =====
+     Các trang khách sạn sẽ lưu dữ liệu vào localStorage key: favoriteHotels.
+     Mỗi mục nên có: userEmail, userPhone, hotelCode, hotelName,
+     location, roomPrice, imageUrl, hotelUrl.
+  */
+  function getFavoriteHotels() {
+    return JSON.parse(localStorage.getItem("favoriteHotels")) || [];
+  }
+
+  function getFavoriteKey(item) {
+    return [
+      item.hotelCode || "",
+      item.hotelName || "",
+      item.roomName || ""
+    ].join("|");
+  }
+
+  function getCurrentUserFavoriteHotels() {
+    return getFavoriteHotels().filter(function(item) {
+      return isOwnedByCurrentUser(item);
+    });
+  }
+
+  function removeFavorite(favoriteKey) {
+    const favorites = getFavoriteHotels();
+
+    const updatedFavorites = favorites.filter(function(item) {
+      const isCurrentUserItem = isOwnedByCurrentUser(item);
+      const isSelectedItem = getFavoriteKey(item) === favoriteKey;
+
+      return !(isCurrentUserItem && isSelectedItem);
+    });
+
+    localStorage.setItem("favoriteHotels", JSON.stringify(updatedFavorites));
+    renderFavoriteHotels();
+  }
+
+  function renderFavoriteHotels() {
+    const favoriteHotelsBox = document.getElementById("favoriteHotelsBox");
+    const favoriteCount = document.getElementById("favoriteCount");
+    const favorites = getCurrentUserFavoriteHotels();
+
+    favoriteCount.textContent = favorites.length + " mục đã lưu";
+
+    if (favorites.length === 0) {
+      favoriteHotelsBox.innerHTML = `
+        <div class="empty-booking">
+          <i class="far fa-heart"></i>
+          Bạn chưa lưu khách sạn yêu thích.<br>
+          Sau khi bấm biểu tượng trái tim ở trang khách sạn, khách sạn sẽ xuất hiện tại đây.
+        </div>
+      `;
+      return;
+    }
+
+    let cards = "";
+
+    favorites.forEach(function(item) {
+      const key = escapeHtml(getFavoriteKey(item));
+      const imageUrl = getSafeUrl(item.imageUrl || item.hotelImage || "../images/logo.png");
+      const hotelUrl = getSafeUrl(item.hotelUrl || item.detailUrl || "#");
+      const rawPrice = item.roomPrice || item.price || item.basePrice;
+      const price = rawPrice ? formatCurrencyVND(rawPrice) + " / đêm" : "Xem giá phòng";
+
+      cards += `
+        <article class="favorite-card">
+          <div class="favorite-img-wrap">
+            <img class="favorite-img" src="${escapeHtml(imageUrl)}" alt="${escapeHtml(item.hotelName || "Khách sạn yêu thích")}">
+          </div>
+
+          <div class="favorite-body">
+            <div class="favorite-name">${escapeHtml(item.hotelName || "Khách sạn yêu thích")}</div>
+            <div class="favorite-info">
+              <i class="fas fa-location-dot"></i>
+              ${escapeHtml(item.location || "Thông tin địa điểm đang cập nhật")}
+            </div>
+            <div class="favorite-price">${escapeHtml(price)}</div>
+
+            <div class="favorite-actions">
+              <a class="favorite-view" href="${escapeHtml(hotelUrl)}">
+                <i class="fas fa-eye"></i> Xem phòng
+              </a>
+              <button class="favorite-remove" type="button" data-key="${key}" title="Bỏ yêu thích">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      `;
+    });
+
+    favoriteHotelsBox.innerHTML = `<div class="favorite-grid">${cards}</div>`;
+
+    favoriteHotelsBox.querySelectorAll(".favorite-remove").forEach(function(button) {
+      button.addEventListener("click", function() {
+        removeFavorite(this.dataset.key);
+      });
+    });
+  }
+
+  /* ===== LỊCH SỬ ĐẶT PHÒNG =====
+     Các trang khách sạn cần lưu giá động sau khi khách đổi ngày dưới key:
+     totalPrice hoặc finalPrice, kèm checkIn/checkOut và nights.
+  */
+  function getBookingHistory() {
+    return JSON.parse(localStorage.getItem("bookingHistory")) || [];
+  }
+
+  function getCurrentUserBookingHistory() {
+    return getBookingHistory()
+      .map(function(booking, storageIndex) {
+        return {
+          ...booking,
+          __storageIndex: storageIndex
+        };
+      })
+      .filter(function(booking) {
+        return isOwnedByCurrentUser(booking);
+      })
+      .reverse();
+  }
+
+  function parseDateValue(value) {
+    if (!value) return null;
+
+    const text = String(value).trim();
+    const isoParts = text.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    if (isoParts) {
+      return new Date(Number(isoParts[1]), Number(isoParts[2]) - 1, Number(isoParts[3]));
+    }
+
+    const displayParts = text.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
+    if (displayParts) {
+      return new Date(Number(displayParts[3]), Number(displayParts[2]) - 1, Number(displayParts[1]));
+    }
+
+    return null;
+  }
+
+  function getStayNights(booking) {
+    if (booking.nights || booking.numberOfNights) {
+      return booking.nights || booking.numberOfNights;
+    }
+
+    const checkIn = parseDateValue(booking.checkIn || booking.checkin || booking.checkInDate);
+    const checkOut = parseDateValue(booking.checkOut || booking.checkout || booking.checkOutDate);
+
+    if (checkIn && checkOut) {
+      const nights = Math.round((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+      return nights > 0 ? nights : "";
+    }
+
+    return "";
+  }
+
+  function getStayPeriod(booking) {
+    const checkIn = booking.checkIn || booking.checkin || booking.checkInDate || "";
+    const checkOut = booking.checkOut || booking.checkout || booking.checkOutDate || "";
+
+    if (checkIn && checkOut) {
+      return checkIn + " → " + checkOut;
+    }
+
+    return "Chưa lưu ngày ở trang đặt phòng";
+  }
+
+  function getBookingGuests(booking) {
+    if (booking.guestText || booking.guests) {
+      return booking.guestText || booking.guests;
+    }
+
+    const adults = Number(booking.adultCount || 0);
+    const children = Number(booking.childCount || 0);
+
+    if (adults > 0) {
+      return adults + " người lớn" + (children > 0 ? " + " + children + " trẻ em" : "");
+    }
+
+    return "Chưa lưu số khách";
+  }
+
+  function getBookingRoomCount(booking) {
+    const count = Number(booking.roomCount || booking.roomsBooked || booking.rooms || 0);
+    return count >= 1 ? count : 1;
+  }
+
+  function formatBookingTime(date) {
+    const pad = function(value) {
+      return String(value).padStart(2, "0");
+    };
+
+    return (
+      pad(date.getDate()) + "/" +
+      pad(date.getMonth() + 1) + "/" +
+      date.getFullYear() + " " +
+      pad(date.getHours()) + ":" +
+      pad(date.getMinutes())
+    );
+  }
+
+  function isPendingCancelBooking(booking) {
+    return String(booking.status || "").toLowerCase() === "đang chờ xác nhận hủy";
+  }
+
+  function isCancelledBooking(booking) {
+    return String(booking.status || "").toLowerCase() === "đã hủy";
+  }
+
+  function hasCancellationRequest(booking) {
+    return isPendingCancelBooking(booking) || isCancelledBooking(booking);
+  }
+
+  function openCancelBookingModal(bookingCode) {
+    const modal = document.getElementById("cancelBookingModal");
+    const reference = document.getElementById("cancelBookingRef");
+
+    if (!modal) {
+      alert("Yêu cầu hủy phòng đã được gửi. Bạn sẽ nhận được Gmail xác nhận hủy trong vòng 15 phút.");
+      return;
+    }
+
+    if (reference) {
+      reference.textContent = bookingCode || "Không có mã";
+    }
+
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeCancelBookingModal() {
+    const modal = document.getElementById("cancelBookingModal");
+    if (!modal) return;
+
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  const cancelBookingModal = document.getElementById("cancelBookingModal");
+  if (cancelBookingModal) {
+    cancelBookingModal.setAttribute("aria-hidden", "true");
+    cancelBookingModal.addEventListener("click", function(event) {
+      if (event.target === this) {
+        closeCancelBookingModal();
+      }
+    });
+  }
+
+  function cancelBooking(storageIndex) {
+    var history = getBookingHistory();
+    var index   = Number(storageIndex);
+    var booking = history[index];
+
+    if (!booking || !isOwnedByCurrentUser(booking) || hasCancellationRequest(booking)) {
+      return;
+    }
+
+    history[index] = {
+      ...booking,
+      status: "Đang chờ xác nhận hủy",
+      cancellationRequestedAt: formatBookingTime(new Date())
+    };
+
+    localStorage.setItem("bookingHistory", JSON.stringify(history));
+
+    /*
+     * Cộng lại số phòng khi khách hủy.
+     * booking.hotelCode và booking.roomName đã được lưu khi đặt.
+     * booking.defaultRoomCount là số phòng ban đầu (giới hạn trần).
+     * Nếu chưa có trường này (dữ liệu cũ), dùng giá trị mặc định là 6.
+     */
+    if (
+      typeof increaseRoomInventoryByCount === "function" &&
+      booking.hotelCode &&
+      (booking.roomName || booking.roomType)
+    ) {
+      var roomNameToRestore = booking.roomName || booking.roomType;
+      var maxCount = Number(booking.defaultRoomCount) || 6;
+      var roomsToRestore = getBookingRoomCount(booking);
+      increaseRoomInventoryByCount(booking.hotelCode, roomNameToRestore, roomsToRestore, maxCount);
+    } else if (
+      typeof increaseRoomInventory === "function" &&
+      booking.hotelCode &&
+      (booking.roomName || booking.roomType)
+    ) {
+      var roomNameToRestoreLegacy = booking.roomName || booking.roomType;
+      var maxCountLegacy = Number(booking.defaultRoomCount) || 6;
+      increaseRoomInventory(booking.hotelCode, roomNameToRestoreLegacy, maxCountLegacy);
+    }
+
+    renderBookingHistory();
+    openCancelBookingModal(booking.bookingCode || booking.hotelCode || "Không có mã");
+  }
+
+  /*
+    Hỗ trợ dữ liệu đã thử hủy bằng bản cũ: vì website không có backend xác nhận,
+    trạng thái "Đã hủy" trước đây được đưa về "Đang chờ xác nhận hủy".
+  */
+  function migrateLegacyCancellationStatus() {
+    const history = getBookingHistory();
+    let hasChange = false;
+
+    const updatedHistory = history.map(function(booking) {
+      if (
+        isOwnedByCurrentUser(booking) &&
+        String(booking.status || "").toLowerCase() === "đã hủy" &&
+        !booking.cancellationConfirmedAt
+      ) {
+        hasChange = true;
+        return {
+          ...booking,
+          status: "Đang chờ xác nhận hủy",
+          cancellationRequestedAt: booking.cancellationRequestedAt || booking.cancelledAt || "Đã gửi trước đó"
+        };
+      }
+
+      return booking;
+    });
+
+    if (hasChange) {
+      localStorage.setItem("bookingHistory", JSON.stringify(updatedHistory));
+    }
+  }
+
+  window.cancelBooking = cancelBooking;
+  window.closeCancelBookingModal = closeCancelBookingModal;
+
+  function parseCurrencyValue(value) {
+    if (value === null || value === undefined || value === "") {
+      return null;
+    }
+
+    if (typeof value === "number") {
+      return Number.isFinite(value) ? Math.round(value) : null;
+    }
+
+    const text = String(value).trim();
+
+    if (text === "" || /chưa|không/i.test(text)) {
+      return null;
+    }
+
+    const digits = text.replace(/[^0-9]/g, "");
+
+    if (digits === "") {
+      return null;
+    }
+
+    const number = Number(digits);
+    return Number.isFinite(number) ? Math.round(number) : null;
+  }
+
+  function formatCurrencyVND(value) {
+    const number = parseCurrencyValue(value);
+
+    if (number === null) {
+      return "Chưa lưu tổng tiền";
+    }
+
+    return number.toLocaleString("vi-VN") + "₫";
+  }
+
+  function getBookingTotal(booking) {
+    /*
+      Ưu tiên các trường tổng tiền đã được trang đặt phòng tính động.
+      Không dùng roomPrice làm tổng tiền trực tiếp vì roomPrice chỉ là giá / đêm.
+    */
+    const totalSources = [
+      booking.totalPrice,
+      booking.totalPriceText,
+      booking.finalPrice,
+      booking.finalPriceText,
+      booking.totalAmount,
+      booking.totalAmountText,
+      booking.finalTotal,
+      booking.finalTotalText,
+      booking.grandTotal,
+      booking.paymentTotal
+    ];
+
+    for (let i = 0; i < totalSources.length; i++) {
+      const parsedTotal = parseCurrencyValue(totalSources[i]);
+
+      if (parsedTotal !== null) {
+        return formatCurrencyVND(parsedTotal);
+      }
+    }
+
+    /*
+      Chỉ tính tạm theo giá / đêm khi dữ liệu cũ có đủ số đêm,
+      đồng thời không có thông tin thuế hay ưu đãi.
+      Đây là fallback cho lịch sử cũ chưa lưu totalPrice.
+    */
+    const nights = Number(getStayNights(booking));
+    const perNightPrice = parseCurrencyValue(
+      booking.basePricePerNight || booking.unitPrice || booking.pricePerNight || booking.roomPrice
+    );
+
+    if (
+      Number.isFinite(nights) &&
+      nights > 0 &&
+      perNightPrice !== null &&
+      !booking.taxRate &&
+      !booking.discountRate &&
+      !booking.discountAmount
+    ) {
+      return formatCurrencyVND(perNightPrice * nights);
+    }
+
+    return "Chưa lưu tổng tiền";
+  }
+
+  function renderBookingHistory() {
+    const bookingHistoryBox = document.getElementById("bookingHistoryBox");
+    const bookings = getCurrentUserBookingHistory();
+
+    if (bookings.length === 0) {
+      bookingHistoryBox.innerHTML = `
+        <div class="empty-booking">
+          <i class="fas fa-calendar-xmark"></i>
+          Bạn chưa có lịch sử đặt phòng.<br>
+          Sau khi đặt phòng ở trang khách sạn, thông tin ngày ở và tổng tiền sẽ được hiển thị tại đây.
+        </div>
+      `;
+      return;
+    }
+
+    let rows = "";
+
+    bookings.forEach(function(booking) {
+      const nights = getStayNights(booking);
+      const price = getBookingTotal(booking);
+      const status = booking.status || "Đã đặt";
+      const isPendingCancel = isPendingCancelBooking(booking);
+      const isCancelled = isCancelledBooking(booking);
+      const hasCancelRequest = hasCancellationRequest(booking);
+      const statusClass = isPendingCancel ? " pending-cancel" : (isCancelled ? " cancelled" : "");
+      const cancelButton = hasCancelRequest
+        ? `<span class="cancelled-time">${isPendingCancel
+            ? "Gửi yêu cầu lúc: " + escapeHtml(booking.cancellationRequestedAt || "Vừa xong")
+            : "Phòng đã được hủy"}</span>`
+        : `<button class="btn-cancel-booking" type="button" onclick="cancelBooking(${booking.__storageIndex})">Hủy phòng</button>`;
+
+      rows += `
+        <tr>
+          <td data-label="Mã đặt phòng" style="font-family:monospace;font-size:12px;font-weight:900;color:#1e40af">${escapeHtml(booking.bookingCode || "Chưa có mã")}</td>
+          <td data-label="Khách sạn / Phòng / Số người" class="hotel-name-cell">
+            ${escapeHtml(booking.hotelName || "Chưa rõ")}
+            <span class="room-name-cell">${escapeHtml(booking.roomName || booking.selectedRoom || booking.roomType || "Phòng đã chọn")}</span>
+            <span class="guest-count-cell"><i class="fas fa-user-group"></i>${escapeHtml(getBookingGuests(booking))}</span>
+            <span class="room-count-cell"><i class="fas fa-bed"></i>Số phòng: ${escapeHtml(String(getBookingRoomCount(booking)))}</span>
+          </td>
+          <td data-label="Ngày lưu trú">${escapeHtml(getStayPeriod(booking))}</td>
+          <td data-label="Số đêm">${escapeHtml(nights ? nights + " đêm" : "Chưa rõ")}</td>
+          <td data-label="Thời gian đặt">${escapeHtml(booking.bookingTime || booking.createdAt || "Chưa rõ")}</td>
+          <td data-label="Tổng tiền"><span class="price-total">${escapeHtml(price)}</span></td>
+          <td data-label="Trạng thái">
+            <div class="booking-status-actions">
+              <span class="status-pill${statusClass}">${escapeHtml(status)}</span>
+              ${cancelButton}
+            </div>
+          </td>
+        </tr>
+      `;
+    });
+
+    bookingHistoryBox.innerHTML = `
+      <div class="booking-table-wrap">
+        <table class="booking-table">
+          <colgroup>
+            <col class="col-bookcode">
+            <col class="col-hotel">
+            <col class="col-stay">
+            <col class="col-nights">
+            <col class="col-created">
+            <col class="col-total">
+            <col class="col-status">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Mã đặt phòng</th>
+              <th>Khách sạn / Phòng / Số người</th>
+              <th>Ngày lưu trú</th>
+              <th>Số đêm</th>
+              <th>Thời gian đặt</th>
+              <th>Tổng tiền</th>
+              <th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+
+  function syncFavoriteCardHeight() {
+    const accountCard = document.getElementById("accountCard");
+    const favoritesCard = document.getElementById("favoritesCard");
+
+    if (!accountCard || !favoritesCard) {
+      return;
+    }
+
+    if (window.innerWidth > 980) {
+      favoritesCard.style.height = accountCard.offsetHeight + "px";
+    } else {
+      favoritesCard.style.height = "auto";
+    }
+  }
+
+  window.addEventListener("resize", syncFavoriteCardHeight);
+
+  const accountCardForResize = document.getElementById("accountCard");
+  if (accountCardForResize && typeof ResizeObserver !== "undefined") {
+    const accountResizeObserver = new ResizeObserver(function() {
+      syncFavoriteCardHeight();
+    });
+
+    accountResizeObserver.observe(accountCardForResize);
+  }
+
+  if (requireLogin()) {
+    renderHeaderUser();
+    loadProfileInfo();
+    renderFavoriteHotels();
+    migrateLegacyCancellationStatus();
+    renderBookingHistory();
+    syncFavoriteCardHeight();
+  }
+</script>
+
+</body>
+</html>

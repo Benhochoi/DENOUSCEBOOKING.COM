@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập — DenousceBooking</title>
+
+  <link rel="stylesheet" href="../asset/css/style.css">
+  <link rel="stylesheet" href="../asset/css/component.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .nav-dropdown {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .nav-dropdown > .h-nav-link {
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 230px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 8px;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.22);
+      display: none;
+      z-index: 999;
+    }
+
+    .nav-dropdown::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 100%;
+      width: 100%;
+      height: 12px;
+    }
+
+    .nav-dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 13px;
+      border-radius: 10px;
+      color: #06172d;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .dropdown-menu a:hover {
+      background: #eef2ff;
+      color: #1a56db;
+    }
+
+    .login-page {
+      min-height: calc(100vh - 86px);
+      background-image:
+        linear-gradient(rgba(4, 17, 35, 0.42), rgba(4, 17, 35, 0.32)),
+        url("../images/login.jpg");
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 70px 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 450px;
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 24px;
+      padding: 38px 34px;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.35);
+      animation: loginFadeUp 1s ease forwards;
+      opacity: 0;
+      transform: translateY(45px);
+    }
+
+    @keyframes loginFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(45px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 900;
+      color: #06172d;
+      margin: 0 0 8px;
+    }
+
+    .login-sub {
+      text-align: center;
+      color: #5f6b7a;
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0 0 28px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      color: #06172d;
+      margin-bottom: 8px;
+    }
+
+    .input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f3f6fb;
+      border: 1.5px solid #dbe3ef;
+      border-radius: 14px;
+      padding: 0 14px;
+      transition: 0.25s ease;
+    }
+
+    .input-wrap:focus-within {
+      border-color: #1a56db;
+      box-shadow: 0 0 0 4px rgba(26,86,219,0.12);
+      background: #fff;
+    }
+
+    .input-wrap i {
+      color: #1a56db;
+      font-size: 16px;
+      min-width: 18px;
+      text-align: center;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      padding: 15px 0;
+      font-size: 15px;
+      color: #06172d;
+    }
+
+    .input-wrap input::placeholder {
+      color: #98a3b3;
+    }
+
+    .error-text {
+      display: none;
+      color: #dc2626;
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 7px;
+      line-height: 1.5;
+    }
+
+    .error-text.show {
+      display: block;
+    }
+
+    .login-main-btn {
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 14px;
+      padding: 15px 18px;
+      background: #ffc107;
+      color: #06172d;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: 0.25s ease;
+    }
+
+    .login-main-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(255,193,7,0.35);
+    }
+
+    .login-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .login-link-btn {
+      border: none;
+      background: transparent;
+      color: #1a56db;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .login-link-btn:hover {
+      text-decoration: underline;
+    }
+
+    .forgot-message {
+      display: none;
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #fff7df;
+      color: #8a5a00;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .forgot-message.show {
+      display: block;
+    }
+
+    .user-mini-box {
+      min-height: 46px;
+      height: 46px;
+      padding: 0 16px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 15px;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.55);
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.25s ease;
+    }
+
+    .user-mini-box:hover {
+      background: rgba(255,255,255,0.22);
+      transform: translateY(-1px);
+    }
+
+    .user-mini-box i {
+      font-size: 17px;
+    }
+
+    .btn-logout-small {
+      min-height: 46px;
+      height: 46px;
+      padding: 0 18px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ffc107;
+      color: #06172d;
+      font-weight: 900;
+      font-size: 15px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+      transition: 0.25s ease;
+    }
+
+    .btn-logout-small:hover {
+      filter: brightness(0.96);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+      .login-box {
+        padding: 32px 24px;
+      }
+
+      .login-title {
+        font-size: 28px;
+      }
+
+      .dropdown-menu {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .user-mini-box,
+      .btn-logout-small {
+        height: 44px;
+        min-height: 44px;
+        padding: 0 14px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="header-top">
+    <a class="logo" href="../pages/home.html">
+      <img src="../images/logo.png" style="width:50px; height:50px;" alt="logo">
+      DenousceBooking<span class="logo-dot">.COM</span>
+    </a>
+
+    <nav class="header-nav">
+      <a class="h-nav-link" href="../pages/home.html">
+        <i class="fas fa-home"></i> Trang Chủ
+      </a>
+
+      <a class="h-nav-link" href="../pages/about-us.html">
+        <i class="fas fa-circle-info"></i> Về Chúng Tôi
+      </a>
+
+      <div class="nav-dropdown">
+        <a class="h-nav-link" href="javascript:void(0)">
+          <i class="fas fa-map-marker-alt"></i> Địa Điểm
+          <i class="fas fa-chevron-down"></i>
+        </a>
+
+        <div class="dropdown-menu">
+          <a href="../cities/ha-noi.html">
+            <i class="fas fa-location-dot"></i> Hà Nội
+          </a>
+
+          <a href="../cities/ho-chi-minh.html">
+            <i class="fas fa-location-dot"></i> TP. Hồ Chí Minh
+          </a>
+
+          <a href="../cities/da-nang.html">
+            <i class="fas fa-location-dot"></i> Đà Nẵng
+          </a>
+
+          <a href="../cities/phu-quoc.html">
+            <i class="fas fa-location-dot"></i> Phú Quốc
+          </a>
+        </div>
+      </div>
+
+      <a class="h-nav-link" href="../pages/contact.html">
+        <i class="fas fa-phone"></i> Liên Hệ
+      </a>
+    </nav>
+
+    <div class="header-actions" id="headerActions">
+      <a class="btn-header btn-outline-w" href="#">
+        <i class="fas fa-globe"></i> VN · ₫
+      </a>
+
+      <a class="btn-header btn-outline-w" href="login.html">Đăng nhập</a>
+      <a class="btn-header btn-yellow" href="register.html">Đăng ký</a>
+    </div>
+  </div>
+</header>
+
+<section class="login-page">
+  <div class="login-box">
+    <h1 class="login-title">Đăng nhập</h1>
+
+    <p class="login-sub">
+      Đăng nhập bằng Gmail hoặc số điện thoại để đặt phòng nhanh hơn và quản lý thông tin đặt phòng của bạn.
+    </p>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label class="form-label" for="account">Tài khoản</label>
+        <div class="input-wrap">
+          <i class="fas fa-user"></i>
+          <input type="text" id="account" placeholder="Nhập Gmail hoặc SĐT 10 số">
+        </div>
+        <div class="error-text" id="accountError">
+          Tài khoản phải là Gmail hợp lệ hoặc số điện thoại gồm đúng 10 số.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Mật khẩu</label>
+        <div class="input-wrap">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="password" placeholder="Nhập mật khẩu">
+        </div>
+        <div class="error-text" id="passwordError">
+          Vui lòng nhập mật khẩu.
+        </div>
+      </div>
+
+      <div class="error-text" id="loginError">
+        Tài khoản hoặc mật khẩu không đúng. Vui lòng kiểm tra lại.
+      </div>
+
+      <button class="login-main-btn" type="submit">
+        <i class="fas fa-right-to-bracket"></i> Đăng nhập
+      </button>
+
+      <div class="login-actions">
+        <button class="login-link-btn" type="button" onclick="showForgotMessage()">
+          Quên mật khẩu?
+        </button>
+
+        <a class="login-link-btn" href="register.html">
+          Đăng kí tài khoản
+        </a>
+      </div>
+
+      <div class="forgot-message" id="forgotMessage">
+        Vui lòng liên hệ hotline hoặc quản trị viên để được hỗ trợ khôi phục mật khẩu.
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  function showForgotMessage() {
+    const forgotMessage = document.getElementById("forgotMessage");
+    forgotMessage.classList.add("show");
+  }
+
+  function showError(id, condition) {
+    const element = document.getElementById(id);
+
+    if (condition) {
+      element.classList.add("show");
+    } else {
+      element.classList.remove("show");
+    }
+  }
+
+  function getUsersFromLocalStorage() {
+    return JSON.parse(localStorage.getItem("bookingUsers")) || [];
+  }
+
+  function getDisplayName(account) {
+    if (!account) {
+      return "Người dùng";
+    }
+
+    if (account.includes("@")) {
+      return account.split("@")[0];
+    }
+
+    return account;
+  }
+
+  function getCurrentUser() {
+    return JSON.parse(localStorage.getItem("currentUser"));
+  }
+
+  function renderHeaderUser() {
+    const currentUser = getCurrentUser();
+    const headerActions = document.getElementById("headerActions");
+
+    if (!currentUser) {
+      headerActions.innerHTML = `
+        <a class="btn-header btn-outline-w" href="#">
+          <i class="fas fa-globe"></i> VN · ₫
+        </a>
+
+        <a class="btn-header btn-outline-w" href="login.html">Đăng nhập</a>
+        <a class="btn-header btn-yellow" href="register.html">Đăng ký</a>
+      `;
+      return;
+    }
+
+    headerActions.innerHTML = `
+      <a class="btn-header btn-outline-w" href="#">
+        <i class="fas fa-globe"></i> VN · ₫
+      </a>
+
+      <button class="user-mini-box" type="button" onclick="goToProfile()">
+        <i class="fas fa-user-circle"></i>
+        <span>${currentUser.displayName}</span>
+      </button>
+
+      <button class="btn-logout-small" type="button" onclick="logoutUser()">
+        Đăng xuất
+      </button>
+    `;
+  }
+
+  function goToProfile() {
+    window.location.href = "profile.html";
+  }
+
+  function logoutUser() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "login.html";
+  }
+
+  document.getElementById("account").addEventListener("input", function() {
+    const value = this.value.trim();
+
+    if (/^[0-9]+$/.test(value)) {
+      this.value = value.slice(0, 10);
+    }
+  });
+
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const account = document.getElementById("account").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{10}$/;
+
+    const accountInvalid = !emailRegex.test(account) && !phoneRegex.test(account);
+    const passwordInvalid = password === "";
+
+    showError("accountError", accountInvalid);
+    showError("passwordError", passwordInvalid);
+    showError("loginError", false);
+
+    if (accountInvalid || passwordInvalid) {
+      return;
+    }
+
+    const users = getUsersFromLocalStorage();
+
+    const foundUser = users.find(function(user) {
+      return (
+        (user.email === account || user.phone === account) &&
+        user.password === password
+      );
+    });
+
+    if (!foundUser) {
+      showError("loginError", true);
+      return;
+    }
+
+    const currentUser = {
+      email: foundUser.email,
+      phone: foundUser.phone,
+      cccd: foundUser.cccd,
+      displayName: getDisplayName(foundUser.email || foundUser.phone)
+    };
+
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+    window.location.href = "../pages/home.html";
+  });
+
+  renderHeaderUser();
+</script>
+
+</body>
+</html>
