@@ -1241,3 +1241,67 @@ footer {
     gap: 28px !important;
   }
 }
+
+/* ===== CUSTOM USER ACTIONS OVERRIDES (to match Việt Nam button) ===== */
+.btn-header {
+  height: 38px !important;
+  padding: 0 18px !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.user-mini-box,
+.user-chip {
+  min-height: 38px !important;
+  height: 38px !important;
+  padding: 0 18px !important;
+  box-sizing: border-box !important;
+  border-radius: var(--r) !important;
+  font-size: .84rem !important;
+  font-weight: 600 !important;
+  border: 1.5px solid var(--white) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  color: #fff !important;
+  background: rgba(255,255,255,0.12) !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transition: 0.25s ease !important;
+}
+
+.btn-logout-small,
+.btn-logout {
+  min-height: 38px !important;
+  height: 38px !important;
+  padding: 0 18px !important;
+  box-sizing: border-box !important;
+  border-radius: var(--r) !important;
+  font-size: .84rem !important;
+  font-weight: 600 !important;
+  border: 1.5px solid var(--accent) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background: var(--accent) !important;
+  color: var(--blue-dark) !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transition: 0.25s ease !important;
+}
+
+.user-mini-box:hover,
+.user-chip:hover {
+  background: rgba(255,255,255,0.22) !important;
+  transform: translateY(-1px) !important;
+}
+
+.btn-logout-small:hover,
+.btn-logout:hover {
+  background: var(--accent-dark) !important;
+  border-color: var(--accent-dark) !important;
+  transform: translateY(-1px) !important;
+}

@@ -370,7 +370,7 @@
  
     <div class="header-actions" id="headerActions">
       <a class="btn-header btn-outline-w" href="#">
-        <i class="fas fa-globe"></i> VN · ₫
+        <i class="fas fa-globe"></i> Việt Nam
       </a>
       <a class="btn-header btn-outline-w" href="../user/login.html">Đăng nhập</a>
       <a class="btn-header btn-yellow" href="../user/register.html">Đăng ký</a>
@@ -717,47 +717,46 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-grid">
+
       <div id="contact">
         <a class="f-logo" href="../pages/home.html">
           <img src="../images/logo.png" style="width:50px; height:50px;" alt="logo">
           DenousceBooking<span class="logo-dot">.COM</span>
         </a>
- 
+
         <p class="f-desc">
           Nền tảng đặt phòng khách sạn uy tín hàng đầu Việt Nam.
           Giá phòng tốt nhất luôn được đảm bảo, hủy phòng miễn phí, linh hoạt.
         </p>
- 
+
         <div class="f-socials">
           <a class="f-soc" href="https://www.facebook.com/Denousce2303/" target="_blank" rel="noopener noreferrer" title="Facebook">
             <i class="fab fa-facebook-f"></i>
           </a>
- 
+
           <a class="f-soc" href="https://www.instagram.com/n.tuandat23/" target="_blank" rel="noopener noreferrer" title="Instagram">
             <i class="fab fa-instagram"></i>
           </a>
- 
+
           <a class="f-soc" href="https://www.tiktok.com/@denousce1910" target="_blank" rel="noopener noreferrer" title="TikTok">
             <i class="fab fa-tiktok"></i>
           </a>
- 
+
           <a class="f-soc" href="https://www.youtube.com/@hoangquan02z" target="_blank" rel="noopener noreferrer" title="YouTube">
             <i class="fab fa-youtube"></i>
           </a>
         </div>
       </div>
- 
+
       <div class="f-col">
         <h5>Hỗ Trợ</h5>
         <ul>
           <li><a href="#">Trung tâm trợ giúp</a></li>
-          <li><a href="#">Quản lý đặt phòng</a></li>
-          <li><a href="#">Chính sách hoàn tiền</a></li>
-          <li><a href="#">Liên hệ 24/7</a></li>
-          <li><a href="#">Báo sự cố</a></li>
+          <li><a href="../pages/contact.html">Liên hệ 24/7</a></li>
+          <li><a href="../pages/contact.html">Báo sự cố</a></li>
         </ul>
       </div>
- 
+
       <div class="f-col">
         <h5>Khám Phá</h5>
         <ul>
@@ -767,32 +766,31 @@
           <li><a href="phu-quoc.html">Phú Quốc</a></li>
         </ul>
       </div>
- 
+
       <div class="f-col" id="about">
         <h5>Về Chúng Tôi</h5>
         <ul>
           <li><a href="../pages/about-us.html">Giới thiệu</a></li>
-          <li><a href="#">Điều khoản sử dụng</a></li>
-          <li><a href="#">Chính sách bảo mật</a></li>
-          <li><a href="#">Tuyển dụng</a></li>
-          <li><a href="#">Hợp tác kinh doanh</a></li>
         </ul>
       </div>
+
     </div>
- 
+
     <div class="footer-bottom">
       <span>© 2026 DenousceBooking Vietnam. All rights reserved.</span>
     </div>
   </div>
 </footer>
- 
+
+<script src="../data/wishlist-hotels-map.js"></script>
+
 <script>
   function revealHotelCards() {
     const windowBottom = window.scrollY + window.innerHeight;
- 
+
     document.querySelectorAll('.hotel-card').forEach(function(card, index) {
       const cardTop = card.getBoundingClientRect().top + window.scrollY;
- 
+
       if (cardTop < windowBottom - 60) {
         setTimeout(function() {
           card.classList.add('visible');
@@ -800,73 +798,71 @@
       }
     });
   }
- 
+
   window.addEventListener('scroll', revealHotelCards);
   window.addEventListener('load', revealHotelCards);
- 
+
   document.querySelectorAll('.hc-fav').forEach(function(button) {
     button.addEventListener('click', function(event) {
-      event.preventDefault();
-      event.stopPropagation();
- 
-      const icon = button.querySelector('i');
-      icon.classList.toggle('far');
-      icon.classList.toggle('fas');
-      button.classList.toggle('saved');
+      if (typeof handleCardFavClick === "function") {
+        handleCardFavClick(event, this);
+      }
     });
   });
- 
- 
+
+
   function getCurrentUser() {
     return JSON.parse(localStorage.getItem("currentUser"));
   }
- 
+
   function renderHeaderUser() {
     const currentUser = getCurrentUser();
     const headerActions = document.getElementById("headerActions");
- 
+
     if (!headerActions) return;
- 
+
     if (!currentUser) {
       headerActions.innerHTML = `
         <a class="btn-header btn-outline-w" href="#">
-          <i class="fas fa-globe"></i> VN · ₫
+          <i class="fas fa-globe"></i> Việt Nam
         </a>
- 
+
         <a class="btn-header btn-outline-w" href="../user/login.html">Đăng nhập</a>
         <a class="btn-header btn-yellow" href="../user/register.html">Đăng ký</a>
       `;
       return;
     }
- 
+
     headerActions.innerHTML = `
       <a class="btn-header btn-outline-w" href="#">
-        <i class="fas fa-globe"></i> VN · ₫
+        <i class="fas fa-globe"></i> Việt Nam
       </a>
- 
+
       <button class="user-mini-box" type="button" onclick="goToProfile()">
         <i class="fas fa-user-circle"></i>
         <span>${currentUser.displayName}</span>
       </button>
- 
+
       <button class="btn-logout-small" type="button" onclick="logoutUser()">
         Đăng xuất
       </button>
     `;
   }
- 
+
   function goToProfile() {
     window.location.href = "../user/profile.html";
   }
- 
+
   function logoutUser() {
     localStorage.removeItem("currentUser");
     window.location.href = "../user/login.html";
   }
- 
+
   renderHeaderUser();
- 
+  if (typeof initWishlistOnGrid === "function") {
+    initWishlistOnGrid();
+  }
 </script>
- 
+
 </body>
 </html>

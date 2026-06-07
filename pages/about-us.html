@@ -400,7 +400,7 @@
 
     <div class="header-actions" id="headerActions">
       <a class="btn-header btn-outline-w" href="#">
-        <i class="fas fa-globe"></i> VN · ₫
+        <i class="fas fa-globe"></i> Việt Nam
       </a>
       <a class="btn-header btn-outline-w" href="../user/login.html">Đăng nhập</a>
       <a class="btn-header btn-yellow" href="../user/register.html">Đăng ký</a>
@@ -467,13 +467,13 @@
 
       <div>
         <a class="f-logo" href="home.html">
-          <img src="../images/logo.png" style="width:50px; height:50px;" alt="DenousceBooking logo">
+          <img src="../images/logo.png" style="width:50px; height:50px;" alt="logo">
           DenousceBooking<span class="logo-dot">.COM</span>
         </a>
 
         <p class="f-desc">
           Nền tảng đặt phòng khách sạn uy tín hàng đầu Việt Nam.
-          Giá tốt nhất được đảm bảo, hủy miễn phí linh hoạt.
+          Giá phòng tốt nhất luôn được đảm bảo, hủy phòng miễn phí, linh hoạt.
         </p>
 
         <div class="f-socials">
@@ -499,10 +499,8 @@
         <h5>Hỗ Trợ</h5>
         <ul>
           <li><a href="#">Trung tâm trợ giúp</a></li>
-          <li><a href="#">Quản lý đặt phòng</a></li>
-          <li><a href="#">Chính sách hoàn tiền</a></li>
           <li><a href="contact.html">Liên hệ 24/7</a></li>
-          <li><a href="#">Báo sự cố</a></li>
+          <li><a href="contact.html">Báo sự cố</a></li>
         </ul>
       </div>
 
@@ -516,14 +514,10 @@
         </ul>
       </div>
 
-      <div class="f-col">
+      <div class="f-col" id="about">
         <h5>Về Chúng Tôi</h5>
         <ul>
           <li><a href="about-us.html">Giới thiệu</a></li>
-          <li><a href="#">Điều khoản sử dụng</a></li>
-          <li><a href="#">Chính sách bảo mật</a></li>
-          <li><a href="#">Tuyển dụng</a></li>
-          <li><a href="#">Hợp tác kinh doanh</a></li>
         </ul>
       </div>
 
@@ -534,6 +528,8 @@
     </div>
   </div>
 </footer>
+
+
 
 <script>
   function getCurrentUser() {
@@ -549,7 +545,7 @@
     if (!currentUser) {
       headerActions.innerHTML = `
         <a class="btn-header btn-outline-w" href="#">
-          <i class="fas fa-globe"></i> VN · ₫
+          <i class="fas fa-globe"></i> Việt Nam
         </a>
 
         <a class="btn-header btn-outline-w" href="../user/login.html">Đăng nhập</a>
@@ -560,7 +556,7 @@
 
     headerActions.innerHTML = `
       <a class="btn-header btn-outline-w" href="#">
-        <i class="fas fa-globe"></i> VN · ₫
+        <i class="fas fa-globe"></i> Việt Nam
       </a>
 
       <button class="user-mini-box" type="button" onclick="goToProfile()">

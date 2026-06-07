@@ -86,61 +86,67 @@
     display: block;
   }
 
-  /* User box sau khi đăng nhập */
+  /* User box sau khi đăng nhập (Đồng bộ với home.html) */
   .user-mini-box {
-    min-height: 42px;
-    padding: 0 15px;
-    border-radius: 999px;
-    border: 1.5px solid rgba(255,255,255,0.72);
-    background: rgba(255,255,255,0.14);
-    color: #fff;
+    min-height: 46px;
+    height: 46px;
+    padding: 0 16px;
+    border-radius: 16px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    font-size: .88rem;
+    color: #fff;
     font-weight: 800;
-    text-decoration: none;
-    cursor: pointer;
+    font-size: 15px;
+    background: rgba(255,255,255,0.12);
+    border: 1.5px solid rgba(255,255,255,0.55);
     white-space: nowrap;
-    transition: .2s ease;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.25s ease;
   }
 
   .user-mini-box:hover {
-    background: rgba(255,255,255,0.24);
+    background: rgba(255,255,255,0.22);
     transform: translateY(-1px);
   }
 
+  .user-mini-box i {
+    font-size: 17px;
+  }
+
+  .user-mini-box span {
+    max-width: 115px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .btn-logout-small {
-    min-height: 42px;
-    padding: 0 15px;
-    border-radius: 999px;
-    border: none;
-    background: #f4c542;
-    color: #07152b;
+    min-height: 46px;
+    height: 46px;
+    padding: 0 18px;
+    border-radius: 16px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    font-size: .88rem;
+    background: #ffc107;
+    color: #06172d;
     font-weight: 900;
+    font-size: 15px;
     text-decoration: none;
+    border: none;
     cursor: pointer;
     white-space: nowrap;
-    transition: .2s ease;
+    font-family: inherit;
+    transition: 0.25s ease;
   }
 
   .btn-logout-small:hover {
-    background: #ffd95a;
+    filter: brightness(0.96);
     transform: translateY(-1px);
-  }
-
-  @media (max-width: 768px) {
-    .user-mini-box,
-    .btn-logout-small {
-      width: 100%;
-      min-height: 40px;
-    }
   }
 
 
@@ -152,44 +158,7 @@
     flex-wrap: nowrap;
   }
 
-  .user-mini-box {
-    min-height: 46px !important;
-    height: 46px !important;
-    padding: 0 16px !important;
-    border-radius: 16px !important;
-    border: 1.5px solid rgba(255,255,255,0.55) !important;
-    background: rgba(255,255,255,0.12) !important;
-    color: #fff !important;
-    font-size: 15px !important;
-    font-weight: 800 !important;
-    font-family: inherit;
-  }
-
-  .user-mini-box:hover {
-    background: rgba(255,255,255,0.22) !important;
-    transform: translateY(-1px);
-  }
-
-  .btn-logout-small {
-    min-height: 46px !important;
-    height: 46px !important;
-    padding: 0 18px !important;
-    border-radius: 16px !important;
-    border: none !important;
-    background: #ffc107 !important;
-    color: #06172d !important;
-    font-size: 15px !important;
-    font-weight: 900 !important;
-    font-family: inherit;
-  }
-
-  .btn-logout-small:hover {
-    filter: brightness(0.96);
-    background: #ffc107 !important;
-    transform: translateY(-1px);
-  }
-
-  /* Khung đặt phòng đứng yên tại vị trí của trang, không trượt khi cuộn */
+  /* Khung đặt phòng nằm tĩnh theo bố cục trang, không trượt khi cuộn */
   .booking-sidebar,
   .booking-sidebar .book-card {
     position: static !important;
@@ -205,14 +174,12 @@
 
     .user-mini-box,
     .btn-logout-small {
-      width: auto !important;
-      min-height: 44px !important;
-      height: 44px !important;
-      padding: 0 14px !important;
-      font-size: 14px !important;
+      height: 44px;
+      min-height: 44px;
+      padding: 0 14px;
+      font-size: 14px;
     }
   }
-
 
   /* Giá phòng ở dòng tính toán: in đậm nhưng giữ nguyên cỡ chữ và font */
   .room-night-price {
@@ -264,9 +231,9 @@
 <i class="fas fa-phone"></i> Liên Hệ
       </a>
 </nav>
-<div class="header-actions" id="headerAuth">
+<div class="header-actions" id="headerActions">
 <a class="btn-header btn-outline-w" href="#">
-<i class="fas fa-globe"></i> VN · ₫
+<i class="fas fa-globe"></i> Việt Nam
       </a>
 <a class="btn-header btn-outline-w" href="../../user/login.html">Đăng nhập</a>
 <a class="btn-header btn-yellow" href="../../user/register.html">Đăng ký</a>
@@ -519,7 +486,7 @@ Khách sạn có nhà hàng phục vụ nhiều phong cách ẩm thực như Vi�
 ✓ Vui lòng xuất trình CCCD/Hộ chiếu khi nhận phòng<br/>
 ✓ Có chỗ đỗ xe riêng miễn phí tại khách sạn<br/>
 ✓ Không chấp nhận thú cưng<br/>
-✓ <strong style="color:var(--red)">Chỉ còn 3 phòng với giá này!</strong>
+✓ <strong style="color:var(--red)">Giá có thể thay đổi theo ngày lưu trú!</strong>
 </div>
 </div>
 </div>
@@ -644,14 +611,14 @@ function escapeHTML(value) {
     .replace(/'/g, "&#039;");
 }
 
-function renderAuthBox() {
-  const headerAuth = document.getElementById("headerAuth") || document.getElementById("headerActions");
+function renderHeaderUser() {
+  const headerAuth = document.getElementById("headerActions") || document.getElementById("headerAuth");
   if (!headerAuth) return;
 
   const currentUser = getCurrentUser();
   const currencyButton = `
     <a class="btn-header btn-outline-w" href="#">
-      <i class="fas fa-globe"></i> VN · ₫
+      <i class="fas fa-globe"></i> Việt Nam
     </a>`;
 
   if (!currentUser) {
@@ -670,12 +637,16 @@ function renderAuthBox() {
     "Tài khoản";
 
   headerAuth.innerHTML = currencyButton + `
-    <button class="user-mini-box" type="button" onclick="goToProfile()" title="Xem hồ sơ cá nhân">
+    <button class="user-mini-box" type="button" onclick="goToProfile()">
       <i class="fas fa-user-circle"></i>
       <span>${escapeHTML(displayName)}</span>
     </button>
-    <button class="btn-logout-small" type="button" onclick="logoutUser()">Đăng xuất</button>`;
+    <button class="btn-logout-small" type="button" onclick="logoutUser()">
+      Đăng xuất
+    </button>`;
 }
+
+const renderAuthBox = renderHeaderUser;
 
 function goToProfile() {
   window.location.href = "../../user/profile.html";
@@ -1045,7 +1016,7 @@ if (guestSelect) guestSelect.addEventListener("change", updateBookingSummary);
 var roomCountSelect = document.getElementById("roomCountSelect");
 if (roomCountSelect) roomCountSelect.addEventListener("change", updateBookingSummary);
 updateRoomAvailabilityUI();
-renderAuthBox();
+renderHeaderUser();
 loadWishState();
 
 initRoomInventory(bookingInfo.hotelCode, defaultRoomCounts);

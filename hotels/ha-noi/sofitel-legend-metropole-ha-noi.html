@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-  /* Header dropdown giống trang home */
+  /* ===== HEADER / DROPDOWN: copy theo file cities/da-nang.html ===== */
   .nav-dropdown {
     position: relative;
     display: inline-flex;
@@ -42,7 +42,9 @@
     height: 12px;
   }
 
-  .nav-dropdown:hover .dropdown-menu {
+  .nav-dropdown:hover .dropdown-menu,
+  .nav-dropdown:focus-within .dropdown-menu,
+  .dropdown-menu:hover {
     display: block;
   }
 
@@ -63,138 +65,66 @@
     color: #1a56db;
   }
 
-  @media (max-width: 768px) {
-    .dropdown-menu {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-
-
-  /* Giữ dropdown đứng yên khi rê chuột xuống menu */
-  .nav-dropdown {
-    padding-bottom: 10px;
-    margin-bottom: -10px;
-  }
-
-  .nav-dropdown::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 100%;
-    width: 100%;
-    height: 12px;
-  }
-
-  .dropdown-menu {
-    top: calc(100% - 1px);
-  }
-
-  .nav-dropdown:hover .dropdown-menu,
-  .nav-dropdown:focus-within .dropdown-menu {
-    display: block;
-  }
-
-  /* User box sau khi đăng nhập */
+  /* User box sau khi đăng nhập - đồng bộ giống file Đà Nẵng */
   .user-mini-box {
-    min-height: 42px;
-    padding: 0 15px;
-    border-radius: 999px;
-    border: 1.5px solid rgba(255,255,255,0.72);
-    background: rgba(255,255,255,0.14);
+    min-height: 46px;
+    height: 46px;
+    padding: 0 16px;
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     color: #fff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: .88rem;
     font-weight: 800;
-    text-decoration: none;
-    cursor: pointer;
+    font-size: 15px;
+    background: rgba(255,255,255,0.12);
+    border: 1.5px solid rgba(255,255,255,0.55);
     white-space: nowrap;
-    transition: .2s ease;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.25s ease;
   }
 
   .user-mini-box:hover {
-    background: rgba(255,255,255,0.24);
+    background: rgba(255,255,255,0.22);
     transform: translateY(-1px);
   }
 
+  .user-mini-box i {
+    font-size: 17px;
+  }
+
+  .user-mini-box span {
+    max-width: 115px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .btn-logout-small {
-    min-height: 42px;
-    padding: 0 15px;
-    border-radius: 999px;
-    border: none;
-    background: #f4c542;
-    color: #07152b;
+    min-height: 46px;
+    height: 46px;
+    padding: 0 18px;
+    border-radius: 16px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    font-size: .88rem;
+    background: #ffc107;
+    color: #06172d;
     font-weight: 900;
+    font-size: 15px;
     text-decoration: none;
+    border: none;
     cursor: pointer;
     white-space: nowrap;
-    transition: .2s ease;
-  }
-
-  .btn-logout-small:hover {
-    background: #ffd95a;
-    transform: translateY(-1px);
-  }
-
-  @media (max-width: 768px) {
-    .user-mini-box,
-    .btn-logout-small {
-      width: 100%;
-      min-height: 40px;
-    }
-  }
-
-
-  /* ===== Đồng bộ menubar với home.html ===== */
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: nowrap;
-  }
-
-  .user-mini-box {
-    min-height: 46px !important;
-    height: 46px !important;
-    padding: 0 16px !important;
-    border-radius: 16px !important;
-    border: 1.5px solid rgba(255,255,255,0.55) !important;
-    background: rgba(255,255,255,0.12) !important;
-    color: #fff !important;
-    font-size: 15px !important;
-    font-weight: 800 !important;
     font-family: inherit;
-  }
-
-  .user-mini-box:hover {
-    background: rgba(255,255,255,0.22) !important;
-    transform: translateY(-1px);
-  }
-
-  .btn-logout-small {
-    min-height: 46px !important;
-    height: 46px !important;
-    padding: 0 18px !important;
-    border-radius: 16px !important;
-    border: none !important;
-    background: #ffc107 !important;
-    color: #06172d !important;
-    font-size: 15px !important;
-    font-weight: 900 !important;
-    font-family: inherit;
+    transition: 0.25s ease;
   }
 
   .btn-logout-small:hover {
     filter: brightness(0.96);
-    background: #ffc107 !important;
     transform: translateY(-1px);
   }
 
@@ -206,23 +136,6 @@
     align-self: start !important;
   }
 
-  @media (max-width: 768px) {
-    .header-actions {
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .user-mini-box,
-    .btn-logout-small {
-      width: auto !important;
-      min-height: 44px !important;
-      height: 44px !important;
-      padding: 0 14px !important;
-      font-size: 14px !important;
-    }
-  }
-
-
   /* Giá theo đêm trong dòng tính tiền: in đậm nhưng giữ nguyên font và kích thước chữ */
   .room-night-price {
     font-family: inherit;
@@ -232,8 +145,24 @@
     color: inherit;
   }
 
+  @media (max-width: 768px) {
+    .dropdown-menu {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .user-mini-box,
+    .btn-logout-small {
+      height: 44px;
+      min-height: 44px;
+      padding: 0 14px;
+      font-size: 14px;
+    }
+  }
 </style>
   <link rel="stylesheet" href="../../asset/css/responsive.css">
+
+
 </head>
 <body>
 
@@ -283,9 +212,9 @@
       </a>
     </nav>
 
-    <div class="header-actions" id="headerAuth">
+    <div class="header-actions" id="headerActions">
       <a class="btn-header btn-outline-w" href="#">
-        <i class="fas fa-globe"></i> VN · ₫
+        <i class="fas fa-globe"></i> Việt Nam
       </a>
       <a class="btn-header btn-outline-w" href="../../user/login.html">Đăng nhập</a>
       <a class="btn-header btn-yellow" href="../../user/register.html">Đăng ký</a>
@@ -674,20 +603,21 @@ function escapeHTML(value) {
     .replace(/'/g, "&#039;");
 }
 
-function renderAuthBox() {
-  const headerAuth = document.getElementById("headerAuth") || document.getElementById("headerActions");
-  if (!headerAuth) return;
-
+function renderHeaderUser() {
   const currentUser = getCurrentUser();
-  const moneyButton = `
-    <a class="btn-header btn-outline-w" href="#">
-      <i class="fas fa-globe"></i> VN · ₫
-    </a>`;
+  const headerActions = document.getElementById("headerActions");
+
+  if (!headerActions) return;
 
   if (!currentUser) {
-    headerAuth.innerHTML = moneyButton + `
+    headerActions.innerHTML = `
+      <a class="btn-header btn-outline-w" href="#">
+        <i class="fas fa-globe"></i> Việt Nam
+      </a>
+
       <a class="btn-header btn-outline-w" href="../../user/login.html">Đăng nhập</a>
-      <a class="btn-header btn-yellow" href="../../user/register.html">Đăng ký</a>`;
+      <a class="btn-header btn-yellow" href="../../user/register.html">Đăng ký</a>
+    `;
     return;
   }
 
@@ -699,13 +629,23 @@ function renderAuthBox() {
     currentUser.phone ||
     "Tài khoản";
 
-  headerAuth.innerHTML = moneyButton + `
-    <button class="user-mini-box" type="button" onclick="goToProfile()" title="Xem hồ sơ cá nhân">
+  headerActions.innerHTML = `
+    <a class="btn-header btn-outline-w" href="#">
+      <i class="fas fa-globe"></i> Việt Nam
+    </a>
+
+    <button class="user-mini-box" type="button" onclick="goToProfile()">
       <i class="fas fa-user-circle"></i>
       <span>${escapeHTML(displayName)}</span>
     </button>
-    <button class="btn-logout-small" type="button" onclick="logoutUser()">Đăng xuất</button>`;
+
+    <button class="btn-logout-small" type="button" onclick="logoutUser()">
+      Đăng xuất
+    </button>
+  `;
 }
+
+const renderAuthBox = renderHeaderUser;
 
 function goToProfile() {
   window.location.href = "../../user/profile.html";
@@ -1068,7 +1008,7 @@ guestSelect.addEventListener("change", updateBookingSummary);
 var roomCountSelect = document.getElementById("roomCountSelect");
 if (roomCountSelect) roomCountSelect.addEventListener("change", updateBookingSummary);
 updateRoomAvailabilityUI();
-renderAuthBox();
+renderHeaderUser();
 loadWishState();
 
 initRoomInventory(bookingInfo.hotelCode, defaultRoomCounts);

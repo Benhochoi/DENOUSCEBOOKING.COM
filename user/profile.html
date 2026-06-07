@@ -893,7 +893,7 @@
 
     <div class="header-actions" id="headerActions">
       <a class="btn-header btn-outline-w" href="#">
-        <i class="fas fa-globe"></i> VN · ₫
+        <i class="fas fa-globe"></i> Việt Nam
       </a>
 
       <a class="btn-header btn-outline-w" href="login.html">Đăng nhập</a>
@@ -951,11 +951,20 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <div style="margin-bottom: 16px;">
+            <a href="javascript:void(0)" id="changePasswordLink" style="font-size: 14px; font-weight: 800; color: #1a56db; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+              <i class="fas fa-key"></i> Thay đổi mật khẩu
+            </a>
+          </div>
+
+          <div class="form-group" id="passwordGroup" style="display: none;">
             <label class="form-label" for="password">Mật khẩu</label>
-            <div class="input-wrap">
+            <div class="input-wrap" style="position: relative; padding-right: 40px !important;">
               <i class="fas fa-lock"></i>
               <input type="password" id="password" placeholder="Nhập mật khẩu mới hoặc giữ nguyên">
+              <button type="button" id="togglePasswordBtn" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; outline: none; cursor: pointer; color: #64748b; padding: 0; display: flex; align-items: center; justify-content: center; width: 24px; height: 24px;">
+                <i class="fas fa-eye" id="togglePasswordIcon"></i>
+              </button>
             </div>
           </div>
 
@@ -1034,7 +1043,7 @@
     if (!currentUser) {
       headerActions.innerHTML = `
         <a class="btn-header btn-outline-w" href="#">
-          <i class="fas fa-globe"></i> VN · ₫
+          <i class="fas fa-globe"></i> Việt Nam
         </a>
 
         <a class="btn-header btn-outline-w" href="login.html">Đăng nhập</a>
@@ -1045,7 +1054,7 @@
 
     headerActions.innerHTML = `
       <a class="btn-header btn-outline-w" href="#">
-        <i class="fas fa-globe"></i> VN · ₫
+        <i class="fas fa-globe"></i> Việt Nam
       </a>
 
       <button class="user-mini-box" type="button" onclick="goToProfile()">
@@ -1797,6 +1806,31 @@
   if (requireLogin()) {
     renderHeaderUser();
     loadProfileInfo();
+
+    // Toggle password section visibility
+    const changePasswordLink = document.getElementById("changePasswordLink");
+    const passwordGroup = document.getElementById("passwordGroup");
+    if (changePasswordLink && passwordGroup) {
+      changePasswordLink.addEventListener("click", function() {
+        passwordGroup.style.display = "block";
+        changePasswordLink.parentElement.style.display = "none";
+        syncFavoriteCardHeight();
+      });
+    }
+
+    // Toggle password visibility (show/hide eye icon)
+    const togglePasswordBtn = document.getElementById("togglePasswordBtn");
+    const passwordInput = document.getElementById("password");
+    const togglePasswordIcon = document.getElementById("togglePasswordIcon");
+    if (togglePasswordBtn && passwordInput && togglePasswordIcon) {
+      togglePasswordBtn.addEventListener("click", function() {
+        const isPassword = passwordInput.type === "password";
+        passwordInput.type = isPassword ? "text" : "password";
+        togglePasswordIcon.classList.toggle("fa-eye", !isPassword);
+        togglePasswordIcon.classList.toggle("fa-eye-slash", isPassword);
+      });
+    }
+
     renderFavoriteHotels();
     migrateLegacyCancellationStatus();
     renderBookingHistory();
