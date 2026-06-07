@@ -219,10 +219,10 @@ git push origin feature/ten-tinh-nang
 
 | Họ và tên | GitHub | Nhiệm vụ |
 |---|---|---|
-| Phạm Gia Khánh | [@Benhochoi](https://github.com/Benhochoi) | Trang chủ, giao diện Hà Nội, viết báo cáo chương 4 |
+| Đào Nguyên Chiến| [@Benhochoi](https://github.com/Benhochoi) | Trang chủ, giao diện Hà Nội, viết báo cáo chương 4 |
 | Nguyễn Tuấn Đạt | [@tuandat124-bm](https://github.com/tuandat124-bm) | Giao diện Đà Nẵng, trang cá nhân, báo cáo chương 3 & 5 |
 | Hoàng Xuân Hiệp | [@hxhiepttn06-star](https://github.com/hxhiepttn06-star) | Giao diện Hà Nội, trang liên hệ, đăng ký/đăng nhập, báo cáo chương 1 |
-| Đào Nguyên Chiến | [@khanhthuhai](https://github.com/khanhthuhai) | Giao diện Sài Gòn, trang "Về chúng tôi", báo cáo chương 2 |
+|  Phạm Gia Khánh | [@khanhthuhai](https://github.com/khanhthuhai) | Giao diện Sài Gòn, trang "Về chúng tôi", báo cáo chương 2 |
 
 > **Giảng viên hướng dẫn:** TS. Vũ Trọng Sinh — Khoa Công nghệ thông tin và Kinh tế số, Học viện Ngân hàng
 
